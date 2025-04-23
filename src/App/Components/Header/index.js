@@ -22,7 +22,7 @@ const Header = ({ className }) => {
   };
   return (
     <header className={className + " no-print"}>
-      <p className="project"> <a href="https://github.com/realdennis/md2pdf" title="@realdennis' md2pdf github" target="_blank" rel="noopener noreferrer">md2pdf</a></p>
+      <p className="project"> <a href="https://github.com/marcop135/md2pdf" title="Markdown2PDF github" target="_blank" rel="noopener noreferrer">Markdown2PDF</a></p>
 
       <div className="menu">
         <UploadButton className="button upload" />
