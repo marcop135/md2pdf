@@ -1,6 +1,4 @@
-export const initialText = `# Markdown2PDF  
-> Fast and private Markdown to PDF conversion.
+export const initialText = `## Hello World!
 
-*This web app works offline too!*
-
+**Markdown2DPF** is a neat, tidy, offline [Markdown](https://daringfireball.net/projects/markdown/) to PDF conversion app that works directly in your browser.
 `;
