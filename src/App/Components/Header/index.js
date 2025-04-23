@@ -1,40 +1,53 @@
 import React from "react";
 import styled from "styled-components";
+import { Helmet } from "react-helmet";
 import UploadButton from "./Upload.js";
+
 const Header = ({ className }) => {
   const onTransfrom = () => {
-    // get the file name
     let candidateTitle = "";
     const previewEl = document.querySelector(".preview");
     const candidateTitleEl = previewEl.querySelector("h1");
     if (candidateTitleEl) {
       candidateTitle = candidateTitleEl.innerText;
 
-      // do the effect change the title
       const currentTitle = document.title;
       document.title = candidateTitle;
       window.requestAnimationFrame(() => {
-        // schedule resume back in next frame
         document.title = currentTitle;
       });
     }
     window.print();
   };
-  return (
-    <header className={className + " no-print"}>
-      <p className="project"> <a href="https://github.com/marcop135/md2pdf" title="Markdown2PDF github" target="_blank" rel="noopener noreferrer">Markdown2PDF</a></p>
 
-      <div className="menu">
-        <UploadButton className="button upload" />
-        <p className="button download" onClick={onTransfrom}>
-          <span role="img" aria-label="download">
-          ⬇️
-          </span>
-          <span>Export to .pdf</span>
+  return (
+    <>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+      <header className={className + " no-print"}>
+        <p className="project">
+          <a
+            href="https://github.com/marcop135/md2pdf"
+            title="Markdown2PDF github"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Markdown2PDF
+          </a>
         </p>
-      </div>
-      {}
-    </header>
+
+        <div className="menu">
+          <UploadButton className="button upload" />
+          <p className="button download" onClick={onTransfrom}>
+            <span role="img" aria-label="download">
+              ⬇️
+            </span>
+            <span>Export to .pdf</span>
+          </p>
+        </div>
+      </header>
+    </>
   );
 };
 
@@ -75,24 +88,6 @@ export default styled(Header)`
       border: 1px solid black;
       padding: 10px;
       cursor: pointer;
-    }
-  }
-
-  /* span.author {
-    position: fixed;
-    bottom: 2px;
-    left: 2px;
-    opacity: 0.5;
-    color: white;
-    height: 20px;
-    z-index:99;
-  } */
-  @keyframes dance {
-    0% {
-      transform: rotate(3deg);
-    }
-    100% {
-      transform: rotate(-2deg);
     }
   }
 `;
