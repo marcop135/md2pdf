@@ -1,19 +1,15 @@
 # Markdown2PDF  
 
-A fast, offline Markdown to PDF conversion app that works directly in your browser.
+Neat, tidy, offline Markdown to PDF conversion app that works directly in your browser. 
 
 This is a fork of [this project](https://github.com/realdennis/md2pdf). Thanks to @realdennis for the original work.
 
 ---
 
-**DONE**
+**WIP**
 
-- Updated Yarn dependencies.
-- Upgraded React from v16 to v18.
-
-**TODO**
-
-- Improve UI
-- Improve icons
-- Improve responsiveness
-- Add new markdown text for first-load preview
+- [x] Update Yarn dependencies.
+- [x] Improve UI/UX (icons and colors).
+- [x] Add a new md/text preview for first-load.
+- [] React v16 to 18.
+- [] Improve app responsiveness if small screen.
