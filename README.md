@@ -6,12 +6,12 @@ This is a fork of [this project](https://github.com/realdennis/md2pdf). Thanks t
 
 ---
 
-**WIP**
+**TODO**
 
 - [x] Update Yarn dependencies.
 - [x] Improve UI/UX (icons and colors).
 - [x] Add a new md/text preview for first-load.
 - [x] Hide app from search engines.
 - [x] Improve perf and sec via Apache Server config.
-- [] React v16 to 18.
-- [] Improve app responsiveness if small screen.
+- [ ] React v16 to 18.
+- [ ] Improve app responsiveness if small screen.
