@@ -15,3 +15,4 @@ This is a fork of [this project](https://github.com/realdennis/md2pdf). Thanks t
 - [x] Improve perf and sec via Apache Server config.
 - [ ] React v16 to 18.
 - [ ] Improve app responsiveness if small screen.
+- [ ] Add a new icon
