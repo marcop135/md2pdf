@@ -5,11 +5,11 @@ body,
 }
 
 /* Make space for toolbar icons */
-[aria-label="upload"],
-[aria-label="download"] {
+[aria-label='upload'],
+[aria-label='download'] {
   padding-right: 5px;
 }
 
 header a {
-  color: inherit
+  color: inherit;
 }

@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!--For Facebook-->
-    <meta name="og:image" content="%PUBLIC_URL%/static/og-img.jpg" />
-    <meta name="og:title" content="md2pdf - Markdown to PDF" />
-    <meta
-      name="og:description"
-      content="Awesome Markdown to PDF! Still upload resume.md to stranger server? Try this Offline Web App!"
-    />
-    <meta name="Description" content="Offline Markdown to PDF! Choose & Edit & Transform without any network requests.">
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="theme-color" content="#000000" />
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>md2pdf - Markdown to PDF</title>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <body>
-    <noscript> You need to enable JavaScript to run this app. </noscript>
-    <div id="root"></div>
-    <!--
+  <!-- SEO Meta Tags -->
+  <title>MarkdownPDF - Convert Markdown to PDF Offline</title>
+  <meta name="description"
+    content="Convert Markdown to PDF directly in your browser. No uploads, no servers. 100% offline web app." />
+
+  <!-- Open Graph (OG) Tags for Social Sharing -->
+  <meta property="og:title" content="MarkdownPDF - Convert Markdown to PDF" />
+  <meta property="og:description"
+    content="Convert your Markdown files to PDF securely and offline. No data leaves your browser." />
+  <meta property="og:image" content="%PUBLIC_URL%/static/og-img.jpg" />
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+
+  <!-- 
+    %PUBLIC_URL% will be replaced with the actual path during build.
+    This ensures all links work correctly even with client-side routing or custom base paths.
+    Only reference assets from the `public` folder here.
+  -->
+</head>
+
+<body>
+  <noscript> You need to enable JavaScript to run this app. </noscript>
+  <div id="root"></div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -46,5 +42,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>
