@@ -2,6 +2,7 @@ import React from "react";
 import Markdown from "react-remarkable";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
+
 const highlight = (str, lang) => {
   if (lang && hljs.getLanguage(lang)) {
     try {
