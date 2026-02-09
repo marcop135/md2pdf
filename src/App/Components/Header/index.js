@@ -26,7 +26,7 @@ const Header = ({ className }) => {
       </Helmet>
       <header className={className + ' no-print'}>
         <p className="project">
-          MarkdownPDF <small>v2.2.1</small>&nbsp;
+          MarkdownPDF <small>v2.4.0</small>&nbsp;
           <a
             href="https://github.com/realdennis/md2pdf"
             title="md2pdf github"
