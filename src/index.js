@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import 'normalize.css';
 import './styles.css';
 import App from './App';
@@ -16,5 +16,6 @@ window.addEventListener('beforeunload', e => {
   return ((e || window.event).returnValue = msg);
 });
 
-ReactDOM.render(<App />, rootElement);
+const root = createRoot(rootElement);
+root.render(<App />);
 serviceWorkerRegistration.register();
