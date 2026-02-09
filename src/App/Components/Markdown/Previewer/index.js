@@ -8,6 +8,14 @@ const Wrapper = styled.div`
   -webkit-overflow-scrolling: touch;
   width: 100%;
   padding: 10px;
+  background-color: #ffffff !important;
+  color: #24292e !important;
+  
+  .markdown-body {
+    background-color: #ffffff !important;
+    color: #24292e !important;
+  }
+  
   @media print {
     padding: 0;
     overflow-y: hidden;
