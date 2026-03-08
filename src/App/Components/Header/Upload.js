@@ -1,12 +1,20 @@
 import React from 'react';
 import uploadFile from '../../Lib/uploadFile.js';
 
-export default props => {
-  const onChange = e => {
+export default (props) => {
+  const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+
+  const onChange = (e) => {
     const files = e.currentTarget.files;
     if (files.length > 0) {
+      const file = files[0];
+      if (file.size > MAX_FILE_SIZE) {
+        alert('File too large. Maximum size is 2MB.');
+        e.target.value = '';
+        return;
+      }
       const reader = new FileReader();
-      reader.onload = loadEvent => { 
+      reader.onload = (loadEvent) => {
         if (loadEvent.target.readyState !== 2) return;
         if (loadEvent.target.error) {
           alert('Error while reading file');
@@ -15,7 +23,8 @@ export default props => {
         const content = loadEvent.target.result;
         uploadFile(content);
       };
-      reader.readAsText(e.target.files[0]);
+      reader.readAsText(file);
+      e.target.value = '';
     }
   };
   return (
@@ -37,11 +46,11 @@ export default props => {
           right: 0,
           bottom: 0,
           zIndex: 2,
-          cursor: 'pointer'
+          cursor: 'pointer',
         }}
       />
       <span role="img" aria-label="upload">
-      ⬆️ 
+        ⬆️
       </span>
       <span>Import .md file</span>
     </p>

@@ -1,7 +1,7 @@
-import React from "react";
-import Markdown from "react-remarkable";
-import hljs from "highlight.js";
-import "highlight.js/styles/github.css";
+import React from 'react';
+import Markdown from 'react-remarkable';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
 
 const highlight = (str, lang) => {
   if (lang && hljs.getLanguage(lang)) {
@@ -18,16 +18,20 @@ const highlight = (str, lang) => {
     console.error(err);
   }
 
-  return "";
+  return '';
 };
 
 export default ({ source, children }) => {
   return (
-      <Markdown
-        source={source}
-        options={{ highlight, html: true, linkify: true }}
-      >
-        {children}
-      </Markdown>
+    <Markdown
+      source={source}
+      options={{
+        highlight,
+        html: false, // Prevent XSS: do not render raw HTML from markdown
+        linkify: true,
+      }}
+    >
+      {children}
+    </Markdown>
   );
 };
