@@ -3,35 +3,38 @@ import { useEffect, useState } from 'react';
 function useDrop(ref, onLoad = () => {}) {
   const [uploading, setUploading] = useState(false);
   const [isOver, setOver] = useState(false);
-  const stopDefault = e => {
+  const stopDefault = (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
   useEffect(() => {
-    const dragLeaveHandler = e => {
+    const dragLeaveHandler = (e) => {
       setOver(false);
       stopDefault(e);
     };
-    const dragOverHandler = e => {
+    const dragOverHandler = (e) => {
       setOver(true);
       stopDefault(e);
     };
-    const dropHandler = e => {
+    const dropHandler = (e) => {
       setOver(false);
       stopDefault(e);
       uploadHandler(e.dataTransfer.files);
     };
 
-    const uploadHandler = files => {
+    const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+
+    const uploadHandler = (files) => {
       if (
         files &&
         files[0] &&
         files[0].name &&
         /\.(md)$/i.test(files[0].name) &&
+        files[0].size <= MAX_FILE_SIZE &&
         !uploading
       ) {
         const reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = (e) => {
           setUploading(false);
           onLoad(e.target.result);
         };
