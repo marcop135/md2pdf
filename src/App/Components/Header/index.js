@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import UploadButton from './Upload.js';
 
+const { version } = require('../../../../package.json');
+
 const Header = ({ className }) => {
   const onTransfrom = () => {
     let candidateTitle = '';
@@ -26,7 +28,7 @@ const Header = ({ className }) => {
       </Helmet>
       <header className={className + ' no-print'}>
         <p className="project">
-          MarkdownPDF <small>v2.4.0</small>&nbsp;
+          MarkdownPDF <small>v{version}</small>&nbsp;
           <a
             href="https://github.com/realdennis/md2pdf"
             title="md2pdf github"

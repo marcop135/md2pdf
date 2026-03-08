@@ -5,7 +5,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/darcula.css';
 import 'codemirror/mode/gfm/gfm.js';
 import { initialText } from '../../../Container/Hooks/InitialText';
-const Editor = ({ className, setText }) => {
+const Editor = ({ className, setText, isMobile }) => {
   return (
     <CodeMirror
       className={className}
@@ -13,8 +13,8 @@ const Editor = ({ className, setText }) => {
       options={{
         mode: 'gfm',
         theme: 'darcula',
-        lineNumbers: true,
-        lineWrapping: true
+        lineNumbers: !isMobile,
+        lineWrapping: true,
       }}
       onChange={(editor, data, value) => {
         setText(value);
