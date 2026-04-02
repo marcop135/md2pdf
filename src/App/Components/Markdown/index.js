@@ -8,7 +8,6 @@ import DragBar from './DragBar.js';
 import 'github-markdown-css';
 import useDrop from '../../Container/Hooks/useDrop.js';
 import useIsMobile from '../../Container/Hooks/useIsMobile.js';
-import uploadFile from '../../Lib/uploadFile.js';
 
 const Markdown = ({ className }) => {
   const [text, setText] = useProvided(TextContainer);
@@ -19,7 +18,7 @@ const Markdown = ({ className }) => {
   );
   const [activeTab, setActiveTab] = useState('editor');
   const markdownRef = useRef(null);
-  const [uploading, isOver] = useDrop(markdownRef, uploadFile);
+  const [uploading, isOver] = useDrop(markdownRef, setText);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -75,6 +74,7 @@ const Markdown = ({ className }) => {
             {activeTab === 'editor' && (
               <Editor
                 className="no-print"
+                text={text}
                 width={width}
                 setText={setText}
                 isMobile
@@ -85,7 +85,12 @@ const Markdown = ({ className }) => {
         </>
       ) : (
         <>
-          <Editor className="no-print" width={width} setText={setText} />
+          <Editor
+            className="no-print"
+            text={text}
+            width={width}
+            setText={setText}
+          />
           <DragBar
             className="no-print"
             isDrag={isDrag}

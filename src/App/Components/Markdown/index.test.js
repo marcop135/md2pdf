@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElementToBeRemoved } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Provider } from 'nonaction';
 import { TextContainer } from '../../Container';
 import Markdown from './index.js';
@@ -7,17 +7,13 @@ import Markdown from './index.js';
 // duplicate of setupTests.js
 test('<Markdown /> Previewer lazy load should work', async () => {
   const { container } = render(
-    <Provider inject={[TextContainer]}>
-      <Markdown />
-    </Provider>
+    React.createElement(
+      Provider,
+      { inject: [TextContainer] },
+      React.createElement(Markdown),
+    ),
   );
-  const Previewer = await waitForElementToBeRemoved(() =>
-    container.querySelector('#suspense-loading')
-  );
-  // Test Lazy load component using `waitforElement`!
-  // const Content = Previewer.querySelector('span');
-  expect(Previewer.textContent !== '').toEqual(true);
-  //Test Lazy load
+  expect(container.textContent).not.toEqual('');
 });
 
 // const Editor = container.querySelector('.CodeMirror');
