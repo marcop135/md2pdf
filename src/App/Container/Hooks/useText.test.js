@@ -1,4 +1,4 @@
-import { renderHook, cleanup, act } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 import useText from './useText';
 import { initialText } from './InitialText';
 

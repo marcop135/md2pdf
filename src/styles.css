@@ -48,3 +48,26 @@ header a {
   background-color: transparent !important;
   color: #24292e !important;
 }
+
+.preview.markdown-body .mermaid-diagram,
+.markdown-body .mermaid-diagram {
+  margin: 16px 0;
+  overflow-x: auto;
+}
+
+.preview.markdown-body .mermaid-diagram svg,
+.markdown-body .mermaid-diagram svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+@media print {
+  .preview.markdown-body .mermaid-diagram,
+  .markdown-body .mermaid-diagram {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    overflow: visible;
+  }
+}

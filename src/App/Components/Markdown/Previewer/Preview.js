@@ -1,12 +1,13 @@
 import React from 'react';
-import Markdown from 'react-remarkable';
+import ReactMarkdown from 'react-markdown';
 import hljs from 'highlight.js';
+import remarkGfm from 'remark-gfm';
 import 'highlight.js/styles/github.css';
 
 const highlight = (str, lang) => {
   if (lang && hljs.getLanguage(lang)) {
     try {
-      return hljs.highlight(lang, str).value;
+      return hljs.highlight(str, { language: lang }).value;
     } catch (err) {
       console.error(err);
     }
@@ -22,16 +23,37 @@ const highlight = (str, lang) => {
 };
 
 export default ({ source, children }) => {
+  const markdownSource =
+    typeof source === 'string'
+      ? source
+      : typeof children === 'string'
+        ? children
+        : '';
+
+  const components = {
+    code({ className, children: codeChildren }) {
+      const match = /language-(\w+)/.exec(className || '');
+      const rawCode = String(codeChildren || '');
+      const trimmedCode = rawCode.replace(/\n$/, '');
+
+      if (!match) {
+        return <code className={className}>{codeChildren}</code>;
+      }
+
+      return (
+        <code
+          className={className}
+          dangerouslySetInnerHTML={{
+            __html: highlight(trimmedCode, match[1]),
+          }}
+        />
+      );
+    },
+  };
+
   return (
-    <Markdown
-      source={source}
-      options={{
-        highlight,
-        html: false, // Prevent XSS: do not render raw HTML from markdown
-        linkify: true,
-      }}
-    >
-      {children}
-    </Markdown>
+    <ReactMarkdown skipHtml remarkPlugins={[remarkGfm]} components={components}>
+      {markdownSource}
+    </ReactMarkdown>
   );
 };
