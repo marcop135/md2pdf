@@ -1,21 +1,28 @@
-import { defineConfig } from 'vite';
+import { defineConfig, transformWithEsbuild } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
+const treatJsFilesAsJsx = {
+  name: 'treat-js-files-as-jsx',
+  enforce: 'pre',
+  async transform(code, id) {
+    if (id.includes('node_modules')) {
+      return null;
+    }
+    if (!/src[\\/].*\.js$/.test(id)) {
+      return null;
+    }
+
+    return transformWithEsbuild(code, id, {
+      loader: 'jsx',
+      jsx: 'automatic',
+    });
+  },
+};
+
 export default defineConfig({
-  esbuild: {
-    loader: 'jsx',
-    include: /src\/.*\.js$/,
-    exclude: [],
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      loader: {
-        '.js': 'jsx',
-      },
-    },
-  },
   plugins: [
+    treatJsFilesAsJsx,
     react({
       include: /\.[jt]sx?$/,
     }),
@@ -42,6 +49,14 @@ export default defineConfig({
       },
     }),
   ],
+  optimizeDeps: {
+    entries: ['index.html'],
+    esbuildOptions: {
+      loader: {
+        '.js': 'jsx',
+      },
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,
