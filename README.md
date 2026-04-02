@@ -15,16 +15,17 @@ This is a fork of [realdennis/md2pdf](https://github.com/realdennis/md2pdf). Tha
 - PWA support (installable, cache-first for repeat visits)
 - Custom styles for PDF output (GitHub-style markdown CSS)
 - Instant live preview and syntax-highlighted code blocks
+- Mermaid diagrams from fenced `mermaid` code blocks
 - Import `.md` files via button or drag-and-drop
 - Hidden from search engines (`noindex`, `robots.txt`)
 
 ## Tech Stack
 
-- **React 19** with Create React App
+- **React 19** with Vite
 - **styled-components** for styling
-- **CodeMirror 5** (react-codemirror2) for the editor
-- **react-remarkable** + **highlight.js** for markdown rendering
-- **Workbox** for the service worker (offline/caching)
+- **CodeMirror 6** (`@uiw/react-codemirror`) for the editor
+- **react-markdown** + **remark-gfm** + **highlight.js** for markdown rendering
+- **vite-plugin-pwa** (Workbox-powered) for the service worker (offline/caching)
 - **nonaction** for minimal state
 
 ## Security
@@ -55,7 +56,7 @@ This is a fork of [realdennis/md2pdf](https://github.com/realdennis/md2pdf). Tha
    yarn start
    ```
 
-   Then open [http://localhost:3000](http://localhost:3000).
+   Then open [http://localhost:5173](http://localhost:5173).
 
 4. Production build:
 
@@ -63,7 +64,7 @@ This is a fork of [realdennis/md2pdf](https://github.com/realdennis/md2pdf). Tha
    yarn build
    ```
 
-   Output is in the `build/` folder. Serve it with any static host (e.g. Apache, Nginx, or a static hosting service). For Apache, copy `public/.htaccess` to the root of the deployed site for recommended security and caching.
+   Output is in the `dist/` folder. Serve it with any static host (e.g. Apache, Nginx, or a static hosting service). For Apache, copy `public/.htaccess` to the root of the deployed site for recommended security and caching.
 
 ## Usage
 
@@ -72,17 +73,25 @@ This is a fork of [realdennis/md2pdf](https://github.com/realdennis/md2pdf). Tha
 - Click **Export to .pdf** to open the print dialog; choose “Save as PDF” (or equivalent) to get a PDF.
 - Use **Import .md file** or drag-and-drop a `.md` file to load its content.
 
+Mermaid example:
+
+```mermaid
+graph TD
+  Start --> RenderedInPreview
+  RenderedInPreview --> IncludedInPDF
+```
+
 ## Project Structure
 
-| Path                  | Description                                                             |
-| --------------------- | ----------------------------------------------------------------------- |
-| `src/`                | Application source                                                      |
-| `src/App/`            | Root component, containers, layout                                      |
-| `src/App/Components/` | Header, Markdown editor, preview, drag bar                              |
-| `src/App/Container/`  | State (nonaction), hooks (e.g. useIsMobile, useDrop)                    |
-| `src/App/Lib/`        | Utilities (e.g. upload helper)                                          |
-| `public/`             | Static assets, `index.html`, `.htaccess`, `manifest.json`, `robots.txt` |
-| `build/`              | Production output (after `yarn build`)                                  |
+| Path                  | Description                                                |
+| --------------------- | ---------------------------------------------------------- |
+| `src/`                | Application source                                         |
+| `src/App/`            | Root component, containers, layout                         |
+| `src/App/Components/` | Header, Markdown editor, preview, drag bar                 |
+| `src/App/Container/`  | State (nonaction), hooks (e.g. useIsMobile, useDrop)       |
+| `src/App/Lib/`        | Utilities (e.g. upload helper)                             |
+| `public/`             | Static assets (`.htaccess`, `manifest.json`, `robots.txt`) |
+| `dist/`               | Production output (after `yarn build`)                     |
 
 ## Scripts
 
@@ -91,7 +100,7 @@ This is a fork of [realdennis/md2pdf](https://github.com/realdennis/md2pdf). Tha
 | `yarn start`   | Development server                 |
 | `yarn build`   | Production build                   |
 | `yarn test`    | Run tests                          |
-| `yarn analyze` | Bundle size analysis (after build) |
+| `yarn preview` | Preview production build (`dist/`) |
 
 ## Contributing
 

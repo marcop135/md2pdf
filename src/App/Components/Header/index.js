@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import UploadButton from './Upload.js';
+import packageMeta from '../../../../package.json';
 
-const { version } = require('../../../../package.json');
+const { version } = packageMeta;
 
 const Header = ({ className }) => {
   const onTransfrom = () => {
@@ -101,7 +102,9 @@ export default styled(Header)`
       border-radius: 5px;
       cursor: pointer;
       background-color: #cde4fe;
-      transition: background-color 0.2s ease, transform 0.2s ease;
+      transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 
       @media (max-width: 600px) {
         span + span {

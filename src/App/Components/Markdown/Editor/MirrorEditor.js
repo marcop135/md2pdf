@@ -1,22 +1,27 @@
-import React from 'react';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import React, { useMemo } from 'react';
+import CodeMirror from '@uiw/react-codemirror';
+import { markdown } from '@codemirror/lang-markdown';
+import { oneDark } from '@codemirror/theme-one-dark';
+import { EditorView } from '@codemirror/view';
 import styled from 'styled-components';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/darcula.css';
-import 'codemirror/mode/gfm/gfm.js';
-import { initialText } from '../../../Container/Hooks/InitialText';
-const Editor = ({ className, setText, isMobile }) => {
+
+const Editor = ({ className, text, setText, isMobile }) => {
+  const extensions = useMemo(() => [markdown(), EditorView.lineWrapping], []);
+  const basicSetup = useMemo(
+    () => ({
+      lineNumbers: !isMobile,
+    }),
+    [isMobile],
+  );
+
   return (
     <CodeMirror
       className={className}
-      value={initialText}
-      options={{
-        mode: 'gfm',
-        theme: 'darcula',
-        lineNumbers: !isMobile,
-        lineWrapping: true,
-      }}
-      onChange={(editor, data, value) => {
+      value={text}
+      theme={oneDark}
+      extensions={extensions}
+      basicSetup={basicSetup}
+      onChange={(value) => {
         setText(value);
       }}
     />
@@ -24,8 +29,11 @@ const Editor = ({ className, setText, isMobile }) => {
 };
 export default styled(Editor)`
   height: 100%;
-  .CodeMirror {
+  .cm-editor {
     height: 100%;
+  }
+
+  .cm-scroller {
     line-height: 1.5;
   }
 `;

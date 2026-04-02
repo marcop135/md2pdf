@@ -1,7 +1,8 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Loading from './Loading';
 import ErrorBoundary from './ErrorBoundary.js';
+import { hydrateMermaidBlocks } from './mermaid.js';
 import 'github-markdown-css';
 const Wrapper = styled.div`
   overflow-y: scroll;
@@ -32,11 +33,17 @@ const Wrapper = styled.div`
 `;
 const LazyPreview = lazy(() => import('./Preview.js'));
 export default ({ source, children }) => {
+  const previewRef = useRef(null);
+
+  useEffect(() => {
+    hydrateMermaidBlocks(previewRef.current);
+  });
+
   return (
     <ErrorBoundary>
       <Suspense fallback={<Loading duration={0.5} />}>
-        <Wrapper className="preview  markdown-body">
-          <LazyPreview source={source}>{children}</LazyPreview>
+        <Wrapper ref={previewRef} className="preview  markdown-body">
+          <LazyPreview source={source || children} />
         </Wrapper>
       </Suspense>
     </ErrorBoundary>

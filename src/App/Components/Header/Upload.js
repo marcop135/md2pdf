@@ -1,7 +1,9 @@
 import React from 'react';
-import uploadFile from '../../Lib/uploadFile.js';
+import { useProvided } from 'nonaction';
+import { TextContainer } from '../../Container';
 
 export default (props) => {
+  const [, setText] = useProvided(TextContainer);
   const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
   const onChange = (e) => {
@@ -21,7 +23,7 @@ export default (props) => {
           return;
         }
         const content = loadEvent.target.result;
-        uploadFile(content);
+        setText(content);
       };
       reader.readAsText(file);
       e.target.value = '';
