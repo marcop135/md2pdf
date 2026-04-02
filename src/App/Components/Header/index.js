@@ -29,15 +29,7 @@ const Header = ({ className }) => {
       </Helmet>
       <header className={className + ' no-print'}>
         <p className="project">
-          MarkdownPDF <small>v{version}</small>&nbsp;
-          <a
-            href="https://github.com/realdennis/md2pdf"
-            title="md2pdf github"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <small>(md2pdf fork)</small>
-          </a>
+          Markdown To PDF <small>v{version}</small>
         </p>
 
         <div className="menu">
@@ -77,8 +69,7 @@ export default styled(Header)`
     height: 20px;
 
     @media (max-width: 420px) {
-      small,
-      a small {
+      small {
         display: none;
       }
     }
