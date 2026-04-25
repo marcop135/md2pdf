@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import UploadButton from './Upload.js';
+import { waitForMermaidRenders } from '../Markdown/Previewer/Mermaid.jsx';
 import packageMeta from '../../../../package.json';
 
 const { version } = packageMeta;
 
 const Header = ({ className }) => {
-  const onTransfrom = () => {
+  const onTransfrom = async () => {
     let candidateTitle = '';
     const previewEl = document.querySelector('.preview');
     const candidateTitleEl = previewEl?.querySelector('h1');
@@ -19,6 +20,7 @@ const Header = ({ className }) => {
         document.title = currentTitle;
       });
     }
+    await waitForMermaidRenders();
     window.print();
   };
 
