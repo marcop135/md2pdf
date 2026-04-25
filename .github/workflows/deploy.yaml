@@ -1,15 +1,21 @@
-name: deploy github pages
+name: Deploy to production
 
 on:
   push:
     branches:
       - master
 
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
+    name: Build and FTP deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -17,13 +23,23 @@ jobs:
           node-version: "20"
           cache: yarn
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/master'
+      - name: Run tests
+        run: yarn test
+
+      - name: Build
+        run: yarn build
+
+      - name: Sync dist via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: md2pdf.marcopontili.com
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME_PRODUCTION }}
+          password: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
+          server-dir: /md2pdf.marcopontili.com/
+          local-dir: ./dist/
+          protocol: ftp
+          port: 21
+          dangerous-clean-slate: false
