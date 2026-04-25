@@ -4,6 +4,7 @@ vi.mock('mermaid', () => ({
   __esModule: true,
   default: {
     initialize: vi.fn(),
+    parse: vi.fn().mockResolvedValue(true),
     render: vi
       .fn()
       .mockResolvedValue({ svg: '<svg></svg>', bindFunctions: undefined }),

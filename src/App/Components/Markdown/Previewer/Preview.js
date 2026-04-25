@@ -3,6 +3,7 @@ import ReactMarkdown, { defaultUrlTransform } from 'react-markdown';
 import hljs from 'highlight.js';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import Mermaid from './Mermaid.jsx';
 import 'highlight.js/styles/github.css';
 
 const highlight = (str, lang) => {
@@ -41,12 +42,24 @@ export default ({ source, children }) => {
         : '';
 
   const components = {
+    pre({ children, ...rest }) {
+      const only = React.Children.toArray(children).find((c) =>
+        React.isValidElement(c),
+      );
+      const cls = only?.props?.className || '';
+      const m = /language-(\w+)/.exec(cls);
+      if (m && m[1] === 'mermaid') {
+        const raw = String(only.props.children || '').replace(/\n$/, '');
+        return <Mermaid code={raw} />;
+      }
+      return <pre {...rest}>{children}</pre>;
+    },
     code({ className, children: codeChildren }) {
       const match = /language-(\w+)/.exec(className || '');
       const rawCode = String(codeChildren || '');
       const trimmedCode = rawCode.replace(/\n$/, '');
 
-      if (!match) {
+      if (!match || match[1] === 'mermaid') {
         return <code className={className}>{codeChildren}</code>;
       }
 
