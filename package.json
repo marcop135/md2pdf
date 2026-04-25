@@ -1,6 +1,6 @@
 {
   "name": "md2pdf",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "description": "Offline Markdown to PDF in the browser. No server, no uploads.",
   "keywords": [
     "markdown",
@@ -30,6 +30,7 @@
     "react-helmet": "^6.1.0",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
+    "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "styled-components": "^6.3.12",
     "workbox-build": "^7.4.0",

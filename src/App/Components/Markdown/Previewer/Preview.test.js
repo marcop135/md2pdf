@@ -2,6 +2,40 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Preview from './Preview.js';
 
+test('strips <script> tags from embedded HTML', () => {
+  const source = '<p>Hello</p><script>window.__pwned = true;</script>';
+  const { container } = render(<Preview source={source} />);
+  expect(container.querySelector('script')).toBeNull();
+  expect(container.textContent).toContain('Hello');
+});
+
+test('strips event handlers like onerror from <img> tags', () => {
+  const source = '<img src="https://example.com/x.png" alt="x" onerror="window.__pwned=true">';
+  const { container } = render(<Preview source={source} />);
+  const img = container.querySelector('img');
+  expect(img).toBeTruthy();
+  expect(img.getAttribute('onerror')).toBeNull();
+  expect(img.hasAttribute('onerror')).toBe(false);
+});
+
+test('strips javascript: URLs from anchors', () => {
+  const source = '<a href="javascript:alert(1)">click</a>';
+  const { container } = render(<Preview source={source} />);
+  const a = container.querySelector('a');
+  const href = a?.getAttribute('href') || '';
+  expect(href).not.toMatch(/^javascript:/i);
+});
+
+test('keeps tel: and mailto: URLs (CV contact rows)', () => {
+  const source = [
+    '<a href="mailto:cv@example.com">email</a>',
+    '<a href="tel:+15555550100">phone</a>',
+  ].join('');
+  const { container } = render(<Preview source={source} />);
+  expect(container.querySelector('a[href="mailto:cv@example.com"]')).toBeTruthy();
+  expect(container.querySelector('a[href="tel:+15555550100"]')).toBeTruthy();
+});
+
 test('renders embedded raw HTML (e.g. CV contact tables)', () => {
   const source = [
     '<table><tbody><tr><td>user@example.com</td></tr></tbody></table>',

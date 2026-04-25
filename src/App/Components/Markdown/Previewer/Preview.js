@@ -2,9 +2,78 @@ import React from 'react';
 import ReactMarkdown, { defaultUrlTransform } from 'react-markdown';
 import hljs from 'highlight.js';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 import Mermaid from './Mermaid.jsx';
 import 'highlight.js/styles/github.css';
+
+const layoutTags = [
+  'table',
+  'tbody',
+  'thead',
+  'tfoot',
+  'tr',
+  'td',
+  'th',
+  'img',
+  'p',
+  'div',
+  'span',
+  'a',
+  'strong',
+  'em',
+  'br',
+  'hr',
+  'ul',
+  'ol',
+  'li',
+];
+
+const sanitizeSchema = {
+  ...defaultSchema,
+  attributes: {
+    ...defaultSchema.attributes,
+    '*': [
+      ...((defaultSchema.attributes && defaultSchema.attributes['*']) || []),
+      'className',
+    ],
+    a: [
+      ...((defaultSchema.attributes && defaultSchema.attributes.a) || []),
+      ['href', /^(https?:\/\/|mailto:|tel:|#|\/)/i],
+      'target',
+      'rel',
+      'title',
+      'style',
+    ],
+    img: [
+      ['src', /^(https?:\/\/|data:image\/|\/)/i],
+      'alt',
+      'title',
+      'width',
+      'height',
+      'style',
+    ],
+    table: ['style', 'align', 'border', 'cellpadding', 'cellspacing'],
+    tr: ['style', 'align', 'valign'],
+    td: ['style', 'align', 'valign', 'colspan', 'rowspan'],
+    th: ['style', 'align', 'valign', 'colspan', 'rowspan', 'scope'],
+    p: ['style', 'align'],
+    div: ['style'],
+    span: ['style'],
+    code: ['className'],
+    pre: ['className'],
+  },
+  tagNames: Array.from(
+    new Set([...(defaultSchema.tagNames || []), ...layoutTags]),
+  ),
+  protocols: {
+    ...defaultSchema.protocols,
+    href: ['http', 'https', 'mailto', 'tel'],
+    src: ['http', 'https', 'data'],
+  },
+  clobberPrefix: '',
+  clobber: [],
+};
 
 const highlight = (str, lang) => {
   if (lang && hljs.getLanguage(lang)) {
@@ -77,7 +146,7 @@ export default ({ source, children }) => {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeRaw]}
+      rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema]]}
       urlTransform={urlTransform}
       components={components}
     >
