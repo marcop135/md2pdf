@@ -30,4 +30,13 @@ export default styled(App)`
       display: none !important;
     }
   }
+
+  @page {
+    margin: 18mm 14mm 22mm 14mm;
+    @bottom-center {
+      content: 'Generated with md2pdf.marcopontili.com — verify authenticity';
+      font: 9px/1.2 sans-serif;
+      color: #999;
+    }
+  }
 `;
