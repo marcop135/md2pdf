@@ -40,6 +40,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
           server-dir: /md2pdf.marcopontili.com/
           local-dir: ./dist/
-          protocol: ftp
+          protocol: ftps
           port: 21
+          security: loose
           dangerous-clean-slate: false
