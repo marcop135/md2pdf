@@ -26,6 +26,24 @@ test('strips javascript: URLs from anchors', () => {
   expect(href).not.toMatch(/^javascript:/i);
 });
 
+test('preserves <style> blocks for user-defined custom styling', () => {
+  const source = [
+    '<style>',
+    'body { max-width: 94%; margin-left: auto; margin-right: auto; }',
+    '</style>',
+    '',
+    '# Hello',
+  ].join('\n');
+  const { container } = render(<Preview source={source} />);
+  const style = container.querySelector('style');
+  expect(style).toBeTruthy();
+  expect(style.textContent).toContain('max-width: 94%');
+  // The CSS rule should NOT appear as visible text content
+  // outside the <style> element.
+  const visibleText = container.textContent.replace(style.textContent || '', '');
+  expect(visibleText).not.toContain('max-width: 94%');
+});
+
 test('keeps tel: and mailto: URLs (CV contact rows)', () => {
   const source = [
     '<a href="mailto:cv@example.com">email</a>',
