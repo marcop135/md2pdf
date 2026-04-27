@@ -1289,3 +1289,18 @@ FileETag None
 #     RewriteRule ^(.+)\.(\w+)\.(avifs?|bmp|css|cur|gif|ico|jpe?g|jxl|m?js|a?png|svgz?|webp|webmanifest)$ $1.$3 [L]
 # </IfModule>
 
+
+# ----------------------------------------------------------------------
+# | md2pdf — force-revalidate the entry points so new deploys land fast |
+# ----------------------------------------------------------------------
+# index.html, the service worker (sw.js), and the web app manifest must
+# always go to the network for revalidation. Hashed assets in /assets/
+# stay cacheable for 1 year (the filename hash changes whenever the
+# content does, so they self-bust).
+<IfModule mod_headers.c>
+    <FilesMatch "(^|/)(index\.html|sw\.js|workbox-[a-z0-9]+\.js|manifest\.json|favicon\.svg)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>

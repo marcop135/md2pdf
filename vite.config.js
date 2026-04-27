@@ -27,11 +27,18 @@ export default defineConfig({
       include: /\.[jt]sx?$/,
     }),
     VitePWA({
-      injectRegister: false,
+      injectRegister: 'auto',
       registerType: 'autoUpdate',
       manifest: false,
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,txt,json}'],
+        globPatterns: ['**/*.{js,css,html,svg,txt,json}'],
+        // Take over open tabs immediately when a new SW activates and
+        // skip the waiting phase so the next refresh always serves the
+        // latest build.
+        clientsClaim: true,
+        skipWaiting: true,
+        cleanupOutdatedCaches: true,
+        navigateFallback: '/index.html',
         runtimeCaching: [
           {
             urlPattern: ({ request, url }) =>

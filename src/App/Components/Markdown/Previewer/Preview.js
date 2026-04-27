@@ -27,6 +27,10 @@ const layoutTags = [
   'ul',
   'ol',
   'li',
+  // Inline <style> blocks: lets users customize their document layout
+  // (page width, fonts, etc.) directly from the markdown. Constrained by the
+  // page's Content-Security-Policy on what the CSS can fetch.
+  'style',
 ];
 
 const sanitizeSchema = {
