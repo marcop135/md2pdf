@@ -1,6 +1,6 @@
 {
   "name": "md2pdf",
-  "version": "2.7.5",
+  "version": "2.7.6",
   "description": "Offline Markdown to PDF in the browser. No server, no uploads.",
   "keywords": [
     "markdown",
@@ -20,6 +20,7 @@
     "@codemirror/view": "^6.41.0",
     "@uiw/react-codemirror": "^4.25.9",
     "codemirror": "^6.0.2",
+    "dompurify": "^3.4.1",
     "github-markdown-css": "^5.9.0",
     "highlight.js": "^11.11.1",
     "mermaid": "^11.14.0",
