@@ -34,6 +34,13 @@ export default styled(Editor)`
   }
 
   .cm-scroller {
-    line-height: 1.5;
+    line-height: 1.6;
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+      'Liberation Mono', monospace;
+    font-size: 15px;
+  }
+
+  .cm-gutters {
+    font-size: 13px;
   }
 `;

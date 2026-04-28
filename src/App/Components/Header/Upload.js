@@ -1,5 +1,6 @@
 import React from 'react';
 import { useProvided } from 'nonaction';
+import { FileEarmarkArrowUpFill } from 'react-bootstrap-icons';
 import { TextContainer } from '../../Container';
 
 export default (props) => {
@@ -56,9 +57,7 @@ export default (props) => {
           cursor: 'pointer',
         }}
       />
-      <span role="img" aria-label="upload">
-        ⬆️
-      </span>
+      <FileEarmarkArrowUpFill size={18} aria-label="Import .md file" />
       <span>Import .md file</span>
     </p>
   );
