@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 import React, { useEffect, useRef, useState } from 'react';
 import mermaid from 'mermaid';
 
@@ -87,7 +88,7 @@ export default function Mermaid({ code }) {
   return (
     <div
       className="mermaid-diagram"
-      dangerouslySetInnerHTML={{ __html: svg }}
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(svg, { USE_PROFILES: { svg: true } }) }}
     />
   );
 }
