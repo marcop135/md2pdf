@@ -1,21 +1,24 @@
-import mermaid from 'mermaid';
 import { vi } from 'vitest';
-import { hydrateMermaidBlocks, resetMermaidStateForTests } from './mermaid.js';
+
+const mockMermaid = vi.hoisted(() => ({
+  initialize: vi.fn(),
+  render: vi.fn(),
+}));
 
 vi.mock('mermaid', () => ({
   __esModule: true,
-  default: {
-    initialize: vi.fn(),
-    render: vi.fn(),
-  },
+  default: mockMermaid,
 }));
+
+const { hydrateMermaidBlocks, resetMermaidStateForTests } =
+  await vi.importActual('./mermaid.js');
 
 describe('hydrateMermaidBlocks', () => {
   beforeEach(() => {
     resetMermaidStateForTests();
-    mermaid.initialize.mockClear();
-    mermaid.render.mockReset();
-    mermaid.render.mockResolvedValue({
+    mockMermaid.initialize.mockClear();
+    mockMermaid.render.mockReset();
+    mockMermaid.render.mockResolvedValue({
       svg: '<svg data-test-id="mermaid"></svg>',
       bindFunctions: undefined,
     });
@@ -28,13 +31,13 @@ describe('hydrateMermaidBlocks', () => {
 
     await hydrateMermaidBlocks(container);
 
-    expect(mermaid.initialize).toHaveBeenCalledWith(
+    expect(mockMermaid.initialize).toHaveBeenCalledWith(
       expect.objectContaining({
         startOnLoad: false,
         securityLevel: 'strict',
       }),
     );
-    expect(mermaid.render).toHaveBeenCalledTimes(1);
+    expect(mockMermaid.render).toHaveBeenCalledTimes(1);
     expect(container.querySelector('.mermaid-diagram')).not.toBeNull();
     expect(container.querySelector('.mermaid-diagram svg')).not.toBeNull();
   });
@@ -46,8 +49,8 @@ describe('hydrateMermaidBlocks', () => {
 
     await hydrateMermaidBlocks(container);
 
-    expect(mermaid.initialize).not.toHaveBeenCalled();
-    expect(mermaid.render).not.toHaveBeenCalled();
+    expect(mockMermaid.initialize).not.toHaveBeenCalled();
+    expect(mockMermaid.render).not.toHaveBeenCalled();
     expect(
       container.querySelector('pre code.language-javascript'),
     ).not.toBeNull();
@@ -59,11 +62,11 @@ describe('hydrateMermaidBlocks', () => {
 
     container.innerHTML =
       '<pre><code class="language-mermaid">graph TD; A-->B;</code></pre>';
-    mermaid.render.mockRejectedValueOnce(new Error('render failed'));
+    mockMermaid.render.mockRejectedValueOnce(new Error('render failed'));
 
     await hydrateMermaidBlocks(container);
 
-    expect(mermaid.render).toHaveBeenCalledTimes(1);
+    expect(mockMermaid.render).toHaveBeenCalledTimes(1);
     const fallbackCode = container.querySelector('pre code.language-mermaid');
     expect(fallbackCode).not.toBeNull();
     expect(fallbackCode.textContent).toBe('graph TD; A-->B;');

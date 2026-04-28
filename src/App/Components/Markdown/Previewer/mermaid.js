@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 import mermaid from 'mermaid';
 
 const MERMAID_CODE_SELECTOR = [
@@ -104,7 +105,7 @@ export const hydrateMermaidBlocks = async (container) => {
           return;
         }
 
-        diagramNode.innerHTML = svg;
+        diagramNode.innerHTML = DOMPurify.sanitize(svg, { USE_PROFILES: { svg: true } });
         if (typeof bindFunctions === 'function') {
           bindFunctions(diagramNode);
         }

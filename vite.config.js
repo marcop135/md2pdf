@@ -61,5 +61,10 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './src/setupTests.js',
+    server: {
+      deps: {
+        inline: ['mermaid', 'dompurify'],
+      },
+    },
   },
 });
