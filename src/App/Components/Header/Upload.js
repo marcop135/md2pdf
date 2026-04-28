@@ -10,6 +10,11 @@ export default (props) => {
     const files = e.currentTarget.files;
     if (files.length > 0) {
       const file = files[0];
+      if (!/\.(md)$/i.test(file.name)) {
+        alert('Only .md files are allowed.');
+        e.target.value = '';
+        return;
+      }
       if (file.size > MAX_FILE_SIZE) {
         alert('File too large. Maximum size is 2MB.');
         e.target.value = '';
