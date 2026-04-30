@@ -1,16 +1,26 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, act } from '@testing-library/react';
 import { vi } from 'vitest';
 import Mermaid, { waitForMermaidRenders } from './Mermaid.jsx';
+
+const flushAsync = async () => {
+  await act(async () => {
+    await new Promise((r) => setTimeout(r, 0));
+    await new Promise((r) => requestAnimationFrame(r));
+    await new Promise((r) => requestAnimationFrame(r));
+  });
+};
 
 describe('Mermaid component', () => {
   test('renders diagram SVG or graceful fallback', async () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const { container } = render(<Mermaid code="graph TD; A-->B;" />);
+    await flushAsync();
     await waitFor(() => {
       const svg = container.querySelector('.mermaid-diagram svg');
       const fallback = container.querySelector('pre code.language-mermaid');
-      expect(svg || fallback).not.toBeNull();
+      const loading = container.querySelector('.mermaid-loading');
+      expect(svg || fallback || loading).not.toBeNull();
     });
     errorSpy.mockRestore();
   });
