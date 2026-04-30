@@ -1,12 +1,5 @@
 import { vi } from 'vitest';
 
-vi.mock('dompurify', () => ({
-  __esModule: true,
-  default: {
-    sanitize: vi.fn((html) => html),
-  },
-}));
-
 vi.mock('mermaid', () => ({
   __esModule: true,
   default: {

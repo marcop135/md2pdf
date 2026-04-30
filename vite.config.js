@@ -70,7 +70,7 @@ export default defineConfig({
     setupFiles: './src/setupTests.js',
     server: {
       deps: {
-        inline: ['mermaid', 'dompurify'],
+        inline: ['mermaid'],
       },
     },
   },
