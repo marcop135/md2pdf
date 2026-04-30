@@ -88,7 +88,7 @@ export default function Mermaid({ code }) {
   return (
     <div
       className="mermaid-diagram"
-      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(svg, { USE_PROFILES: { svg: true } }) }}
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(svg, { USE_PROFILES: { svg: true, svgFilters: true, html: true } }) }}
     />
   );
 }
