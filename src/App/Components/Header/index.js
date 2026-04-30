@@ -100,6 +100,7 @@ export default styled(Header)`
       margin-left: 8px;
       padding: 0 12px;
       font-size: 14px;
+      font-weight: 400;
       border: 1px solid #d0d7de;
       border-radius: 6px;
       cursor: pointer;
