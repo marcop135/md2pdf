@@ -1,6 +1,6 @@
 {
   "name": "md2pdf",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Offline Markdown to PDF in the browser. No server, no uploads.",
   "keywords": [
     "markdown",
