@@ -1,7 +1,7 @@
 {
   "name": "md2pdf",
   "version": "2.9.4",
-  "description": "Offline Markdown to PDF in the browser. No server, no uploads.",
+  "description": "Privacy-first Markdown→PDF in the browser: live GFM preview, highlighted code blocks, Mermaid—offline PWA; nothing uploaded.",
   "keywords": [
     "markdown",
     "pdf"

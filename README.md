@@ -1,6 +1,6 @@
 # Markdown2PDF
 
-Neat, tidy, offline Markdown-to-PDF conversion app that runs entirely in your browser. No server, no cloud uploads—your content never leaves your device.
+Privacy-first Markdown-to-PDF in your browser—live GitHub-flavored preview, syntax-highlighted fenced code, and Mermaid diagrams. Runs offline as a PWA; no server and no uploads, so your content stays on your device.
 
 This is a fork of [realdennis/md2pdf](https://github.com/realdennis/md2pdf). Thanks to @realdennis for the original work.
 
