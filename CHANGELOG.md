@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.11
+
+- feat(ui): show **`package.json` semver** in the header again (muted **v** tag; hidden on very narrow viewports)
+
 ## 2.9.10
 
 - refactor(ui): remove version badge from the header bar (fewer crumbs; semver stays in repo only)

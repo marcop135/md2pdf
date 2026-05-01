@@ -4,6 +4,9 @@ import { Helmet } from 'react-helmet';
 import { FileEarmarkPdfFill, Github } from 'react-bootstrap-icons';
 import UploadButton from './Upload.js';
 import { waitForMermaidRenders } from '../Markdown/Previewer/Mermaid.jsx';
+import packageMeta from '../../../../package.json';
+
+const { version } = packageMeta;
 
 const SOURCE_REPO_URL = 'https://github.com/marcop135/md2pdf';
 
@@ -31,7 +34,8 @@ const Header = ({ className }) => {
       </Helmet>
       <header className={className + ' no-print'}>
         <p className="project">
-          <strong className="brand-title">Markdown to PDF</strong>
+          <strong className="brand-title">Markdown to PDF</strong>{' '}
+          <small className="version-chip">v{version}</small>
         </p>
 
         <div className="menu">
@@ -84,6 +88,19 @@ export default styled(Header)`
 
     .brand-title {
       font-weight: 700;
+    }
+
+    .version-chip {
+      margin-left: 4px;
+      color: #656d76;
+      font-weight: 400;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 420px) {
+      .version-chip {
+        display: none;
+      }
     }
   }
 
