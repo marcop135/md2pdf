@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Header toolbar
 
-The title stays **bold** (**`font-weight: 600`** on `.project`). Primary actions (**Import**, **Export**) should stay **readable but not visually heavy**: use **`font-weight: 500`**, **`font-size: 14px`**, **`height: 32px`** (not bold 15px chips that compete with the title).
+The app uses **`system-ui, sans-serif`** globally (see [`App/index.js`](src/App/index.js) and [`styles.css`](src/styles.css)). The product name **Markdown to PDF** in the header uses **`.brand-title`** at **`font-weight: 700`**; **Import** / **Export** and version `small` stay **`font-weight: 400`** with **`font-size: 14px`** on buttons / **`15px`** on the title row, **`height: 32px`** on buttons.
 
 When editing [`Header/index.js`](src/App/Components/Header/index.js) or [`Upload.js`](src/App/Components/Header/Upload.js):
 
@@ -14,4 +14,4 @@ When editing [`Header/index.js`](src/App/Components/Header/index.js) or [`Upload
 - If you change the header **overall height** (**`min-height`** on `<header>`), update [`Markdown/index.js`](src/App/Components/Markdown/index.js) **`height: calc(100% - …px)`** so the subtraction matches that bar height (currently **48px**).
 - The **GitHub icon-only** control should match toolbar button height; icons **18px** align with **`32px`** rows.
 
-Avoid regressing only to **`font-weight: 400`** on action labels unless you widen size/tracking and verify with the real app font (**`App/index.js`** stack).
+If labels feel too light on a given OS, adjust **`letter-spacing`** or **`font-size`** before bumping weight above **400** on chrome.

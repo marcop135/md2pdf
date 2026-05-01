@@ -2,6 +2,7 @@ html,
 body,
 #root {
   height: 100%;
+  font-family: system-ui, sans-serif;
 }
 
 /* Make space for toolbar icons */
@@ -31,16 +32,7 @@ header a {
 }
 
 .preview.markdown-body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    'Noto Sans',
-    Helvetica,
-    Arial,
-    sans-serif,
-    'Apple Color Emoji',
-    'Segoe UI Emoji' !important;
+  font-family: system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji' !important;
   font-size: 16px !important;
   line-height: 1.62 !important;
   overflow-wrap: anywhere !important;

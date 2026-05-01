@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.9.9
+
+- style(ui): bold product name **Markdown to PDF** in the header (toolbar actions stay regular weight)
+- copy: default onboarding uses **Markdown to PDF** casing to match the header
+- style(ui): default `system-ui, sans-serif`; preview body uses the same stack with emoji fallbacks
+- fix(dev): Vite `strictPort` on port 5173; strip strict CSP meta during `vite serve` so HMR is reliable
+- chore: `.vscode` task to run the Vite dev server from the editor
+
 ## 2.9.8
 
 - style(ui): taller header toolbar, stronger action labels (\`font-weight: 600\`, 15px), larger icons; fix main layout \`calc\` to match bar height
