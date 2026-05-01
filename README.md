@@ -2,6 +2,12 @@
 
 Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored preview**, **syntax-highlighted** fenced code blocks, and **Mermaid** diagrams. Works **offline as a PWA** after the first load; processing stays in the browser (no separate backend).
 
+<p align="center">
+  <img src="docs/readme-hero.png" alt="Markdown to PDF: Markdown editor beside live rendered preview, export to PDF" width="840" />
+</p>
+
+Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
+
 ## Acknowledgements
 
 This repository is derived from **[realdennis/md2pdf](https://github.com/realdennis/md2pdf)** (MIT). Thanks to Dennis for the original app.
@@ -113,6 +119,11 @@ graph TD
 3. Commit: `git commit -m 'Describe your feature'`.
 4. Push: `git push origin feature/your-feature`.
 5. Open a pull request.
+
+## Brand images
+
+- [`docs/readme-hero.png`](docs/readme-hero.png) banner used at the top of this README (UI mockup of the editor and preview).
+- [`docs/github-social-preview.png`](docs/github-social-preview.png) for the repository share card on GitHub: **Settings → General → Social preview → Edit** and upload this file (wide image, suitable for repo links and Open Graph-style previews).
 
 ## License
 
