@@ -18,5 +18,9 @@ export default styled(Editor)`
   @media (max-width: 768px) {
     width: 100% !important;
     flex-shrink: 1;
+
+    .cm-scroller {
+      font-size: 14px;
+    }
   }
 `;

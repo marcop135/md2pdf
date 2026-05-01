@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.9.4
+
+- feat(copy): default sample uses planned onboarding paragraph—GFM, Mermaid fences, export path
+- style(editor): slightly smaller monospace on screens ≤768px for comfortable wrapping
+
 ## 2.9.3
 
 - refactor(copy): clearer default onboarding—short intro plus bullet list (no cramped one-liners)
