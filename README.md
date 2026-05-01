@@ -6,7 +6,7 @@ Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored pre
 
 This repository is derived from **[realdennis/md2pdf](https://github.com/realdennis/md2pdf)** (MIT). Thanks to Dennis for the original app.
 
-This fork evolves the codebase independently: **Mermaid** in the preview, **remark-gfm** + **highlight.js**, **vite-plugin-pwa** / offline caching, stricter sanitization paths, UX and PDF-oriented styling, CI build + deploy automation, tests, and ongoing maintenance. *(If GitHub doesn’t show a “forked from” badge, that’s usually because the repo was created as a new remote rather than GitHub’s Fork button; you still carry MIT attribution in this README and in [`LICENSE`](LICENSE).)*
+This fork evolves the codebase independently: **Mermaid** in the preview, **remark-gfm** + **highlight.js**, **vite-plugin-pwa** / offline caching, stricter sanitization paths, UX and PDF-oriented styling, CI build + deploy automation, tests, and ongoing maintenance.
 
 ---
 
