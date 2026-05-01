@@ -57,7 +57,7 @@ export default (props) => {
           cursor: 'pointer',
         }}
       />
-      <FileEarmarkArrowUpFill size={20} aria-label="Import .md file" />
+      <FileEarmarkArrowUpFill size={18} aria-label="Import .md file" />
       <span>Import .md file</span>
     </p>
   );

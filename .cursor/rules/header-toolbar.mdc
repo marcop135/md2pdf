@@ -1,17 +1,17 @@
 ---
-description: Header toolbar typography and layout (avoid thin action labels)
+description: Header toolbar typography and layout (balanced, not cramped or shouty)
 globs: src/App/Components/Header/**/*
 alwaysApply: false
 ---
 
 # Header toolbar
 
-The product title uses **font-weight 600**. Import / Export labels must not look lighter than the title on common displays (e.g. 微軟正黑體 / system UI).
+The title stays **bold** (**`font-weight: 600`** on `.project`). Primary actions (**Import**, **Export**) should stay **readable but not visually heavy**: use **`font-weight: 500`**, **`font-size: 14px`**, **`height: 32px`** (not bold 15px chips that compete with the title).
 
 When editing [`Header/index.js`](src/App/Components/Header/index.js) or [`Upload.js`](src/App/Components/Header/Upload.js):
 
-- Keep **`.menu .button`** labels at **`font-weight: 600`** and **`font-size: 15px`** unless there is a deliberate redesign. Do not drop to **400** or **500** for primary action text without retesting with the app font stack.
-- Keep **`font-family: inherit`** on the header and buttons so labels use the same stack as `#md2pdf-app` (`App/index.js`).
-- If you change the header **vertical size** (`min-height`, button `height`), update [`Markdown/index.js`](src/App/Components/Markdown/index.js) **`height: calc(100% - …px)`** so the subtracted value matches the real header bar height.
+- Prefer **`font-family: inherit`** on header and toolbar controls.
+- If you change the header **overall height** (**`min-height`** on `<header>`), update [`Markdown/index.js`](src/App/Components/Markdown/index.js) **`height: calc(100% - …px)`** so the subtraction matches that bar height (currently **48px**).
+- The **GitHub icon-only** control should match toolbar button height; icons **18px** align with **`32px`** rows.
 
-The **version** badge (`.project small`) may stay slightly lighter (**`font-weight: 500`**, muted gray); that is intentional contrast with the title and actions.
+Avoid regressing only to **`font-weight: 400`** on action labels unless you widen size/tracking and verify with the real app font (**`App/index.js`** stack).

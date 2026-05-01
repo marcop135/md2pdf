@@ -40,7 +40,7 @@ const Header = ({ className }) => {
         <div className="menu">
           <UploadButton className="button upload" />
           <p className="button download primary" onClick={onTransform} tabIndex={0}>
-            <FileEarmarkPdfFill size={20} aria-label="Export to PDF" />
+            <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
             <span>Export to .pdf</span>
           </p>
           <a
@@ -50,7 +50,7 @@ const Header = ({ className }) => {
             rel="noopener noreferrer"
             aria-label="View source on GitHub"
           >
-            <Github size={20} aria-hidden />
+            <Github size={18} aria-hidden />
           </a>
         </div>
       </header>
@@ -67,14 +67,14 @@ export default styled(Header)`
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   user-select: none;
-  padding: 0 14px;
+  padding: 0 12px;
   font-family: inherit;
   color: #1f2328;
   background-color: #f6f8fa;
   border-bottom: 1px solid #d0d7de;
   display: flex;
   align-items: center;
-  min-height: 56px;
+  min-height: 48px;
   -webkit-font-smoothing: antialiased;
 
   .project {
@@ -110,19 +110,18 @@ export default styled(Header)`
     }
 
     .button {
-      height: 36px;
-      min-width: 64px;
+      height: 32px;
+      min-width: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-left: 8px;
-      padding: 0 14px;
-      font-size: 15px;
+      padding: 0 12px;
+      font-size: 14px;
       font-family: inherit;
-      font-weight: 600;
-      letter-spacing: 0.01em;
+      font-weight: 500;
       border: 1px solid #d0d7de;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       background-color: #ffffff;
       color: #1f2328;
@@ -163,8 +162,8 @@ export default styled(Header)`
       }
 
       &.icon-only {
-        min-width: 38px;
-        width: 38px;
+        min-width: 34px;
+        width: 34px;
         padding: 0;
         margin-left: 8px;
       }
