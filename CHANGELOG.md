@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.9.10
+
+- refactor(ui): remove version badge from the header bar (fewer crumbs; semver stays in repo only)
+- docs: readme hero PNG replaced with centered window on neutral margin (reads less edge-stretched on wide layouts)
+
 ## 2.9.9
 
 - style(ui): bold product name **Markdown to PDF** in the header (toolbar actions stay regular weight)
