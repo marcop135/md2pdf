@@ -4,7 +4,11 @@ Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored pre
 
 <p align="center">
   <a href="https://md2pdf.marcopontili.com" target="_blank" rel="noopener noreferrer">
-    <img src="docs/readme-hero.png" alt="Markdown to PDF: Markdown editor beside live rendered preview, export to PDF" width="840" />
+    <img
+      src="docs/readme-hero.png"
+      alt="Markdown to PDF: dark CodeMirror editor beside light GitHub-style preview, toolbar with Import, Export, and GitHub"
+      style="max-width: 840px; width: 100%; height: auto"
+    />
   </a>
 </p>
 
