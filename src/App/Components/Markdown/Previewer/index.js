@@ -4,11 +4,11 @@ import Loading from './Loading';
 import ErrorBoundary from './ErrorBoundary.js';
 import 'github-markdown-css';
 const Wrapper = styled.div`
-  overflow-y: scroll;
-  overflow-x: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   width: 100%;
-  padding: 10px;
+  padding: 20px clamp(14px, 3vw, 28px);
   background-color: #ffffff !important;
   color: #24292e !important;
   word-wrap: break-word;

@@ -41,7 +41,7 @@ export default styled(Editor)`
   }
 
   .cm-scroller {
-    line-height: 1.6;
+    line-height: 1.72;
     font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
       'Liberation Mono', monospace;
     font-size: 15px;
