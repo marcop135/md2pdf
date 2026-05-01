@@ -39,20 +39,19 @@ const Header = ({ className }) => {
 
         <div className="menu">
           <UploadButton className="button upload" />
+          <p className="button download primary" onClick={onTransform} tabIndex={0}>
+            <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
+            <span>Export to .pdf</span>
+          </p>
           <a
-            className="button github-link"
+            className="button github-link icon-only"
             href={SOURCE_REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View source on GitHub"
           >
             <Github size={18} aria-hidden />
-            <span>GitHub</span>
           </a>
-          <p className="button download primary" onClick={onTransform} tabIndex={0}>
-            <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
-            <span>Export to .pdf</span>
-          </p>
         </div>
       </header>
     </>
@@ -69,6 +68,7 @@ export default styled(Header)`
   -webkit-overflow-scrolling: touch;
   user-select: none;
   padding: 0 12px;
+  font-family: inherit;
   color: #1f2328;
   background-color: #f6f8fa;
   border-bottom: 1px solid #d0d7de;
@@ -113,10 +113,12 @@ export default styled(Header)`
       min-width: 60px;
       display: flex;
       align-items: center;
+      justify-content: center;
       margin-left: 8px;
       padding: 0 12px;
       font-size: 14px;
-      font-weight: 400;
+      font-family: inherit;
+      font-weight: 500;
       border: 1px solid #d0d7de;
       border-radius: 6px;
       cursor: pointer;
@@ -149,9 +151,25 @@ export default styled(Header)`
         color: rgb(53, 123, 253);
       }
 
+      &:not(.icon-only) {
+        justify-content: flex-start;
+      }
+
       svg {
         margin-right: 6px;
         flex-shrink: 0;
+      }
+
+      &.icon-only {
+        min-width: 34px;
+        width: 34px;
+        padding: 0;
+        margin-left: 8px;
+      }
+
+      &.icon-only svg {
+        margin-right: 0;
+        margin-left: 0;
       }
     }
   }
