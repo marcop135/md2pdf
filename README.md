@@ -120,10 +120,6 @@ Contributions welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for guid
 - 💡 Have a feature request? [Open an issue](https://github.com/marcop135/md2pdf/issues)
 - 📝 Want to contribute? [Read the contributing guide](./CONTRIBUTING.md)
 
-## 👤 Author
-
-[Marco Pontili](https://marcopontili.com)
-
 ## 📝 License
 
 Licensed under the [MIT](./LICENSE) License.
