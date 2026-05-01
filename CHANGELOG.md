@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.6
+
+- feat(ui): GitHub icon in header linking to repository source (`target=_blank`)
+
 ## 2.9.5
 
 - refactor(copy): default onboarding uses short intro plus bullet list (easier to read in editor and preview)
