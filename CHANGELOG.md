@@ -2,18 +2,18 @@
 
 ## 2.9.4
 
-- feat(copy): default sample uses planned onboarding paragraph—GFM, Mermaid fences, export path
+- feat(copy): default sample uses planned onboarding paragraph (GFM, Mermaid fences, export path)
 - style(editor): slightly smaller monospace on screens ≤768px for comfortable wrapping
 
 ## 2.9.3
 
-- refactor(copy): clearer default onboarding—short intro plus bullet list (no cramped one-liners)
+- refactor(copy): clearer default onboarding: short intro plus bullet list (no cramped one-liners)
 - style(preview): roomier padding, calmer typography, safer wrapping so content does not clip
 - style(editor): slightly looser editor line-height for wrapped paragraphs
 
 ## 2.9.2
 
-- feat(copy): tighter default onboarding blurb—GFM, Mermaid fences, `.md` import, export flow
+- feat(copy): tighter default onboarding blurb (GFM, Mermaid fences, `.md` import, export flow)
 - fix(copy): repair product name typo in initial editor sample (`Markdown2DPF`)
 - chore: patch version bump
 
