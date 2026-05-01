@@ -1,6 +1,6 @@
 # Markdown2PDF
 
-Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored preview**, **syntax-highlighted** fenced code blocks, and **Mermaid** diagrams. Works **offline as a PWA** after the first load; processing stays in the browser (no separate backend). **Privacy:** your Markdown is not uploaded somewhere to be converted; it stays in your tab until you print or save a PDF locally.
+Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored preview**, **syntax-highlighted** fenced code blocks, and **Mermaid** diagrams. **Responsive:** on phones and tablets you get a **tabbed Editor / Preview**; on wider screens, side-by-side panes. Works **offline as a PWA** after the first load; processing stays in the browser (no separate backend). **Privacy:** your Markdown is not uploaded somewhere to be converted; it stays in your tab until you print or save a PDF locally.
 
 <p align="center">
   <a href="https://md2pdf.marcopontili.com" target="_blank" rel="noopener noreferrer">
@@ -24,7 +24,7 @@ This fork evolves the codebase independently: **Mermaid** in the preview, **rema
 - **100% offline**: works without internet after first load
 - **Client-only workflow**: no backend; Markdown is rendered and printed from your browser session
 - **Privacy-friendly**: conversion runs locally; nothing is sent to an app server for processing
-- Responsive UI with a **mobile-friendly** tabbed editor/preview on small screens
+- **Responsive / mobile**: tabbed **Editor** and **Preview** on narrow viewports; split editor + preview on desktop
 - PWA support (installable, cache-first for repeat visits)
 - Custom styles for PDF output (GitHub-style markdown CSS)
 - Instant live preview and syntax-highlighted code blocks
