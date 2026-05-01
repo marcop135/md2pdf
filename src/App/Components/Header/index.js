@@ -34,7 +34,8 @@ const Header = ({ className }) => {
       </Helmet>
       <header className={className + ' no-print'}>
         <p className="project">
-          Markdown To PDF <small>v{version}</small>
+          <strong className="brand-title">Markdown to PDF</strong>{' '}
+          <small>v{version}</small>
         </p>
 
         <div className="menu">
@@ -78,17 +79,21 @@ export default styled(Header)`
   -webkit-font-smoothing: antialiased;
 
   .project {
-    font-weight: 600;
+    font-weight: 400;
     font-size: 15px;
     letter-spacing: 0.2px;
     margin: 0;
     flex-shrink: 0;
     line-height: 1.35;
 
+    .brand-title {
+      font-weight: 700;
+    }
+
     small {
       margin-left: 4px;
       color: #656d76;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     @media (max-width: 420px) {
@@ -119,7 +124,7 @@ export default styled(Header)`
       padding: 0 12px;
       font-size: 14px;
       font-family: inherit;
-      font-weight: 500;
+      font-weight: 400;
       border: 1px solid #d0d7de;
       border-radius: 6px;
       cursor: pointer;

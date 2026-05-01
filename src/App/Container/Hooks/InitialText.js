@@ -1,6 +1,6 @@
 export const initialText = `# Hello World!
 
-**Markdown To PDF** is an offline Markdown editor with a live preview. Everything runs in your browser (no separate backend).
+**Markdown to PDF** is an offline Markdown editor with a live preview. Everything runs in your browser (no separate backend).
 
 - **GitHub-flavored Markdown**: tables, task lists, syntax-highlighted fenced code blocks
 - **Mermaid diagrams**: use a fenced block with the \`mermaid\` language tag
