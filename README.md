@@ -3,7 +3,9 @@
 Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored preview**, **syntax-highlighted** fenced code blocks, and **Mermaid** diagrams. Works **offline as a PWA** after the first load; processing stays in the browser (no separate backend).
 
 <p align="center">
-  <img src="docs/readme-hero.png" alt="Markdown to PDF: Markdown editor beside live rendered preview, export to PDF" width="840" />
+  <a href="https://md2pdf.marcopontili.com" target="_blank" rel="noopener noreferrer">
+    <img src="docs/readme-hero.png" alt="Markdown to PDF: Markdown editor beside live rendered preview, export to PDF" width="840" />
+  </a>
 </p>
 
 Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
