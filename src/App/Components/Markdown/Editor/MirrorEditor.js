@@ -6,7 +6,14 @@ import { EditorView } from '@codemirror/view';
 import styled from 'styled-components';
 
 const Editor = ({ className, text, setText, isMobile }) => {
-  const extensions = useMemo(() => [markdown(), EditorView.lineWrapping], []);
+  const extensions = useMemo(
+    () => [
+      markdown(),
+      EditorView.lineWrapping,
+      EditorView.contentAttributes.of({ 'aria-label': 'Markdown source' }),
+    ],
+    [],
+  );
   const basicSetup = useMemo(
     () => ({
       lineNumbers: !isMobile,
