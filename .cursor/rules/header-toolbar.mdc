@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Header toolbar
 
-The app uses **`system-ui, sans-serif`** globally (see [`App/index.js`](src/App/index.js) and [`styles.css`](src/styles.css)). The product name **Markdown to PDF** in the header uses **`.brand-title`** at **`font-weight: 700`**; **Import** / **Export** and version `small` stay **`font-weight: 400`** with **`font-size: 14px`** on buttons / **`15px`** on the title row, **`height: 32px`** on buttons.
+The app uses **`system-ui, sans-serif`** globally (see [`App/index.js`](src/App/index.js) and [`styles.css`](src/styles.css)). The product name **Markdown to PDF** in the header uses **`.brand-title`** at **`font-weight: 700`**; **Import** / **Export** stay **`font-weight: 400`** with **`font-size: 14px`** on buttons / **`15px`** on the title row, **`height: 32px`** on buttons. **Do not** show **`package.json` version** in the header (keep the bar minimal).
 
 When editing [`Header/index.js`](src/App/Components/Header/index.js) or [`Upload.js`](src/App/Components/Header/Upload.js):
 
