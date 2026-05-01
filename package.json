@@ -1,7 +1,7 @@
 {
   "name": "md2pdf",
   "version": "2.9.8",
-  "description": "In-browser Markdown to PDF: GFM preview, syntax-highlighted code, Mermaid, PWA/offline. Local conversion, no upload to an app server. Fork of realdennis/md2pdf (MIT).",
+  "description": "In-browser Markdown to PDF: GFM preview, syntax-highlighted code, Mermaid, PWA/offline. Responsive (tabbed editor/preview on small screens). Local conversion, no upload to an app server. Fork of realdennis/md2pdf (MIT).",
   "keywords": [
     "markdown",
     "pdf"
