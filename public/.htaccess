@@ -1291,7 +1291,7 @@ FileETag None
 
 
 # ----------------------------------------------------------------------
-# | md2pdf — force-revalidate the entry points so new deploys land fast |
+# | md2pdf: force-revalidate the entry points so new deploys land fast |
 # ----------------------------------------------------------------------
 # index.html, the service worker (sw.js), and the web app manifest must
 # always go to the network for revalidation. Hashed assets in /assets/

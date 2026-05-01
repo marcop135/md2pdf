@@ -1,7 +1,7 @@
 {
   "name": "md2pdf",
   "version": "2.9.4",
-  "description": "In-browser Markdown to PDF—GFM preview, syntax-highlighted code, Mermaid, PWA/offline. Derived from realdennis/md2pdf (MIT).",
+  "description": "In-browser Markdown to PDF: GFM preview, syntax-highlighted code, Mermaid, PWA/offline. Derived from realdennis/md2pdf (MIT).",
   "keywords": [
     "markdown",
     "pdf"
