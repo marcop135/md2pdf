@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.2
+
+- feat(copy): tighter default onboarding blurb—GFM, Mermaid fences, `.md` import, export flow
+- fix(copy): repair product name typo in initial editor sample (`Markdown2DPF`)
+- chore: patch version bump
+
 ## 2.9.1
 
 - fix(mermaid): remove redundant DOMPurify pass that stripped all text labels from diagrams

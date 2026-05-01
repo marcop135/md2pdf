@@ -9,7 +9,7 @@ import packageMeta from '../../../../package.json';
 const { version } = packageMeta;
 
 const Header = ({ className }) => {
-  const onTransfrom = async () => {
+  const onTransform = async () => {
     let candidateTitle = '';
     const previewEl = document.querySelector('.preview');
     const candidateTitleEl = previewEl?.querySelector('h1');
@@ -37,7 +37,7 @@ const Header = ({ className }) => {
 
         <div className="menu">
           <UploadButton className="button upload" />
-          <p className="button download primary" onClick={onTransfrom} tabIndex={0}>
+          <p className="button download primary" onClick={onTransform} tabIndex={0}>
             <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
             <span>Export to .pdf</span>
           </p>
