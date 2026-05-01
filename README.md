@@ -1,6 +1,6 @@
 # Markdown2PDF
 
-Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored preview**, **syntax-highlighted** fenced code blocks, and **Mermaid** diagrams. Works **offline as a PWA** after the first load; processing stays in the browser (no separate backend).
+Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored preview**, **syntax-highlighted** fenced code blocks, and **Mermaid** diagrams. Works **offline as a PWA** after the first load; processing stays in the browser (no separate backend). **Privacy:** your Markdown is not uploaded somewhere to be converted; it stays in your tab until you print or save a PDF locally.
 
 <p align="center">
   <a href="https://md2pdf.marcopontili.com" target="_blank" rel="noopener noreferrer">
@@ -23,6 +23,7 @@ This fork evolves the codebase independently: **Mermaid** in the preview, **rema
 - Convert Markdown to PDF via the browser print dialog
 - **100% offline**: works without internet after first load
 - **Client-only workflow**: no backend; Markdown is rendered and printed from your browser session
+- **Privacy-friendly**: conversion runs locally; nothing is sent to an app server for processing
 - Responsive UI with a **mobile-friendly** tabbed editor/preview on small screens
 - PWA support (installable, cache-first for repeat visits)
 - Custom styles for PDF output (GitHub-style markdown CSS)
@@ -42,7 +43,7 @@ This fork evolves the codebase independently: **Mermaid** in the preview, **rema
 
 ## Security
 
-- **Client-side only**: no backend; nothing is uploaded or stored on a server.
+- **Local-first / privacy**: Markdown and preview live in your browser; there is no backend that receives your document for conversion.
 - **No raw HTML in markdown**: the preview renders markdown only; raw HTML in `.md` is not executed, which prevents XSS from untrusted content.
 - **Strict file handling**: only `.md` files are accepted on import; content is read with the File API and never sent over the network.
 - **Security headers**: when served with Apache, the app uses safe defaults (e.g. `X-Content-Type-Options: nosniff`, no directory listing, blocked access to hidden and backup files). Optional headers (X-Frame-Options, Referrer-Policy) are documented in `public/.htaccess`.
