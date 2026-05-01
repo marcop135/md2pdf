@@ -40,7 +40,7 @@ const Header = ({ className }) => {
         <div className="menu">
           <UploadButton className="button upload" />
           <p className="button download primary" onClick={onTransform} tabIndex={0}>
-            <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
+            <FileEarmarkPdfFill size={20} aria-label="Export to PDF" />
             <span>Export to .pdf</span>
           </p>
           <a
@@ -50,7 +50,7 @@ const Header = ({ className }) => {
             rel="noopener noreferrer"
             aria-label="View source on GitHub"
           >
-            <Github size={18} aria-hidden />
+            <Github size={20} aria-hidden />
           </a>
         </div>
       </header>
@@ -67,27 +67,28 @@ export default styled(Header)`
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   user-select: none;
-  padding: 0 12px;
+  padding: 0 14px;
   font-family: inherit;
   color: #1f2328;
   background-color: #f6f8fa;
   border-bottom: 1px solid #d0d7de;
   display: flex;
   align-items: center;
-  height: 48px;
+  min-height: 56px;
+  -webkit-font-smoothing: antialiased;
 
   .project {
     font-weight: 600;
     font-size: 15px;
     letter-spacing: 0.2px;
-    margin: 5px;
+    margin: 0;
     flex-shrink: 0;
-    height: 20px;
+    line-height: 1.35;
 
     small {
       margin-left: 4px;
-      color: #6c757d;
-      font-weight: 400;
+      color: #656d76;
+      font-weight: 500;
     }
 
     @media (max-width: 420px) {
@@ -109,18 +110,19 @@ export default styled(Header)`
     }
 
     .button {
-      height: 32px;
-      min-width: 60px;
+      height: 36px;
+      min-width: 64px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-left: 8px;
-      padding: 0 12px;
-      font-size: 14px;
+      padding: 0 14px;
+      font-size: 15px;
       font-family: inherit;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.01em;
       border: 1px solid #d0d7de;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       background-color: #ffffff;
       color: #1f2328;
@@ -161,8 +163,8 @@ export default styled(Header)`
       }
 
       &.icon-only {
-        min-width: 34px;
-        width: 34px;
+        min-width: 38px;
+        width: 38px;
         padding: 0;
         margin-left: 8px;
       }

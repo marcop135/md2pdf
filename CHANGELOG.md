@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.8
+
+- style(ui): taller header toolbar, stronger action labels (\`font-weight: 600\`, 15px), larger icons; fix main layout \`calc\` to match bar height
+
 ## 2.9.7
 
 - fix(ui): GitHub toolbar control is icon-only and placed after Export

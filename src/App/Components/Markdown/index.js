@@ -144,7 +144,7 @@ export default styled(Markdown)`
   * {
     box-sizing: border-box;
   }
-  height: calc(100% - 40px);
+  height: calc(100% - 56px);
   display: flex;
   flex-direction: column;
 
