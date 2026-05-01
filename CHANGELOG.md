@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.5
+
+- refactor(copy): default onboarding uses short intro plus bullet list (easier to read in editor and preview)
+
 ## 2.9.4
 
 - feat(copy): default sample uses planned onboarding paragraph (GFM, Mermaid fences, export path)
