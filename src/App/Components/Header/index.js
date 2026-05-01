@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
-import { FileEarmarkPdfFill } from 'react-bootstrap-icons';
+import { FileEarmarkPdfFill, Github } from 'react-bootstrap-icons';
 import UploadButton from './Upload.js';
 import { waitForMermaidRenders } from '../Markdown/Previewer/Mermaid.jsx';
 import packageMeta from '../../../../package.json';
 
 const { version } = packageMeta;
+
+const SOURCE_REPO_URL = 'https://github.com/marcop135/md2pdf';
 
 const Header = ({ className }) => {
   const onTransform = async () => {
@@ -37,6 +39,16 @@ const Header = ({ className }) => {
 
         <div className="menu">
           <UploadButton className="button upload" />
+          <a
+            className="button github-link"
+            href={SOURCE_REPO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View source on GitHub"
+          >
+            <Github size={18} aria-hidden />
+            <span>GitHub</span>
+          </a>
           <p className="button download primary" onClick={onTransform} tabIndex={0}>
             <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
             <span>Export to .pdf</span>
@@ -91,6 +103,10 @@ export default styled(Header)`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    a.button {
+      text-decoration: none;
+    }
 
     .button {
       height: 32px;
