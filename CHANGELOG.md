@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.9.7
+
+- fix(ui): GitHub toolbar control is icon-only and placed after Export
+- style(ui): header actions use inherited app font-family and font-weight 500 on labels
+
 ## 2.9.6
 
 - feat(ui): GitHub icon in header linking to repository source (`target=_blank`)
