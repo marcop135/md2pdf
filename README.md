@@ -73,7 +73,9 @@ This fork evolves the codebase independently: **Mermaid** in the preview, **rema
    yarn start
    ```
 
-   Then open [http://localhost:5173](http://localhost:5173).
+   Then open [http://localhost:5173](http://localhost:5173); the terminal also prints the **`Local:`** URL.
+
+   If startup errors that **5173 is in use**, another process already bound that port (often a stray Vite terminal). Quit that session or kill the orphaned process so the app serves on **5173** consistently.
 
 4. Production build:
 

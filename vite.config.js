@@ -20,12 +20,25 @@ const treatJsFilesAsJsx = {
   },
 };
 
-export default defineConfig({
+const stripCspMetaInDev = {
+  name: 'strip-csp-meta-in-dev',
+  transformIndexHtml(html) {
+    // Production CSP stays in built index.html; Vite/HMR overlays can violate
+    // the meta policy in serve mode and leave an empty-looking page.
+    return html.replace(
+      /\s*<meta\s+http-equiv=["']Content-Security-Policy["'][^>]*\/>\s*/i,
+      '\n'
+    );
+  },
+};
+
+export default defineConfig(({ command }) => ({
   plugins: [
     treatJsFilesAsJsx,
     react({
       include: /\.[jt]sx?$/,
     }),
+    ...(command === 'serve' ? [stripCspMetaInDev] : []),
     VitePWA({
       injectRegister: 'auto',
       registerType: 'autoUpdate',
@@ -56,6 +69,10 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    port: 5173,
+    strictPort: true,
+  },
   optimizeDeps: {
     entries: ['index.html'],
     esbuildOptions: {
@@ -74,4 +91,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
