@@ -112,19 +112,18 @@ graph TD
 | `yarn test`    | Run tests                          |
 | `yarn preview` | Preview production build (`dist/`) |
 
-## Contributing
+## 🤝 Contributing
 
-1. Fork the repository.
-2. Create a branch: `git checkout -b feature/your-feature`.
-3. Commit: `git commit -m 'Describe your feature'`.
-4. Push: `git push origin feature/your-feature`.
-5. Open a pull request.
+Contributions welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to contribute.
 
-## Brand images
+- 🐛 Found a bug? [Open an issue](https://github.com/marcop135/md2pdf/issues)
+- 💡 Have a feature request? [Open an issue](https://github.com/marcop135/md2pdf/issues)
+- 📝 Want to contribute? [Read the contributing guide](./CONTRIBUTING.md)
 
-- [`docs/readme-hero.png`](docs/readme-hero.png) banner used at the top of this README (UI mockup of the editor and preview).
-- [`docs/github-social-preview.png`](docs/github-social-preview.png) for the repository share card on GitHub: **Settings → General → Social preview → Edit** and upload this file (wide image, suitable for repo links and Open Graph-style previews).
+## 👤 Author
 
-## License
+[Marco Pontili](https://marcopontili.com)
 
-MIT
+## 📝 License
+
+Licensed under the [MIT](./LICENSE) License.
