@@ -1,16 +1,8 @@
-# Markdown2PDF
+# Markdown to PDF
 
-Markdown to PDF in your browser. GFM, syntax highlighting, Mermaid diagrams. Offline-capable PWA — your Markdown never leaves the tab.
+Mobile-friendly Markdown to PDF in your browser with GFM, syntax highlighting, and Mermaid. Works offline; nothing is uploaded for conversion.
 
-<p align="center">
-  <a href="https://md2pdf.marcopontili.com" target="_blank" rel="noopener noreferrer">
-    <img
-      src="docs/readme-hero.png"
-      alt="Markdown to PDF: split-pane editor (left) and live preview (right) showing a rendered Mermaid flowchart"
-      style="max-width: 960px; width: 100%; height: auto; display: block; margin-inline: auto"
-    />
-  </a>
-</p>
+[![Markdown to PDF: split editor and live preview with Mermaid](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
 
 Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
 
@@ -18,7 +10,7 @@ Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
 
 This repository is derived from **[realdennis/md2pdf](https://github.com/realdennis/md2pdf)** (MIT). Thanks to Dennis for the original app.
 
-This fork evolves the codebase independently: **Mermaid** in the preview, **remark-gfm** + **highlight.js**, **vite-plugin-pwa** / offline caching, stricter sanitization paths, UX and PDF-oriented styling, CI build + deploy automation, tests, and ongoing maintenance.
+This fork is maintained on its own track: **Mermaid** preview, **GFM** + highlighted code, offline **PWA**, tighter sanitization, print-friendly styling, **CI/deploy**, and tests.
 
 ---
 
@@ -34,7 +26,6 @@ This fork evolves the codebase independently: **Mermaid** in the preview, **rema
 - Instant live preview and syntax-highlighted code blocks
 - Mermaid diagrams from fenced `mermaid` code blocks
 - Import `.md` files via button or drag-and-drop
-- Hidden from search engines (`noindex`, `robots.txt`)
 
 ## Tech Stack
 
@@ -75,7 +66,7 @@ This fork evolves the codebase independently: **Mermaid** in the preview, **rema
 
    Then open [http://localhost:5173](http://localhost:5173); the terminal also prints the **`Local:`** URL.
 
-   If startup errors that **5173 is in use**, another process already bound that port (often a stray Vite terminal). Quit that session or kill the orphaned process so the app serves on **5173** consistently.
+   If startup fails because **5173 is in use**, another process already bound that port (often a stray Vite terminal). Quit that session or kill the orphaned process so the app serves on **5173** consistently.
 
 4. Production build:
 
@@ -92,12 +83,32 @@ This fork evolves the codebase independently: **Mermaid** in the preview, **rema
 - Click **Export to .pdf** to open the print dialog; choose “Save as PDF” (or equivalent) to get a PDF.
 - Use **Import .md file** or drag-and-drop a `.md` file to load its content.
 
-Mermaid example:
+Mermaid example (marketing-site flow):
 
 ```mermaid
-graph TD
-  Start --> RenderedInPreview
-  RenderedInPreview --> IncludedInPDF
+flowchart TD
+  A[Channels] --> B[Landing]
+  B --> C[Hero + offer]
+  C --> D[Social proof]
+  D --> E{Intent}
+  E -->|Research| F[Inner pages]
+  E -->|Ready| G[CTA]
+  F --> G
+  G --> H[Convert]
+  H --> I[Activation]
+  I --> J[Retention]
+
+  classDef acquire fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+  classDef engage fill:#ede9fe,stroke:#7c3aed,color:#4c1d95
+  classDef decide fill:#fef3c7,stroke:#d97706,color:#78350f
+  classDef convert fill:#d1fae5,stroke:#059669,color:#065f46
+  classDef grow fill:#cffafe,stroke:#0891b2,color:#0e7490
+
+  class A,B acquire
+  class C,D,F engage
+  class E decide
+  class G,H convert
+  class I,J grow
 ```
 
 ## Project Structure
@@ -114,21 +125,23 @@ graph TD
 
 ## Scripts
 
-| Command        | Description                        |
-| -------------- | ---------------------------------- |
-| `yarn start`   | Development server                 |
-| `yarn build`   | Production build                   |
-| `yarn test`    | Run tests                          |
-| `yarn preview` | Preview production build (`dist/`) |
+| Command                 | Description                                              |
+| ----------------------- | -------------------------------------------------------- |
+| `yarn start`            | Development server                                       |
+| `yarn build`            | Production build                                         |
+| `yarn test`             | Run tests                                                |
+| `yarn preview`          | Preview production build (`dist/`)                       |
+| `yarn hero:sync`        | Copy `docs/readme-hero.png` to `public/static/og-img.png` |
+| `yarn changelog:lint`   | Validate `CHANGELOG.md` formatting                       |
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to contribute.
 
-- 🐛 Found a bug? [Open an issue](https://github.com/marcop135/md2pdf/issues)
-- 💡 Have a feature request? [Open an issue](https://github.com/marcop135/md2pdf/issues)
-- 📝 Want to contribute? [Read the contributing guide](./CONTRIBUTING.md)
+- Found a bug? [Open an issue](https://github.com/marcop135/md2pdf/issues)
+- Have a feature request? [Open an issue](https://github.com/marcop135/md2pdf/issues)
+- Want to contribute? [Read the contributing guide](./CONTRIBUTING.md)
 
-## 📝 License
+## License
 
 Licensed under the [MIT](./LICENSE) License.
