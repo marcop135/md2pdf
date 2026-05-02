@@ -1,13 +1,13 @@
 # Markdown2PDF
 
-Turn Markdown into a print-ready PDF in your browser: **live GitHub-flavored preview**, **syntax-highlighted** fenced code blocks, and **Mermaid** diagrams. **Responsive:** on phones and tablets you get a **tabbed Editor / Preview**; on wider screens, side-by-side panes. Works **offline as a PWA** after the first load; processing stays in the browser (no separate backend). **Privacy:** your Markdown is not uploaded somewhere to be converted; it stays in your tab until you print or save a PDF locally.
+Markdown to PDF in your browser. GFM, syntax highlighting, Mermaid diagrams. Offline-capable PWA — your Markdown never leaves the tab.
 
 <p align="center">
   <a href="https://md2pdf.marcopontili.com" target="_blank" rel="noopener noreferrer">
     <img
       src="docs/readme-hero.png"
-      alt="Markdown to PDF: centered app mockup—dark editor and light preview split, toolbar with Import, Export, and GitHub (no version chip)"
-      style="max-width: 720px; width: 100%; height: auto; display: block; margin-inline: auto"
+      alt="Markdown to PDF: split-pane editor (left) and live preview (right) showing a rendered Mermaid flowchart"
+      style="max-width: 960px; width: 100%; height: auto; display: block; margin-inline: auto"
     />
   </a>
 </p>
