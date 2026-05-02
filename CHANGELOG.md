@@ -1,94 +1,168 @@
 # Changelog
 
-## 2.9.12
+**Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
 
-- docs: shorten README intro to a single tagline
+## [2.9.13] - 2026-05-02
 
-## 2.9.11
+- **Docs:** Align README, `package.json` description, and HTML meta with GitHub About.
+- **Docs:** Add hero at `docs/readme-hero.png` and Open Graph at `public/static/og-img.png`.
+- **Docs:** Add `CLAUDE.md` with project conventions and switch README hero to plain markdown for cross-previewer rendering.
+- **Build:** Auto-sync the README hero to `public/static/og-img.png` on dev and build.
+- **Chore:** Narrow `.gitignore` so shared `.claude` config can be tracked.
+- **Chore:** Remove `.cursor/` rules; project conventions now live solely in `CLAUDE.md`.
 
-- feat(ui): show **`package.json` semver** in the header again (muted **v** tag; hidden on very narrow viewports)
+## [2.9.12] - 2026-05-02
 
-## 2.9.10
+- **Docs:** Shorten the README tagline.
 
-- refactor(ui): remove version badge from the header bar (fewer crumbs; semver stays in repo only)
-- docs: readme hero PNG replaced with centered window on neutral margin (reads less edge-stretched on wide layouts)
+## [2.9.11] - 2026-05-01
 
-## 2.9.9
+- **Enhance:** Show muted package version in the header, hidden on very narrow screens.
 
-- style(ui): bold product name **Markdown to PDF** in the header (toolbar actions stay regular weight)
-- copy: default onboarding uses **Markdown to PDF** casing to match the header
-- style(ui): default `system-ui, sans-serif`; preview body uses the same stack with emoji fallbacks
-- fix(dev): Vite `strictPort` on port 5173; strip strict CSP meta during `vite serve` so HMR is reliable
-- chore: `.vscode` task to run the Vite dev server from the editor
+## [2.9.10] - 2026-05-01
 
-## 2.9.8
+- **Style:** Remove the version badge from the header.
+- **Docs:** Crop the README hero image for wide layouts.
 
-- style(ui): taller header toolbar, stronger action labels (\`font-weight: 600\`, 15px), larger icons; fix main layout \`calc\` to match bar height
+## [2.9.9] - 2026-05-01
 
-## 2.9.7
+- **Style:** Bold the product name in the header and align onboarding casing.
+- **Style:** Use a system-ui stack and add emoji fallbacks in the preview.
+- **Chore:** Pin dev server to port 5173 and relax CSP meta during Vite serve.
+- **Chore:** Add a VS Code task to start the dev server.
 
-- fix(ui): GitHub toolbar control is icon-only and placed after Export
-- style(ui): header actions use inherited app font-family and font-weight 500 on labels
+## [2.9.8] - 2026-05-01
 
-## 2.9.6
+- **Style:** Taller toolbar, clearer action labels, larger icons, and matching header height.
 
-- feat(ui): GitHub icon in header linking to repository source (`target=_blank`)
+## [2.9.7] - 2026-05-01
 
-## 2.9.5
+- **Style:** Show the GitHub control as icon-only after Export.
 
-- refactor(copy): default onboarding uses short intro plus bullet list (easier to read in editor and preview)
+## [2.9.6] - 2026-05-01
 
-## 2.9.4
+- **Enhance:** Add a header link to the GitHub repository.
 
-- feat(copy): default sample uses planned onboarding paragraph (GFM, Mermaid fences, export path)
-- style(editor): slightly smaller monospace on screens ≤768px for comfortable wrapping
+## [2.9.5] - 2026-05-01
 
-## 2.9.3
+- **Enhance:** Shorten default onboarding text using a bullet list.
 
-- refactor(copy): clearer default onboarding: short intro plus bullet list (no cramped one-liners)
-- style(preview): roomier padding, calmer typography, safer wrapping so content does not clip
-- style(editor): slightly looser editor line-height for wrapped paragraphs
+## [2.9.4] - 2026-05-01
 
-## 2.9.2
+- **Enhance:** Refresh planned onboarding sample and shrink editor font below 768px width.
 
-- feat(copy): tighter default onboarding blurb (GFM, Mermaid fences, `.md` import, export flow)
-- fix(copy): repair product name typo in initial editor sample (`Markdown2DPF`)
-- chore: patch version bump
+## [2.9.3] - 2026-05-01
 
-## 2.9.1
+- **Enhance:** Clarify onboarding, preview padding and wrapping, and editor line height.
 
-- fix(mermaid): remove redundant DOMPurify pass that stripped all text labels from diagrams
-- fix(ui): set explicit font-weight on header buttons for consistent rendering
-- chore: remove `dompurify` dependency (Mermaid strict mode already sanitizes internally)
+## [2.9.2] - 2026-05-01
 
-## 2.9.0
+- **Enhance:** Tighten the default onboarding blurb.
+- **Enhance:** Add an accessible aria-label to the editor.
+- **Fix:** Fix the product name typo in the default sample.
 
-- chore: version bump
+## [2.9.1] - 2026-04-30
 
-## 2.8.0
+- **Fix:** Stop redundant sanitization from stripping Mermaid diagram labels.
+- **Style:** Align header button font-weight across the toolbar.
+- **Docs:** Add this changelog file.
+- **Chore:** Remove DOMPurify and rely on Mermaid strict-mode sanitization.
 
-- feat(ui): bootstrap-icons header + larger monospace editor
-- fix(test): make Mermaid tests resilient to mock/jsdom differences
-- fix(security): sanitize mermaid SVG with DOMPurify and validate upload extension
-- chore: remove stray root files and unused cross-env devDep
+## [2.9.0] - 2026-04-30
 
-## 2.7.5
+- **Fix:** Restore missing Mermaid diagram text after label regressions.
+- **Style:** Set explicit font-weight on header buttons for consistency.
+- **Chore:** Remove stray root files and unused cross-env from devDependencies (#16).
 
-- feat: `<style>` blocks render, fresh SVG favicon, fast cache invalidation
+## [2.8.0] - 2026-04-28
 
-## 2.7.4
+- **Fix:** Make Mermaid unit tests resilient to jsdom mocking differences.
+- **Style:** Adopt Bootstrap Icons in the header and widen the monospace editor.
 
-- fix(ci): upload to FTP root instead of /md2pdf.marcopontili.com/
+## [2.7.6] - 2026-04-28
 
-## 2.7.3
+- **Sec:** Sanitize Mermaid SVG output with DOMPurify and validate upload extensions.
 
-- feat(security+ci+repo): rehype-sanitize, PDF watermark, action bumps, untrack dist
+## [2.7.5] - 2026-04-27
 
-## 2.7.2
+- **Feat:** Support `<style>` in markdown, add an SVG favicon, and improve cache busting.
 
-- feat(privacy): block search engines and AI training crawlers
+## [2.7.4] - 2026-04-27
 
-## 2.7.1
+- **CI:** Upload production builds to the FTP site root.
 
-- chore(release): switch deploy trigger to main
-- feat(security): add Content-Security-Policy meta tag
+## [2.7.3] - 2026-04-25
+
+- **Feat:** Add rehype-sanitize, PDF watermark, bumped actions, and stop tracking dist.
+
+## [2.7.2] - 2026-04-25
+
+- **Feat:** Discourage search-engine indexing and AI training crawlers.
+
+## [2.7.1] - 2026-04-25
+
+- **Sec:** Add a Content-Security-Policy meta tag to the app shell.
+- **CI:** Switch production deploy to FTP and FTPS and retire the Node 16 workflow (#5, #6).
+- **Chore:** Bump runtime dependencies plus Vite and uuid to patched releases (#7, #8).
+- **Chore:** Point release deploy workflows at the main branch.
+
+## [2.7.0] - 2026-04-25
+
+- **Feat:** Render Mermaid diagrams in preview and exported PDF (#3).
+- **CI:** Publish GitHub Pages artifacts from the dist directory.
+
+## [2.6.3] - 2026-04-28
+
+- **CI:** Run deploy workflows against main instead of master.
+
+## [2.6.2] - 2026-04-14
+
+- **Chore:** Sync committed dist output with the preview HTML fix.
+
+## [2.6.1] - 2026-04-14
+
+- **Fix:** Render embedded HTML and tel links correctly in Markdown preview (#2).
+
+## [2.6.0] - 2026-04-03
+
+- **Chore:** Refresh branding, package the 2.6.0 release, and track dist for deploys.
+
+## [2.5.1] - 2026-04-03
+
+- **Fix:** Merge the Mermaid pie preview branch with chart rendering fixes.
+- **Docs:** Polish README copy and document security maintenance notes.
+- **Build:** Migrate the markdown pipeline off vulnerable dependency chains.
+- **Build:** Stabilize Vite JSX transforms after merge dependency drift.
+
+## [2.5.0] - 2026-03-08
+
+- **Style:** Ship a mobile-responsive shell layout.
+- **Chore:** Refresh npm dependencies.
+
+## [2.4.1] - 2026-02-09
+
+- **Style:** Force light-mode preview styling via github-markdown-css.
+
+## [2.4.0] - 2026-02-09
+
+- **Chore:** Upgrade the app to React 19 and refresh dependencies.
+
+## [2.2.1] - 2025-06-24
+
+- **Chore:** Cut the 2.2.1 tag as a maintenance snapshot.
+
+## [2.1.0] - 2025-04-23
+
+- **Fix:** Remove a typo from the Markdown preview output.
+
+## [2.0.0] - 2025-04-11
+
+- **Docs:** Refresh the README for the 2.0.0 release tag.
+
+## [1.0.0] - 2025-06-24
+
+- **Chore:** Create the 1.0.0 release tag on this fork.
+
+## [0.0.2] - 2025-06-24
+
+- **Chore:** Create the 0.0.2 package metadata tag.
