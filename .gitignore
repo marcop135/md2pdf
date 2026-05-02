@@ -1,6 +1,18 @@
 node_modules
+package-lock.json
 build/
 dist/
 coverage/
 yarn-error.log
-.claude/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Tool config: ignore personal/runtime, track shared config
+.claude/worktrees/
+.claude/settings.local.json
+
+# Build-generated assets (single source: docs/readme-hero.png)
+public/static/og-img.png
