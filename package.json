@@ -58,12 +58,17 @@
     "vitest": "^4.1.2"
   },
   "scripts": {
+    "prestart": "node scripts/sync-hero.mjs",
     "start": "vite",
+    "predev": "node scripts/sync-hero.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/sync-hero.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "changelog:lint": "node scripts/changelog-lint.mjs",
+    "hero:sync": "node scripts/sync-hero.mjs"
   },
   "resolutions": {
     "@rollup/plugin-terser": "^1.0.0",
