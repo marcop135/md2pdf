@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.12
+
+- docs: shorten README intro to a single tagline
+
 ## 2.9.11
 
 - feat(ui): show **`package.json` semver** in the header again (muted **v** tag; hidden on very narrow viewports)
