@@ -2,6 +2,15 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
 
+## [2.9.14] - 2026-05-04
+
+- **Enhance:** Generate 192/512 PNG and maskable PWA icons so Android installs render the proper logo.
+- **Fix:** Allow social-preview bots in `robots.txt` so shared links unfurl with og:title and og:image.
+- **Fix:** Hide mobile tab bar in print and force-print code highlighting and Mermaid colors.
+- **Style:** Drop the print-footer attribution line for cleaner exported PDFs.
+- **Docs:** Strip the baked-in version chip from the README hero so semvers don't rot.
+- **Docs:** Document PWA icon generation in `CLAUDE.md`.
+
 ## [2.9.13] - 2026-05-02
 
 - **Docs:** Align README, `package.json` description, and HTML meta with GitHub About.

@@ -16,3 +16,5 @@ yarn-error.log
 
 # Build-generated assets (single source: docs/readme-hero.png)
 public/static/og-img.png
+# PWA PNG icons rendered from public/favicon.svg + favicon-maskable.svg
+public/icons/

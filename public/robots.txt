@@ -1,8 +1,45 @@
 # md2pdf is a privacy-first, fully client-side tool.
 # We deliberately keep it out of search and AI-training indexes.
+# Social link-preview bots (WhatsApp, Slack, Telegram, Discord, etc.) are
+# allowed so shared links render the og:title / og:image instead of a host
+# interstitial. They are listed explicitly below.
 
 User-agent: *
 Disallow: /
+
+# Social link-preview / unfurl bots — allowed so shared links unfurl correctly.
+User-agent: WhatsApp
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: SkypeUriPreview
+Allow: /
+
+User-agent: Iframely
+Allow: /
 
 # Search engines (explicit, in case some don't honor the wildcard)
 User-agent: Googlebot
