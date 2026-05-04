@@ -2,6 +2,13 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
 
+## [2.9.15] - 2026-05-05
+
+- **Enhance:** Render dedicated 1200x630 og:image from `docs/og-img.svg` with a "Try it now" CTA, under 600 KB.
+- **Enhance:** Add `og:image:width`, `og:image:height`, `og:image:type`, and `og:image:alt` for better unfurl rendering.
+- **Style:** Tighten og:title to 55 chars and og:description to 134 chars to match social-preview optimums.
+- **Revert:** Restore `docs/readme-hero.png` to the un-stripped screenshot; og:image is now its own asset.
+
 ## [2.9.14] - 2026-05-04
 
 - **Enhance:** Generate 192/512 PNG and maskable PWA icons so Android installs render the proper logo.
