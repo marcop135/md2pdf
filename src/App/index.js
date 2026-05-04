@@ -29,14 +29,27 @@ export default styled(App)`
     .no-print * {
       display: none !important;
     }
+    /* Preserve syntax highlighting and Mermaid colors when printing. */
+    .preview.markdown-body,
+    .preview.markdown-body * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    /* Avoid orphaned headings / split code blocks. */
+    .preview.markdown-body h1,
+    .preview.markdown-body h2,
+    .preview.markdown-body h3 {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    .preview.markdown-body pre,
+    .preview.markdown-body table {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
   }
 
   @page {
-    margin: 18mm 14mm 22mm 14mm;
-    @bottom-center {
-      content: 'Generated with md2pdf.marcopontili.com · verify authenticity';
-      font: 9px/1.2 system-ui, sans-serif;
-      color: #999;
-    }
+    margin: 18mm 14mm 18mm 14mm;
   }
 `;

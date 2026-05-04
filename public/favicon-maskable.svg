@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>md2pdf</title>
+  <rect width="64" height="64" fill="#0d6efd"/>
+  <path d="M22 22h14l6 6v18H22z" fill="#ffffff" fill-opacity="0.96"/>
+  <path d="M36 22v6h6" stroke="#0d6efd" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+  <path d="M32 31v9m-3.5-3.5 3.5 3.5 3.5-3.5" stroke="#0d6efd" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
