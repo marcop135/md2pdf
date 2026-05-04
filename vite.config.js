@@ -44,7 +44,7 @@ export default defineConfig(({ command }) => ({
       registerType: 'autoUpdate',
       manifest: false,
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,txt,json}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,txt,json}'],
         // Take over open tabs immediately when a new SW activates and
         // skip the waiting phase so the next refresh always serves the
         // latest build.

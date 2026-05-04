@@ -63,6 +63,19 @@ The hero uses plain markdown image+link form (`[![alt](src)](url)`), with **no s
 
 `docs/readme-hero.png` is the single source of truth. `scripts/sync-hero.mjs` (run automatically on `yarn start` / `yarn dev` / `yarn build`, or manually via `yarn hero:sync`) copies it to `public/static/og-img.png` for social meta and the PWA. The destination is gitignored — to update, just replace the source and re-run dev/build.
 
+The hero must **not** show the toolbar version chip — semvers rot. The chip stays visible in the live app; if you re-shoot the hero, edit the chip out before saving over `docs/readme-hero.png`.
+
+## PWA icons
+
+PNG icons under `public/icons/` are **generated**, not hand-edited. Sources:
+
+- `public/favicon.svg` — full-bleed icon (rounded square; used for `purpose: any` in the manifest).
+- `public/favicon-maskable.svg` — same artwork with a generous safe-zone (~60% of canvas) for Android maskable cropping (`purpose: maskable`).
+
+`scripts/sync-icons.mjs` (run on `yarn start` / `yarn dev` / `yarn build`, or manually via `yarn icons:sync`) renders three PNGs into `public/icons/`: `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`. The destination folder is gitignored. PNGs are required because Android Firefox/Chrome/Brave do not always honor SVG manifest icons (Firefox falls back to a letter; Chromium can clip the SVG).
+
+To change the icon, edit the appropriate SVG source and re-run dev/build (or `yarn icons:sync`). Don't commit PNGs into the repo.
+
 ## Style and tooling
 
 - `.prettierrc` is the formatting source of truth.
