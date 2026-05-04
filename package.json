@@ -1,6 +1,6 @@
 {
   "name": "md2pdf",
-  "version": "2.9.13",
+  "version": "2.9.14",
   "description": "Mobile-friendly Markdown to PDF in your browser with GFM, syntax highlighting, and Mermaid. Works offline; nothing is uploaded for conversion. Fork of realdennis/md2pdf (MIT).",
   "keywords": [
     "markdown",
@@ -45,6 +45,7 @@
     "workbox-window": "^7.4.0"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/react-hooks": "^8.0.1",
@@ -58,17 +59,18 @@
     "vitest": "^4.1.2"
   },
   "scripts": {
-    "prestart": "node scripts/sync-hero.mjs",
+    "prestart": "node scripts/sync-hero.mjs && node scripts/sync-icons.mjs",
     "start": "vite",
-    "predev": "node scripts/sync-hero.mjs",
+    "predev": "node scripts/sync-hero.mjs && node scripts/sync-icons.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/sync-hero.mjs",
+    "prebuild": "node scripts/sync-hero.mjs && node scripts/sync-icons.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "changelog:lint": "node scripts/changelog-lint.mjs",
-    "hero:sync": "node scripts/sync-hero.mjs"
+    "hero:sync": "node scripts/sync-hero.mjs",
+    "icons:sync": "node scripts/sync-icons.mjs"
   },
   "resolutions": {
     "@rollup/plugin-terser": "^1.0.0",

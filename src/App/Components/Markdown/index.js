@@ -105,7 +105,7 @@ const Markdown = ({ className }) => {
   );
 };
 
-const TabBar = styled.div`
+const TabBar = styled.div.attrs({ className: 'no-print' })`
   flex-shrink: 0;
   display: flex;
   align-items: center;
