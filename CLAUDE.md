@@ -31,7 +31,7 @@ If `yarn start` fails because **5173 is already bound**, a previous Vite session
 - `src/App/Container/` — state via `nonaction` and hooks like `useIsMobile`, `useDrop`.
 - `src/App/Lib/` — small utilities (e.g. upload helper).
 - `public/.htaccess` — Apache security/caching headers used in production deploys.
-- `public/static/og-img.png` — must mirror `docs/readme-hero.png` so README, social meta, and deploy stay in sync.
+- `public/static/og-img.png` — generated 1200x630 social-preview image; rendered from `docs/og-img.svg` by `scripts/sync-hero.mjs`. Separate from the README hero.
 - `scripts/changelog-lint.mjs` — enforces the changelog format; do not bypass.
 
 ## Header toolbar conventions
@@ -61,9 +61,18 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 
 The hero uses plain markdown image+link form (`[![alt](src)](url)`), with **no surrounding `<div>` or `<p>` wrapper**. Markdown-inside-HTML rendering is inconsistent across local previewers (VS Code, JetBrains, etc.) even when GitHub handles it, so we keep it pure markdown.
 
-`docs/readme-hero.png` is the single source of truth. `scripts/sync-hero.mjs` (run automatically on `yarn start` / `yarn dev` / `yarn build`, or manually via `yarn hero:sync`) copies it to `public/static/og-img.png` for social meta and the PWA. The destination is gitignored — to update, just replace the source and re-run dev/build.
+`docs/readme-hero.png` is the README screenshot. It is referenced directly from the README and is **not** the social-preview image — those are separate assets with different aspect ratios and design constraints.
 
-The hero must **not** show the toolbar version chip — semvers rot. The chip stays visible in the live app; if you re-shoot the hero, edit the chip out before saving over `docs/readme-hero.png`.
+## Social preview (og:image)
+
+`docs/og-img.svg` is the source for the social-preview image. `scripts/sync-hero.mjs` (run on `yarn start` / `yarn dev` / `yarn build`, or manually via `yarn hero:sync`) renders it to `public/static/og-img.png` at **1200x630** (the Open Graph standard) so unfurls render correctly across WhatsApp, Slack, Twitter, LinkedIn, Discord, etc.
+
+Constraints:
+
+- **Dimensions:** 1200x630 (16:8.4 ratio that all major unfurl bots target).
+- **File size:** keep under **600 KB** — WhatsApp drops larger images.
+- **Must include a CTA** ("Try it now →") and the live URL.
+- The destination is gitignored; to update, edit `docs/og-img.svg` and re-run dev/build.
 
 ## PWA icons
 
