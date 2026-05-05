@@ -1,10 +1,15 @@
-// Renders docs/og-img.svg -> public/static/og-img.png at 1200x630 (the
-// Open Graph standard) so social link previews unfurl with the proper
-// dimensions and stay under WhatsApp's ~600KB unfurl ceiling.
+// Renders social preview SVGs to PNG.
 //
-// docs/readme-hero.png is the README screenshot (different aspect ratio,
-// version chip baked in). It is intentionally NOT used for og:image
-// anymore — they have separate purposes.
+//  - docs/og-img.svg          -> public/static/og-img.png  (1200x630, og:image)
+//  - docs/github-social.svg   -> docs/github-social-preview.png  (1280x640)
+//
+// The og:image (1200x630) is the Open Graph standard so unfurls render with
+// the proper dimensions and stay under WhatsApp's ~600KB unfurl ceiling.
+// The GitHub repo social preview is 1280x640 (no CTA — context already gives
+// the user the "click to view repo" affordance).
+//
+// docs/readme-hero.png is the README screenshot (different aspect ratio).
+// It is intentionally NOT used for og:image — separate purposes.
 import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -12,28 +17,41 @@ import { Resvg } from '@resvg/resvg-js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
-const srcPath = join(root, 'docs/og-img.svg');
-const outPath = join(root, 'public/static/og-img.png');
 
-if (!existsSync(srcPath)) {
-  console.error(`sync-hero: source missing: ${srcPath}`);
-  process.exit(1);
+const targets = [
+  {
+    src: join(root, 'docs/og-img.svg'),
+    out: join(root, 'public/static/og-img.png'),
+    width: 1200,
+  },
+  {
+    src: join(root, 'docs/github-social.svg'),
+    out: join(root, 'docs/github-social-preview.png'),
+    width: 1280,
+  },
+];
+
+for (const { src, out, width } of targets) {
+  if (!existsSync(src)) {
+    console.error(`sync-hero: source missing: ${src}`);
+    process.exit(1);
+  }
+
+  const srcMtime = statSync(src).mtimeMs;
+  const outMtime = existsSync(out) ? statSync(out).mtimeMs : 0;
+  if (outMtime >= srcMtime) {
+    console.log(`sync-hero: ${out} already up to date`);
+    continue;
+  }
+
+  mkdirSync(dirname(out), { recursive: true });
+  const svg = readFileSync(src);
+  const png = new Resvg(svg, {
+    fitTo: { mode: 'width', value: width },
+    background: '#0d6efd',
+  }).render().asPng();
+
+  writeFileSync(out, png);
+  const kb = (png.length / 1024).toFixed(1);
+  console.log(`sync-hero: rendered ${src} -> ${out} (${kb} KB)`);
 }
-
-const srcMtime = statSync(srcPath).mtimeMs;
-const outMtime = existsSync(outPath) ? statSync(outPath).mtimeMs : 0;
-if (outMtime >= srcMtime) {
-  console.log('sync-hero: og-img already up to date');
-  process.exit(0);
-}
-
-mkdirSync(dirname(outPath), { recursive: true });
-const svg = readFileSync(srcPath);
-const png = new Resvg(svg, {
-  fitTo: { mode: 'width', value: 1200 },
-  background: '#0d6efd',
-}).render().asPng();
-
-writeFileSync(outPath, png);
-const kb = (png.length / 1024).toFixed(1);
-console.log(`sync-hero: rendered docs/og-img.svg -> public/static/og-img.png (${kb} KB)`);

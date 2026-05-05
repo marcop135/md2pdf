@@ -71,16 +71,17 @@ const Markdown = ({ className }) => {
             </TabButton>
           </TabBar>
           <MobilePanel>
-            {activeTab === 'editor' && (
+            <MobilePane $hidden={activeTab !== 'editor'} className="no-print">
               <Editor
-                className="no-print"
                 text={text}
                 width={width}
                 setText={setText}
                 isMobile
               />
-            )}
-            {activeTab === 'preview' && <Previewer>{text}</Previewer>}
+            </MobilePane>
+            <MobilePane $hidden={activeTab !== 'preview'}>
+              <Previewer>{text}</Previewer>
+            </MobilePane>
           </MobilePanel>
         </>
       ) : (
@@ -138,6 +139,22 @@ const MobilePanel = styled.div`
   min-height: 0;
   display: flex;
   flex-direction: column;
+`;
+
+// Mobile keeps both panes mounted so the Previewer is always in the DOM.
+// The Header's print handler queries `.preview` and triggers window.print();
+// if the Previewer were unmounted on the editor tab, mobile print would
+// produce a blank page. Hiding via screen-only `display: none` keeps the
+// pane in the print tree while staying invisible on screen.
+const MobilePane = styled.div`
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  @media screen {
+    ${({ $hidden }) => $hidden && 'display: none;'}
+  }
 `;
 
 export default styled(Markdown)`
