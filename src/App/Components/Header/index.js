@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Helmet } from 'react-helmet';
 import { FileEarmarkPdfFill, Github } from 'react-bootstrap-icons';
 import UploadButton from './Upload.js';
 import { waitForMermaidRenders } from '../Markdown/Previewer/Mermaid.jsx';
@@ -28,34 +27,29 @@ const Header = ({ className }) => {
   };
 
   return (
-    <>
-      <Helmet>
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
-      <header className={className + ' no-print'}>
-        <p className="project">
-          <strong className="brand-title">Markdown to PDF</strong>{' '}
-          <small className="version-chip">v{version}</small>
-        </p>
+    <header className={className + ' no-print'}>
+      <p className="project">
+        <strong className="brand-title">Markdown to PDF</strong>{' '}
+        <small className="version-chip">v{version}</small>
+      </p>
 
-        <div className="menu">
-          <UploadButton className="button upload" />
-          <p className="button download primary" onClick={onTransform} tabIndex={0}>
-            <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
-            <span>Export to .pdf</span>
-          </p>
-          <a
-            className="button github-link icon-only"
-            href={SOURCE_REPO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View source on GitHub"
-          >
-            <Github size={18} aria-hidden />
-          </a>
-        </div>
-      </header>
-    </>
+      <div className="menu">
+        <UploadButton className="button upload" />
+        <p className="button download primary" onClick={onTransform} tabIndex={0}>
+          <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
+          <span>Export to .pdf</span>
+        </p>
+        <a
+          className="button github-link icon-only"
+          href={SOURCE_REPO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View source on GitHub"
+        >
+          <Github size={18} aria-hidden />
+        </a>
+      </div>
+    </header>
   );
 };
 

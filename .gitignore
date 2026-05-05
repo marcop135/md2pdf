@@ -14,7 +14,8 @@ yarn-error.log
 .claude/worktrees/
 .claude/settings.local.json
 
-# Build-generated assets (single source: docs/readme-hero.png)
+# Build-generated og:image (rendered from docs/og-img.svg by scripts/sync-hero.mjs)
 public/static/og-img.png
-# PWA PNG icons rendered from public/favicon.svg + favicon-maskable.svg
+# PWA PNG icons + favicon.ico rendered from public/favicon.svg + favicon-maskable.svg
 public/icons/
+public/favicon.ico
