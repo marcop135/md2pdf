@@ -2,6 +2,18 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
 
+## [2.9.17] - 2026-05-05
+
+- **Enhance:** Bigger headline, subtitle, and bullets in the GitHub social preview; drop the secondary copy line.
+- **Enhance:** Wrap the app in a top-level ErrorBoundary so a crash shows a recoverable Reload screen instead of white.
+- **Fix:** `react-helmet` no longer downgrades the static `robots` meta at runtime; the stronger HTML tag stays intact.
+- **Sec:** Document the actual preview pipeline (`rehype-raw` then `rehype-sanitize`) and lock the ordering invariant.
+- **Style:** Add `public/favicon.ico` for legacy clients and unfurl bots that still GET it from the root.
+- **Docs:** Fix stale `.gitignore` comment and the `yarn hero:sync` row in the README scripts table.
+- **Build:** Migrate `transformWithEsbuild` to `transformWithOxc` and drop deprecated `optimizeDeps.esbuildOptions`.
+- **Build:** Remove unmaintained `react-helmet` from dependencies; meta tags live in the static HTML head.
+- **Chore:** Add a regression test asserting the Previewer stays mounted from the editor tab on mobile.
+
 ## [2.9.16] - 2026-05-05
 
 - **Enhance:** Tighten title and meta description across head and `og:*`/`twitter:*` tags for stronger social previews.

@@ -1,4 +1,4 @@
-import { defineConfig, transformWithEsbuild } from 'vite';
+import { defineConfig, transformWithOxc } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
@@ -13,9 +13,9 @@ const treatJsFilesAsJsx = {
       return null;
     }
 
-    return transformWithEsbuild(code, id, {
-      loader: 'jsx',
-      jsx: 'automatic',
+    return transformWithOxc(code, id, {
+      lang: 'jsx',
+      jsx: { runtime: 'automatic' },
     });
   },
 };
@@ -75,11 +75,6 @@ export default defineConfig(({ command }) => ({
   },
   optimizeDeps: {
     entries: ['index.html'],
-    esbuildOptions: {
-      loader: {
-        '.js': 'jsx',
-      },
-    },
   },
   test: {
     environment: 'jsdom',
