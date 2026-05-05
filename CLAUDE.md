@@ -10,7 +10,7 @@ Hard scope rules (from `CONTRIBUTING.md`):
 
 - **No server-side uploads or backends.** This is offline-first; conversion runs in the browser. Do not propose features that require a server for conversion.
 - **Bundle size matters.** Don't add dependencies without a clear offline-first benefit.
-- **No raw HTML execution in markdown preview** (XSS surface) — the renderer pipeline is `react-markdown` + `remark-gfm` + `rehype-sanitize`. Don't introduce `rehype-raw` into the preview path without explicit sign-off.
+- **Renderer pipeline:** `react-markdown` + `remark-gfm` + `rehype-raw` + `rehype-sanitize`, in that order. `rehype-raw` parses the raw HTML embedded in `.md` files (so users can include `<style>` blocks etc.); `rehype-sanitize` runs **after** it and strips anything not on the allow-list in `Preview.js#sanitizeSchema`. **Never reorder these two** (sanitize must run last) and **never remove `rehype-sanitize`** — that's the XSS guarantee.
 
 ## Common commands
 

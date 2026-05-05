@@ -1,6 +1,6 @@
 {
   "name": "md2pdf",
-  "version": "2.9.16",
+  "version": "2.9.17",
   "description": "Mobile-friendly Markdown to PDF in your browser with GFM, syntax highlighting, and Mermaid. Works offline; nothing is uploaded for conversion. Fork of realdennis/md2pdf (MIT).",
   "keywords": [
     "markdown",
@@ -35,7 +35,6 @@
     "react": "^19.2.4",
     "react-bootstrap-icons": "^1.11.6",
     "react-dom": "^19.2.4",
-    "react-helmet": "^6.1.0",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",

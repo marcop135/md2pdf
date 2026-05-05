@@ -131,7 +131,7 @@ flowchart TD
 | `yarn build`            | Production build                                         |
 | `yarn test`             | Run tests                                                |
 | `yarn preview`          | Preview production build (`dist/`)                       |
-| `yarn hero:sync`        | Copy `docs/readme-hero.png` to `public/static/og-img.png` |
+| `yarn hero:sync`        | Render social-preview SVGs to PNGs (og:image + GitHub repo card) |
 | `yarn changelog:lint`   | Validate `CHANGELOG.md` formatting                       |
 
 ## Contributing

@@ -3,14 +3,17 @@ import styled from 'styled-components';
 import { Header, Markdown } from './Components';
 import { Provider } from 'nonaction';
 import { TextContainer } from './Container';
+import ErrorBoundary from './ErrorBoundary.js';
 const App = ({ className }) => {
   return (
-    <div className={className} id="md2pdf-app">
-      <Provider inject={[TextContainer]}>
-        <Header />
-        <Markdown />
-      </Provider>
-    </div>
+    <ErrorBoundary>
+      <div className={className} id="md2pdf-app">
+        <Provider inject={[TextContainer]}>
+          <Header />
+          <Markdown />
+        </Provider>
+      </div>
+    </ErrorBoundary>
   );
 };
 export default styled(App)`
