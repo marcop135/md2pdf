@@ -71,7 +71,7 @@ Constraints:
 
 - **Dimensions:** 1200x630 (16:8.4 ratio that all major unfurl bots target).
 - **File size:** keep under **600 KB** — WhatsApp drops larger images.
-- **Must include a CTA** ("Try it now →") and the live URL.
+- **No CTA pill or URL on the artwork** — keep the unfurl composition clean; the platform shows the link separately.
 - The destination is gitignored; to update, edit `docs/og-img.svg` and re-run dev/build.
 
 ## PWA icons

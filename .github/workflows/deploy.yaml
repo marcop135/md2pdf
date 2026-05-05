@@ -32,9 +32,13 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Sync dist via FTP
+      - name: Sync dist via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
+          # FTP_HOST must match the CN/SAN on the FTPS server's TLS cert
+          # (typically the bare shared-hosting hostname), not a vanity FQDN
+          # like ftp.example.com. With `security: strict`, hostname mismatch
+          # aborts the deploy.
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME_PRODUCTION }}
           password: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
@@ -42,5 +46,5 @@ jobs:
           local-dir: ./dist/
           protocol: ftps
           port: 21
-          security: loose
+          security: strict
           dangerous-clean-slate: false

@@ -2,6 +2,17 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
 
+## [2.9.16] - 2026-05-05
+
+- **Enhance:** Tighten title and meta description across head and `og:*`/`twitter:*` tags for stronger social previews.
+- **Enhance:** Refresh og:image: bigger card, lighter headline weight, secondary works-offline line, no CTA pill.
+- **Fix:** Mobile `Export to .pdf` now renders the preview correctly when triggered from the editor tab.
+- **Style:** Add 1280x640 GitHub social preview rendered from `docs/github-social.svg` without the CTA pill.
+- **Docs:** Remove baked-in version chip from `docs/readme-hero.png` so semvers do not rot.
+- **Build:** Extend `scripts/sync-hero.mjs` to render both og:image and GitHub social preview from SVG sources.
+- **Sec:** Tighten production deploy from `security: loose` to `security: strict` so the TLS cert is now validated.
+- **Chore:** Document that `FTP_HOST` must be the host's shared FTPS hostname so strict TLS hostname verification passes.
+
 ## [2.9.15] - 2026-05-05
 
 - **Enhance:** Render dedicated 1200x630 og:image from `docs/og-img.svg` with a "Try it now" CTA, under 600 KB.
