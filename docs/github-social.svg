@@ -29,28 +29,25 @@
   </g>
 
   <g font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
-    <text x="80" y="175" font-size="66" font-weight="700" fill="#ffffff" letter-spacing="-1">
+    <text x="80" y="175" font-size="70" font-weight="700" fill="#ffffff" letter-spacing="-1">
       Markdown to PDF
     </text>
-    <text x="80" y="227" font-size="34" font-weight="500" fill="#dbeafe" letter-spacing="-0.3">
+    <text x="80" y="227" font-size="38" font-weight="500" fill="#f0f0f0" letter-spacing="-0.3">
       Write. Preview. Export PDF.
-    </text>
-    <text x="80" y="260" font-size="22" font-weight="500" fill="#c5d9f7" letter-spacing="-0.1">
-      Works offline · Mobile-friendly
     </text>
 
     <g transform="translate(80, 300)">
       <g transform="translate(0, 0)">
         <circle cx="10" cy="12" r="5" fill="#ffffff"/>
-        <text x="36" y="22" font-size="30" font-weight="500" fill="#ffffff">GFM + syntax-highlighted code</text>
+        <text x="36" y="22" font-size="33" font-weight="500" fill="#dbeafe">GFM + syntax-highlighted code</text>
       </g>
       <g transform="translate(0, 58)">
         <circle cx="10" cy="12" r="5" fill="#ffffff"/>
-        <text x="36" y="22" font-size="30" font-weight="500" fill="#ffffff">Mermaid diagrams + live preview</text>
+        <text x="36" y="22" font-size="33" font-weight="500" fill="#dbeafe">Mermaid diagrams + live preview</text>
       </g>
       <g transform="translate(0, 116)">
         <circle cx="10" cy="12" r="5" fill="#ffffff"/>
-        <text x="36" y="22" font-size="30" font-weight="500" fill="#ffffff">Print to PDF — nothing uploaded</text>
+        <text x="36" y="22" font-size="33" font-weight="500" fill="#dbeafe">Print to PDF — nothing uploaded</text>
       </g>
     </g>
   </g>
