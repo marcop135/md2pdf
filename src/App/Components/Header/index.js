@@ -35,10 +35,15 @@ const Header = ({ className }) => {
 
       <div className="menu">
         <UploadButton className="button upload" />
-        <p className="button download primary" onClick={onTransform} tabIndex={0}>
-          <FileEarmarkPdfFill size={18} aria-label="Export to PDF" />
+        <button
+          type="button"
+          className="button download primary"
+          onClick={onTransform}
+          aria-label="Export to .pdf"
+        >
+          <FileEarmarkPdfFill size={18} aria-hidden />
           <span>Export to .pdf</span>
-        </p>
+        </button>
         <a
           className="button github-link icon-only"
           href={SOURCE_REPO_URL}
