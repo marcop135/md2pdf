@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
 
+## [2.9.18] - 2026-05-06
+
+- **Fix:** Keep `.preview` mounted during the lazy Preview chunk load so cold-load Export and the mobile print path work.
+- **Style:** Render the Export action as a real `<button>` with `aria-label` so screen readers announce it as a control.
+- **Chore:** Drop `.claude/launch.json`; debugger config is no longer tracked in the repo.
+
 ## [2.9.17] - 2026-05-05
 
 - **Enhance:** Bigger headline, subtitle, and bullets in the GitHub social preview; drop the secondary copy line.

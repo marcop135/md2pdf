@@ -63,11 +63,11 @@ const LazyPreview = lazy(() => import('./Preview.js'));
 export default ({ source, children }) => {
   return (
     <ErrorBoundary>
-      <Suspense fallback={<Loading duration={0.5} />}>
-        <Wrapper className="preview  markdown-body">
+      <Wrapper className="preview  markdown-body">
+        <Suspense fallback={<Loading duration={0.5} />}>
           <LazyPreview source={source || children} />
-        </Wrapper>
-      </Suspense>
+        </Suspense>
+      </Wrapper>
     </ErrorBoundary>
   );
 };
