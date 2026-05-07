@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
 
+## [2.9.19] - 2026-05-08
+
+- **Enhance:** Cover the browser's Ctrl/Cmd+P shortcut by deriving the PDF title via `beforeprint`/`afterprint` listeners.
+- **Enhance:** Fall back to `h2..h6` when no `h1` exists and strip filesystem-illegal characters from the suggested filename.
+- **Fix:** Print dialog now uses the first heading as the suggested PDF filename (was always silently reset before printing).
+
 ## [2.9.18] - 2026-05-06
 
 - **Fix:** Keep `.preview` mounted during the lazy Preview chunk load so cold-load Export and the mobile print path work.
