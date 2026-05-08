@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { FileEarmarkPdfFill, Github } from 'react-bootstrap-icons';
 import UploadButton from './Upload.js';
@@ -9,52 +9,10 @@ const { version } = packageMeta;
 
 const SOURCE_REPO_URL = 'https://github.com/marcop135/md2pdf';
 
-const sanitizeForFilename = (raw) =>
-  (raw ?? '')
-    .replace(/[\\/:*?"<>|\r\n\t]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-const derivePrintTitle = () => {
-  const previewEl = document.querySelector('.preview');
-  if (!previewEl) return '';
-  const headingEl =
-    previewEl.querySelector('h1') ??
-    previewEl.querySelector('h2, h3, h4, h5, h6');
-  if (!headingEl) return '';
-  return sanitizeForFilename(headingEl.textContent);
-};
-
 const Header = ({ className }) => {
-  // Swap document.title around print so the first heading becomes the suggested
-  // PDF filename. Listening for beforeprint/afterprint covers both the Export
-  // button and the browser's native Ctrl/Cmd+P shortcut.
-  useEffect(() => {
-    let savedTitle = null;
-
-    const handleBeforePrint = () => {
-      const candidate = derivePrintTitle();
-      if (!candidate) return;
-      savedTitle = document.title;
-      document.title = candidate;
-    };
-
-    const handleAfterPrint = () => {
-      if (savedTitle !== null) {
-        document.title = savedTitle;
-        savedTitle = null;
-      }
-    };
-
-    window.addEventListener('beforeprint', handleBeforePrint);
-    window.addEventListener('afterprint', handleAfterPrint);
-    return () => {
-      window.removeEventListener('beforeprint', handleBeforePrint);
-      window.removeEventListener('afterprint', handleAfterPrint);
-      if (savedTitle !== null) document.title = savedTitle;
-    };
-  }, []);
-
+  // The Markdown component keeps document.title synced to the first heading
+  // so that any print path (this button, Ctrl/Cmd+P, browser menu, Android
+  // share-to-PDF) reads the right value. See src/App/Lib/printTitle.js.
   const onTransform = async () => {
     await waitForMermaidRenders();
     window.print();
