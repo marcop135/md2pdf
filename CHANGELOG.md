@@ -1,6 +1,10 @@
 # Changelog
 
-**Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
+**Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
+
+## [2.9.20] - 2026-05-08
+
+- **Docs:** Tighten changelog header legend and rewrite vague historical entries in an action-first style.
 
 ## [2.9.19] - 2026-05-08
 
@@ -212,8 +216,12 @@
 
 ## [1.0.0] - 2025-06-24
 
-- **Chore:** Create the 1.0.0 release tag on this fork.
+- **Chore:** Stamp the 1.0.0 baseline tag for the fork; no code change versus 0.0.2.
 
 ## [0.0.2] - 2025-06-24
 
-- **Chore:** Create the 0.0.2 package metadata tag.
+- **Chore:** Stamp the 0.0.2 metadata baseline tag for the fork; no code change versus the upstream snapshot.
+
+---
+
+Forked from [realdennis/md2pdf](https://github.com/realdennis/md2pdf) (MIT) in April 2025; releases above cover this fork only.
