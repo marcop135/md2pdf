@@ -1,0 +1,38 @@
+export const DEFAULT_TITLE = 'Markdown to PDF';
+
+export const sanitizeForFilename = (raw) =>
+  (raw ?? '')
+    .replace(/[\\/:*?"<>|\r\n\t]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const stripInlineMarkdown = (text) =>
+  text
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/_([^_]+)_/g, '$1')
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/<\/?[^>]+>/g, '');
+
+const ATX = /^[ \t]{0,3}#{1,6}[ \t]+(.+?)[ \t]*#*[ \t]*$/m;
+const SETEXT = /^[ \t]{0,3}([^\n]+?)[ \t]*\n[ \t]{0,3}=+[ \t]*$/m;
+const HTML_HEADING = /<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/i;
+
+export const extractHeading = (markdown) => {
+  if (typeof markdown !== 'string' || markdown.length === 0) return '';
+
+  const candidates = [];
+  const atx = markdown.match(ATX);
+  if (atx) candidates.push({ index: atx.index, text: atx[1] });
+  const setext = markdown.match(SETEXT);
+  if (setext) candidates.push({ index: setext.index, text: setext[1] });
+  const html = markdown.match(HTML_HEADING);
+  if (html) candidates.push({ index: html.index, text: html[1] });
+
+  if (candidates.length === 0) return '';
+  candidates.sort((a, b) => a.index - b.index);
+  return sanitizeForFilename(stripInlineMarkdown(candidates[0].text));
+};

@@ -2,6 +2,10 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.9.21] - 2026-05-08
+
+- **Fix:** Sync `document.title` to the first heading on edit so Android Firefox and Brave save PDFs with a real name.
+
 ## [2.9.20] - 2026-05-08
 
 - **Docs:** Tighten changelog header legend and rewrite vague historical entries in an action-first style.

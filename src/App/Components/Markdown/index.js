@@ -8,6 +8,7 @@ import DragBar from './DragBar.js';
 import 'github-markdown-css';
 import useDrop from '../../Container/Hooks/useDrop.js';
 import useIsMobile from '../../Container/Hooks/useIsMobile.js';
+import { DEFAULT_TITLE, extractHeading } from '../../Lib/printTitle.js';
 
 const Markdown = ({ className }) => {
   const [text, setText] = useProvided(TextContainer);
@@ -33,6 +34,23 @@ const Markdown = ({ className }) => {
       document.removeEventListener('touchcancel', handleTouchEnd);
     };
   }, []);
+
+  // Keep document.title synced to the first heading so the suggested PDF
+  // filename is correct on every print path. Android Firefox does not fire
+  // beforeprint reliably (saves as tempXXXX) and Chromium-on-Android reads
+  // document.title at window.print() invocation, so a beforeprint swap can
+  // arrive too late. A continuous sync makes the title correct in advance.
+  useEffect(() => {
+    const originalTitle = document.title;
+    return () => {
+      document.title = originalTitle;
+    };
+  }, []);
+
+  useEffect(() => {
+    const heading = extractHeading(text);
+    document.title = heading || DEFAULT_TITLE;
+  }, [text]);
 
   const handleMouseMove = (e) => {
     if (!isDrag) return;
