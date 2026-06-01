@@ -5,7 +5,6 @@ import { TextContainer } from '../../Container';
 import Previewer from './Previewer';
 import Editor from './Editor';
 import DragBar from './DragBar.js';
-import 'github-markdown-css';
 import useDrop from '../../Container/Hooks/useDrop.js';
 import useIsMobile from '../../Container/Hooks/useIsMobile.js';
 import { DEFAULT_TITLE, extractHeading } from '../../Lib/printTitle.js';
