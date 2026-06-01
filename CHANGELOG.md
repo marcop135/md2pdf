@@ -2,6 +2,19 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.10.0] - 2026-06-01
+
+- **Feat:** Add light/dark/system theme toggle with system-preference detection and localStorage persistence under `md2pdf-theme`.
+- **Enhance:** Switch CodeMirror between `oneDark` and `githubLight` with a visible caret and a vivid markdown HighlightStyle.
+- **Enhance:** Re-initialize Mermaid between `default` and `dark` and swap github-markdown and highlight.js CSS per resolved theme.
+- **Enhance:** Convert header, preview, tab bar, and drag bar surfaces to theme tokens that flip with the toggle.
+- **Enhance:** Give Import and Export icon buttons wider 64px padding between 360 and 600px and tighten to 34px below 360.
+- **Fix:** Stop overriding Mermaid label `line-height` and `white-space` so node text no longer clips vertically.
+- **Fix:** Force the print output to light via `@media print` rules so dark-mode users still export a light PDF.
+- **Fix:** Drop the global force-light preview rules in `styles.css` that masked the dark variant.
+- **Style:** Reduce editor and gutter font sizes for a denser markdown view.
+- **Build:** Pre-include `mermaid` and the lazy renderer deps in Vite `optimizeDeps.include` to fix broken chunk URLs on re-bundle.
+
 ## [2.9.21] - 2026-05-08
 
 - **Fix:** Sync `document.title` to the first heading on edit so Android Firefox and Brave save PDFs with a real name.

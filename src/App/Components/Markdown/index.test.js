@@ -4,6 +4,7 @@ import { vi } from 'vitest';
 import { Provider } from 'nonaction';
 import { TextContainer } from '../../Container';
 import useIsMobile from '../../Container/Hooks/useIsMobile.js';
+import { ThemeProvider } from '../../Theme';
 import Markdown from './index.js';
 
 vi.mock('../../Container/Hooks/useIsMobile.js', () => ({
@@ -14,9 +15,13 @@ vi.mock('../../Container/Hooks/useIsMobile.js', () => ({
 const renderMarkdown = () =>
   render(
     React.createElement(
-      Provider,
-      { inject: [TextContainer] },
-      React.createElement(Markdown),
+      ThemeProvider,
+      null,
+      React.createElement(
+        Provider,
+        { inject: [TextContainer] },
+        React.createElement(Markdown),
+      ),
     ),
   );
 
