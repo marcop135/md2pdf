@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mermaid from 'mermaid';
+import { useThemeMode } from '../../../Theme';
 
-let initialized = false;
-const initMermaid = () => {
-  if (initialized) return;
+let currentTheme = null;
+const initMermaid = (theme) => {
+  if (currentTheme === theme) return;
   mermaid.initialize({
     startOnLoad: false,
     securityLevel: 'strict',
-    theme: 'default',
+    theme,
     suppressErrorRendering: true,
   });
-  initialized = true;
+  currentTheme = theme;
 };
 
 const pending = new Set();
@@ -28,12 +29,14 @@ export const waitForMermaidRenders = async () => {
 let uid = 0;
 
 export default function Mermaid({ code }) {
+  const { resolved } = useThemeMode();
+  const mermaidTheme = resolved === 'dark' ? 'dark' : 'default';
   const [svg, setSvg] = useState('');
   const [failed, setFailed] = useState(false);
   const idRef = useRef(`mermaid-${++uid}`);
 
   useEffect(() => {
-    initMermaid();
+    initMermaid(mermaidTheme);
     let cancelled = false;
     setFailed(false);
 
@@ -65,7 +68,7 @@ export default function Mermaid({ code }) {
       cancelled = true;
       resolveCommitted();
     };
-  }, [code]);
+  }, [code, mermaidTheme]);
 
   if (failed) {
     return (

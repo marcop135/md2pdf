@@ -30,8 +30,8 @@ const UnwrappedDragBar = ({ className, setDrag, setStartX, currentWidth }) => {
 export default styled(UnwrappedDragBar)`
   width: ${width + 'px'};
   flex-shrink: 0;
-  background-color: ${(props) =>
-    props.isDrag ? '#0984e3' : 'rgb(233,233,233)'};
+  background-color: ${({ isDrag, theme }) =>
+    isDrag ? theme.colors.dragBarActive : theme.colors.dragBarIdle};
   height: 100%;
   color: white;
   text-align: center;

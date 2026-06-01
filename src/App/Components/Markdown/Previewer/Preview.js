@@ -5,7 +5,6 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 import Mermaid from './Mermaid.jsx';
-import 'highlight.js/styles/github.css';
 
 const layoutTags = [
   'table',
