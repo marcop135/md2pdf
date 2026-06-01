@@ -13,14 +13,15 @@ export default styled(Editor)`
   flex-shrink: 0;
   height: 100%;
   width: 50%;
-  color: rgb(204, 204, 204);
+  color: ${({ theme }) =>
+    theme.mode === 'dark' ? 'rgb(204, 204, 204)' : '#1f2328'};
 
   @media (max-width: 768px) {
     width: 100% !important;
     flex-shrink: 1;
 
     .cm-scroller {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 `;

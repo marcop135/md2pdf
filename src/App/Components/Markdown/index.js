@@ -131,8 +131,8 @@ const TabBar = styled.div.attrs({ className: 'no-print' })`
   height: 36px;
   padding: 0 8px;
   gap: 4px;
-  background-color: rgb(233, 233, 233);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: ${({ theme }) => theme.colors.tabBarBg};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.tabBarBorder};
 `;
 
 const TabButton = styled.button`
@@ -142,13 +142,15 @@ const TabButton = styled.button`
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
-  background-color: ${(props) => (props.$active ? '#0984e3' : 'transparent')};
-  color: ${(props) => (props.$active ? '#fff' : '#333')};
+  background-color: ${({ $active, theme }) =>
+    $active ? theme.colors.tabActiveBg : 'transparent'};
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.tabActiveText : theme.colors.tabInactiveText};
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: ${(props) =>
-      props.$active ? '#0984e3' : 'rgba(0,0,0,0.06)'};
+    background-color: ${({ $active, theme }) =>
+      $active ? theme.colors.tabActiveBg : theme.colors.tabInactiveHoverBg};
   }
 `;
 

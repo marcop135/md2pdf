@@ -75,6 +75,15 @@ export default defineConfig(({ command }) => ({
   },
   optimizeDeps: {
     entries: ['index.html'],
+    include: [
+      'mermaid',
+      'react-markdown',
+      'remark-gfm',
+      'rehype-raw',
+      'rehype-sanitize',
+      'highlight.js',
+      '@uiw/codemirror-theme-github',
+    ],
   },
   test: {
     environment: 'jsdom',
