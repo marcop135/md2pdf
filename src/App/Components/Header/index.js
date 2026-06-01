@@ -179,17 +179,15 @@ export default styled(Header)`
         border-color 0.15s ease,
         transform 0.15s ease;
 
-      @media (max-width: 359px) {
+      @media (max-width: 600px) {
         svg + span {
           display: none;
         }
         svg {
           margin: auto !important;
         }
-        min-width: 28px;
-        width: 28px;
+        min-width: 34px;
         padding: 0;
-        margin-left: 3px;
       }
 
       &:hover {
@@ -219,12 +217,6 @@ export default styled(Header)`
         width: 34px;
         padding: 0;
         margin-left: 8px;
-
-        @media (max-width: 359px) {
-          min-width: 28px;
-          width: 28px;
-          margin-left: 3px;
-        }
       }
 
       &.icon-only svg {
