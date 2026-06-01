@@ -15,6 +15,10 @@
 - **Style:** Reduce editor and gutter font sizes for a denser markdown view.
 - **Build:** Pre-include `mermaid` and the lazy renderer deps in Vite `optimizeDeps.include` to fix broken chunk URLs on re-bundle.
 
+## [2.9.22] - 2026-05-10
+
+- **Fix:** Load the light-only `github-markdown-css` variant so tables stay readable when the OS is in dark mode.
+
 ## [2.9.21] - 2026-05-08
 
 - **Fix:** Sync `document.title` to the first heading on edit so Android Firefox and Brave save PDFs with a real name.
