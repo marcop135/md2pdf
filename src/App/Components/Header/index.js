@@ -186,7 +186,14 @@ export default styled(Header)`
         svg {
           margin: auto !important;
         }
+        min-width: 64px;
+        width: 64px;
+        padding: 0 22px;
+      }
+
+      @media (max-width: 360px) {
         min-width: 34px;
+        width: 34px;
         padding: 0;
       }
 
