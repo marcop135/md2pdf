@@ -22,6 +22,14 @@ const Wrapper = styled.div`
     color: ${({ theme }) => theme.colors.previewText} !important;
   }
 
+  @media print {
+    &,
+    .markdown-body {
+      background-color: #ffffff !important;
+      color: #24292e !important;
+    }
+  }
+
   pre,
   code,
   table {
@@ -68,16 +76,22 @@ export default ({ source, children }) => {
   const { resolved } = useThemeMode();
   return (
     <ErrorBoundary>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: resolved === 'dark' ? darkMarkdownCss : lightMarkdownCss,
-        }}
-      />
-      <style
-        dangerouslySetInnerHTML={{
-          __html: resolved === 'dark' ? darkHljsCss : lightHljsCss,
-        }}
-      />
+      <style dangerouslySetInnerHTML={{ __html: lightMarkdownCss }} />
+      {resolved === 'dark' && (
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `@media screen { ${darkMarkdownCss} }`,
+          }}
+        />
+      )}
+      <style dangerouslySetInnerHTML={{ __html: lightHljsCss }} />
+      {resolved === 'dark' && (
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `@media screen { ${darkHljsCss} }`,
+          }}
+        />
+      )}
       <Wrapper className="preview  markdown-body">
         <Suspense fallback={<Loading duration={0.5} />}>
           <LazyPreview source={source || children} />
