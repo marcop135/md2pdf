@@ -55,13 +55,13 @@ This fork is maintained on its own track: **Mermaid** preview, **GFM** + highlig
 2. Install dependencies:
 
    ```bash
-   yarn install
+   npm install
    ```
 
 3. Run locally:
 
    ```bash
-   yarn start
+   npm start
    ```
 
    Then open [http://localhost:5173](http://localhost:5173); the terminal also prints the **`Local:`** URL.
@@ -71,7 +71,7 @@ This fork is maintained on its own track: **Mermaid** preview, **GFM** + highlig
 4. Production build:
 
    ```bash
-   yarn build
+   npm run build
    ```
 
    Output is in the `dist/` folder. Serve it with any static host (e.g. Apache, Nginx, or a static hosting service). For Apache, copy `public/.htaccess` to the root of the deployed site for recommended security and caching.
@@ -121,18 +121,18 @@ flowchart TD
 | `src/App/Container/`  | State (nonaction), hooks (e.g. useIsMobile, useDrop)       |
 | `src/App/Lib/`        | Utilities (e.g. upload helper)                             |
 | `public/`             | Static assets (`.htaccess`, `manifest.json`, `robots.txt`) |
-| `dist/`               | Production output (after `yarn build`)                     |
+| `dist/`               | Production output (after `npm run build`)                  |
 
 ## Scripts
 
 | Command                 | Description                                              |
 | ----------------------- | -------------------------------------------------------- |
-| `yarn start`            | Development server                                       |
-| `yarn build`            | Production build                                         |
-| `yarn test`             | Run tests                                                |
-| `yarn preview`          | Preview production build (`dist/`)                       |
-| `yarn hero:sync`        | Render social-preview SVGs to PNGs (og:image + GitHub repo card) |
-| `yarn changelog:lint`   | Validate `CHANGELOG.md` formatting                       |
+| `npm start`             | Development server                                       |
+| `npm run build`         | Production build                                         |
+| `npm test`              | Run tests                                                |
+| `npm run preview`       | Preview production build (`dist/`)                       |
+| `npm run hero:sync`     | Render social-preview SVGs to PNGs (og:image + GitHub repo card) |
+| `npm run changelog:lint`| Validate `CHANGELOG.md` formatting                       |
 
 ## Contributing
 
