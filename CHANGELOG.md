@@ -2,6 +2,10 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.10.5] - 2026-06-02
+
+- **Chore:** Add `dependabot.yml` so npm and github-actions updates arrive as weekly grouped PRs after the npm migration.
+
 ## [2.10.4] - 2026-06-02
 
 - **Sec:** Bump mermaid to 11.15.0, fixing CSS/HTML injection and Gantt-chart infinite-loop DoS advisories.
