@@ -24,7 +24,13 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # `npm install`, not `npm ci`: the committed package-lock.json is
+        # generated on Windows and only records the host platform's optional
+        # native binaries (rolldown bindings). `npm ci` would skip the
+        # linux-x64-gnu binding the runner needs (npm/cli#4828), breaking
+        # vite/rolldown at test time. `npm install` fetches the right binary
+        # for this platform.
+        run: npm install --no-audit --no-fund
 
       - name: Run tests
         run: npm test

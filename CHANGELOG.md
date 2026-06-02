@@ -6,7 +6,7 @@
 
 - **Build:** Migrate from yarn to npm: replace `resolutions` with `overrides`, add a `package-lock.json`, and pin npm via `packageManager`.
 - **Build:** Drop the unused React-16-only `@testing-library/react-hooks` dep and set `legacy-peer-deps` for stale React peer ranges.
-- **CI:** Switch the deploy workflow to `npm ci` / `npm run build` with npm caching.
+- **CI:** Switch the deploy workflow to `npm install` / `npm run build` with npm caching.
 - **Docs:** Update README, CONTRIBUTING, and CLAUDE command tables to npm scripts.
 
 ## [2.10.1] - 2026-06-02
