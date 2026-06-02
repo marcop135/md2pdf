@@ -23,13 +23,10 @@ export default (props) => {
       }
       const reader = new FileReader();
       reader.onload = (loadEvent) => {
-        if (loadEvent.target.readyState !== 2) return;
-        if (loadEvent.target.error) {
-          alert('Error while reading file');
-          return;
-        }
-        const content = loadEvent.target.result;
-        setText(content);
+        setText(loadEvent.target.result);
+      };
+      reader.onerror = () => {
+        alert('Error while reading file');
       };
       reader.readAsText(file);
       e.target.value = '';

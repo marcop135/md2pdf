@@ -4,9 +4,8 @@ const width = 15;
 
 const UnwrappedDragBar = ({ className, setDrag, setStartX, currentWidth }) => {
   const dragStart = (e) => {
-    const { nativeEvent } = e;
-    const offsetX = nativeEvent.offsetX;
-    setStartX(offsetX);
+    const pageX = e.nativeEvent.pageX;
+    setStartX(pageX - (currentWidth ?? 0));
   };
 
   const handleTouchStart = (e) => {
