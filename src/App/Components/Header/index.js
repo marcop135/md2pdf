@@ -36,8 +36,11 @@ const Header = ({ className }) => {
   // so that any print path (this button, Ctrl/Cmd+P, browser menu, Android
   // share-to-PDF) reads the right value. See src/App/Lib/printTitle.js.
   const onTransform = async () => {
-    await waitForMermaidRenders();
-    window.print();
+    try {
+      await waitForMermaidRenders();
+    } finally {
+      window.print();
+    }
   };
 
   return (

@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function useDrop(ref, onLoad = () => {}) {
   const [uploading, setUploading] = useState(false);
   const [isOver, setOver] = useState(false);
+  // In-flight guard read/written synchronously so a fresh closure isn't
+  // needed; keeps `uploading`/`isOver` out of the effect deps so listeners
+  // aren't torn down and re-added on every dragover during a drag.
+  const uploadingRef = useRef(false);
   const stopDefault = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -24,6 +28,11 @@ function useDrop(ref, onLoad = () => {}) {
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
+    const finishUpload = () => {
+      uploadingRef.current = false;
+      setUploading(false);
+    };
+
     const uploadHandler = (files) => {
       if (
         files &&
@@ -31,15 +40,18 @@ function useDrop(ref, onLoad = () => {}) {
         files[0].name &&
         /\.(md)$/i.test(files[0].name) &&
         files[0].size <= MAX_FILE_SIZE &&
-        !uploading
+        !uploadingRef.current
       ) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          setUploading(false);
+          finishUpload();
           onLoad(e.target.result);
         };
-        reader.readAsText(files[0]);
+        reader.onerror = finishUpload;
+        reader.onabort = finishUpload;
+        uploadingRef.current = true;
         setUploading(true);
+        reader.readAsText(files[0]);
       }
     };
     const target = ref.current;
@@ -54,7 +66,7 @@ function useDrop(ref, onLoad = () => {}) {
       target.removeEventListener('dragleave', dragLeaveHandler, true);
       target.removeEventListener('drop', dropHandler, true);
     };
-  }, [ref, onLoad, uploading, isOver]);
+  }, [ref, onLoad]);
   return [uploading, isOver];
 }
 

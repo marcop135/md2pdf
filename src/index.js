@@ -18,4 +18,4 @@ window.addEventListener('beforeunload', (e) => {
 
 const root = createRoot(rootElement);
 root.render(React.createElement(App));
-serviceWorkerRegistration.register();
+serviceWorkerRegistration.register().catch(() => {});
