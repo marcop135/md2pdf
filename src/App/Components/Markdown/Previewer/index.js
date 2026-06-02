@@ -8,6 +8,8 @@ import darkMarkdownCss from 'github-markdown-css/github-markdown-dark.css?raw';
 import lightHljsCss from 'highlight.js/styles/github.css?raw';
 import darkHljsCss from 'highlight.js/styles/github-dark.css?raw';
 const Wrapper = styled.div`
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
