@@ -74,6 +74,13 @@ export default defineConfig(({ command }) => ({
     strictPort: true,
   },
   optimizeDeps: {
+    // Vite 8's Rolldown dependency scanner parses `.js` as plain JS and chokes
+    // on the JSX in our `src/**/*.js` files (the treat-js-as-jsx plugin only
+    // runs in the main transform pipeline, not the pre-bundle scan). Tell the
+    // scanner to load `.js` as JSX so `vite`/`vite optimize` don't fail.
+    rolldownOptions: {
+      moduleTypes: { '.js': 'jsx' },
+    },
     entries: ['index.html'],
     include: [
       'mermaid',

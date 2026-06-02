@@ -5,6 +5,7 @@
 ## [2.10.1] - 2026-06-02
 
 - **Fix:** Fill the mobile preview pane and theme the body so dark mode no longer leaves a light strip below content.
+- **Build:** Tell Vite's Rolldown dep scanner to load `.js` as JSX so `yarn start` no longer fails pre-bundling.
 
 ## [2.10.0] - 2026-06-01
 
