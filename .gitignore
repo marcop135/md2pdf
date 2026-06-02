@@ -1,9 +1,8 @@
 node_modules
-package-lock.json
 build/
 dist/
 coverage/
-yarn-error.log
+npm-debug.log*
 
 # Environment / secrets
 .env

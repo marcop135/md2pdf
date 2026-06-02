@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "yarn: start (Vite dev server)",
+      "label": "npm: start (Vite dev server)",
       "type": "shell",
-      "command": "yarn start",
+      "command": "npm start",
       "options": {
         "cwd": "${workspaceFolder}"
       },
