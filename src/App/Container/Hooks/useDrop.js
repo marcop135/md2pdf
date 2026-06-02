@@ -38,7 +38,7 @@ function useDrop(ref, onLoad = () => {}) {
         files &&
         files[0] &&
         files[0].name &&
-        /\.(md)$/i.test(files[0].name) &&
+        /\.(md|markdown|mdown|mkd)$/i.test(files[0].name) &&
         files[0].size <= MAX_FILE_SIZE &&
         !uploadingRef.current
       ) {

@@ -11,8 +11,8 @@ export default (props) => {
     const files = e.currentTarget.files;
     if (files.length > 0) {
       const file = files[0];
-      if (!/\.(md)$/i.test(file.name)) {
-        alert('Only .md files are allowed.');
+      if (!/\.(md|markdown|mdown|mkd)$/i.test(file.name)) {
+        alert('Only Markdown files are allowed.');
         e.target.value = '';
         return;
       }
@@ -39,7 +39,7 @@ export default (props) => {
         type="file"
         style={{ display: 'none' }}
         onChange={onChange}
-        accept=".md"
+        accept=".md,.markdown,.mdown,.mkd"
       />
       <label
         htmlFor="mdFile"

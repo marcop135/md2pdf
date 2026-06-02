@@ -96,6 +96,31 @@ const highlight = (str, lang) => {
   return '';
 };
 
+// hljs emits only <span class="hljs-*"> wrappers around HTML-escaped text.
+// That output is injected via dangerouslySetInnerHTML, i.e. *after*
+// rehype-sanitize has already run, so re-filter it down to span+class to keep
+// "sanitize is the last line" true for the syntax-highlight path too.
+export const sanitizeHighlightHtml = (html) => {
+  if (typeof document === 'undefined') return '';
+  const template = document.createElement('template');
+  template.innerHTML = html;
+  const walk = (parent) => {
+    Array.from(parent.childNodes).forEach((node) => {
+      if (node.nodeType !== 1) return;
+      if (node.tagName !== 'SPAN') {
+        parent.replaceChild(document.createTextNode(node.textContent), node);
+        return;
+      }
+      Array.from(node.attributes).forEach((attr) => {
+        if (attr.name !== 'class') node.removeAttribute(attr.name);
+      });
+      walk(node);
+    });
+  };
+  walk(template.content);
+  return template.innerHTML;
+};
+
 /** react-markdown's defaultUrlTransform drops `tel:` (CV contact rows); keep it. */
 const urlTransform = (value) => {
   const v = String(value || '').trim();
@@ -139,7 +164,7 @@ export default ({ source, children }) => {
         <code
           className={className}
           dangerouslySetInnerHTML={{
-            __html: highlight(trimmedCode, match[1]),
+            __html: sanitizeHighlightHtml(highlight(trimmedCode, match[1])),
           }}
         />
       );

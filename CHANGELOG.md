@@ -2,6 +2,16 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.10.6] - 2026-06-02
+
+- **Enhance:** Accept `.markdown`, `.mdown`, and `.mkd` files on import, not just `.md`.
+- **Fix:** Failed or aborted file reads no longer lock out imports or fail silently.
+- **Fix:** Dragging the divider no longer snaps the editor pane by up to 15px.
+- **Fix:** Re-clamp the editor pane width on window resize so it cannot overflow.
+- **Fix:** Keep `snake_case` underscores in the heading used as the suggested PDF filename.
+- **Fix:** Print proceeds even when Mermaid rendering rejects, and async rejections are handled.
+- **Sec:** Sanitize syntax-highlight output before injection so it cannot bypass the markdown sanitizer.
+
 ## [2.10.5] - 2026-06-02
 
 - **Chore:** Add `dependabot.yml` so npm and github-actions updates arrive as weekly grouped PRs after the npm migration.

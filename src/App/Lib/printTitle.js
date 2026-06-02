@@ -11,8 +11,10 @@ const stripInlineMarkdown = (text) =>
     .replace(/`([^`]+)`/g, '$1')
     .replace(/\*\*([^*]+)\*\*/g, '$1')
     .replace(/\*([^*]+)\*/g, '$1')
-    .replace(/__([^_]+)__/g, '$1')
-    .replace(/_([^_]+)_/g, '$1')
+    // Underscores only mark emphasis when not intraword (CommonMark), so the
+    // boundary guards keep snake_case identifiers in headings intact.
+    .replace(/(^|[^\w])__([^_]+)__(?!\w)/g, '$1$2')
+    .replace(/(^|[^\w])_([^_]+)_(?!\w)/g, '$1$2')
     .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
     .replace(/<\/?[^>]+>/g, '');
