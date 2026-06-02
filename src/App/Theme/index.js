@@ -6,7 +6,27 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { ThemeProvider as SCThemeProvider } from 'styled-components';
+import {
+  ThemeProvider as SCThemeProvider,
+  createGlobalStyle,
+} from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  html,
+  body {
+    background-color: ${({ theme }) => theme.colors.appBg};
+    color: ${({ theme }) => theme.colors.appText};
+    color-scheme: ${({ theme }) => theme.mode};
+  }
+
+  @media print {
+    html,
+    body {
+      background-color: #ffffff;
+      color: #24292e;
+    }
+  }
+`;
 
 const STORAGE_KEY = 'md2pdf-theme';
 const MODES = ['system', 'light', 'dark'];
@@ -137,7 +157,10 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeModeContext.Provider value={ctx}>
-      <SCThemeProvider theme={theme}>{children}</SCThemeProvider>
+      <SCThemeProvider theme={theme}>
+        <GlobalStyle />
+        {children}
+      </SCThemeProvider>
     </ThemeModeContext.Provider>
   );
 };

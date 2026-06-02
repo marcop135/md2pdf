@@ -2,6 +2,10 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.10.1] - 2026-06-02
+
+- **Fix:** Fill the mobile preview pane and theme the body so dark mode no longer leaves a light strip below content.
+
 ## [2.10.0] - 2026-06-01
 
 - **Feat:** Add light/dark/system theme toggle with system-preference detection and localStorage persistence under `md2pdf-theme`.
