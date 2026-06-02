@@ -2,6 +2,11 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.10.4] - 2026-06-02
+
+- **Sec:** Bump mermaid to 11.15.0, fixing CSS/HTML injection and Gantt-chart infinite-loop DoS advisories.
+- **Sec:** Patch transitive fast-uri, `@babel/plugin-transform-modules-systemjs`, and brace-expansion advisories via npm audit fix.
+
 ## [2.10.3] - 2026-06-02
 
 - **Style:** Collapse Import and Export buttons to icon-only squares at `≤355px` instead of `≤360px` for a tighter header.
