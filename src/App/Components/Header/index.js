@@ -191,7 +191,7 @@ export default styled(Header)`
         padding: 0 22px;
       }
 
-      @media (max-width: 360px) {
+      @media (max-width: 355px) {
         min-width: 34px;
         width: 34px;
         padding: 0;
