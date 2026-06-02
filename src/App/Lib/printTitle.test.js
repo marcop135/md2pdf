@@ -72,6 +72,14 @@ describe('extractHeading', () => {
     expect(extractHeading('# foo/bar:baz?')).toBe('foo bar baz');
   });
 
+  test('keeps intraword underscores in snake_case headings', () => {
+    expect(extractHeading('# my_snake_case_var')).toBe('my_snake_case_var');
+  });
+
+  test('still strips underscore emphasis at word boundaries', () => {
+    expect(extractHeading('# _italic_ word')).toBe('italic word');
+  });
+
   test('returns empty string when no heading found', () => {
     expect(extractHeading('just prose, nothing else')).toBe('');
   });

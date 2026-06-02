@@ -22,6 +22,17 @@ const Markdown = ({ className }) => {
   const isMobile = useIsMobile();
 
   useEffect(() => {
+    // The editor pane is flex-shrink:0 with a pixel width, so shrinking the
+    // window would otherwise push the divider and preview off-screen. Clamp
+    // the stored width down (never up) to leave room for the preview.
+    const handleResize = () => {
+      setWidth((w) => Math.min(w, Math.max(200, window.innerWidth - 200)));
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     const handleMouseUp = () => setDrag(false);
     const handleTouchEnd = () => setDrag(false);
     document.addEventListener('mouseup', handleMouseUp);
