@@ -2,6 +2,10 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.10.3] - 2026-06-02
+
+- **Style:** Collapse Import and Export buttons to icon-only squares at `≤355px` instead of `≤360px` for a tighter header.
+
 ## [2.10.2] - 2026-06-02
 
 - **Build:** Migrate from yarn to npm: replace `resolutions` with `overrides`, add a `package-lock.json`, and pin npm via `packageManager`.
