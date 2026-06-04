@@ -1,8 +1,15 @@
 {
+  "id": "/",
   "name": "Markdown to PDF",
   "short_name": "md2pdf",
-  "start_url": "/index.html",
+  "description": "Convert Markdown to PDF in your browser with GFM, syntax highlighting, and Mermaid. Mobile-friendly, works offline, nothing uploaded.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "any",
+  "categories": ["productivity", "utilities"],
   "background_color": "#0d6efd",
   "theme_color": "#0d6efd",
   "icons": [
