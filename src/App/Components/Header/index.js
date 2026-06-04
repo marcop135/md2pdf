@@ -205,8 +205,20 @@ export default styled(Header)`
         border-color: ${({ theme }) => theme.colors.buttonHoverBorder};
       }
 
+      &:focus-visible {
+        outline: 2px solid ${({ theme }) => theme.colors.focusRing};
+        outline-offset: 2px;
+      }
+
       &:active {
         transform: scale(0.97);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+        &:active {
+          transform: none;
+        }
       }
 
       &.primary svg {

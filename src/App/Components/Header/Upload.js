@@ -34,27 +34,29 @@ export default (props) => {
   };
   return (
     <p {...props} style={{ position: 'relative' }}>
+      {/* The file input stays keyboard-focusable but visually hidden (not
+          display:none, which removes it from the tab order). It is sized to
+          fill the control so a pointer click anywhere still opens the picker;
+          the parent gets a focus ring via :focus-within. */}
       <input
         id="mdFile"
         type="file"
-        style={{ display: 'none' }}
-        onChange={onChange}
-        accept=".md,.markdown,.mdown,.mkd"
-      />
-      <label
-        htmlFor="mdFile"
+        aria-label="Import .md file"
         style={{
           position: 'absolute',
-          opacity: 0,
           top: 0,
           left: 0,
-          right: 0,
-          bottom: 0,
+          width: '100%',
+          height: '100%',
+          opacity: 0,
+          margin: 0,
           zIndex: 2,
           cursor: 'pointer',
         }}
+        onChange={onChange}
+        accept=".md,.markdown,.mdown,.mkd"
       />
-      <FileEarmarkArrowUpFill size={18} aria-label="Import .md file" />
+      <FileEarmarkArrowUpFill size={18} aria-hidden />
       <span>Import .md file</span>
     </p>
   );

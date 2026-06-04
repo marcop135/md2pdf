@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import EditArea from './EditArea.js';
 import Mirror from './MirrorEditor.js';
 const Editor = ({ className, text, setText, width, isMobile }) => {
   return (

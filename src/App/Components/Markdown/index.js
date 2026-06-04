@@ -18,6 +18,27 @@ const Markdown = ({ className }) => {
   );
   const [activeTab, setActiveTab] = useState('editor');
   const markdownRef = useRef(null);
+  const editorTabRef = useRef(null);
+  const previewTabRef = useRef(null);
+
+  // Arrow-key roving between the two tabs (WAI-ARIA tabs pattern).
+  const handleTabKeyDown = (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const next = activeTab === 'editor' ? 'preview' : 'editor';
+      setActiveTab(next);
+      const ref = next === 'editor' ? editorTabRef : previewTabRef;
+      ref.current?.focus();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      setActiveTab('editor');
+      editorTabRef.current?.focus();
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      setActiveTab('preview');
+      previewTabRef.current?.focus();
+    }
+  };
   const [uploading, isOver] = useDrop(markdownRef, setText);
   const isMobile = useIsMobile();
 
@@ -84,22 +105,44 @@ const Markdown = ({ className }) => {
     >
       {isMobile ? (
         <>
-          <TabBar>
+          <TabBar role="tablist" aria-label="Editor and preview">
             <TabButton
+              ref={editorTabRef}
+              id="tab-editor"
+              type="button"
+              role="tab"
+              aria-selected={activeTab === 'editor'}
+              aria-controls="panel-editor"
+              tabIndex={activeTab === 'editor' ? 0 : -1}
               $active={activeTab === 'editor'}
               onClick={() => setActiveTab('editor')}
+              onKeyDown={handleTabKeyDown}
             >
               Editor
             </TabButton>
             <TabButton
+              ref={previewTabRef}
+              id="tab-preview"
+              type="button"
+              role="tab"
+              aria-selected={activeTab === 'preview'}
+              aria-controls="panel-preview"
+              tabIndex={activeTab === 'preview' ? 0 : -1}
               $active={activeTab === 'preview'}
               onClick={() => setActiveTab('preview')}
+              onKeyDown={handleTabKeyDown}
             >
               Preview
             </TabButton>
           </TabBar>
           <MobilePanel>
-            <MobilePane $hidden={activeTab !== 'editor'} className="no-print">
+            <MobilePane
+              id="panel-editor"
+              role="tabpanel"
+              aria-labelledby="tab-editor"
+              $hidden={activeTab !== 'editor'}
+              className="no-print"
+            >
               <Editor
                 text={text}
                 width={width}
@@ -107,7 +150,12 @@ const Markdown = ({ className }) => {
                 isMobile
               />
             </MobilePane>
-            <MobilePane $hidden={activeTab !== 'preview'}>
+            <MobilePane
+              id="panel-preview"
+              role="tabpanel"
+              aria-labelledby="tab-preview"
+              $hidden={activeTab !== 'preview'}
+            >
               <Previewer>{text}</Previewer>
             </MobilePane>
           </MobilePanel>
@@ -161,6 +209,15 @@ const TabButton = styled.button`
   &:hover {
     background-color: ${({ $active, theme }) =>
       $active ? theme.colors.tabActiveBg : theme.colors.tabInactiveHoverBg};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.focusRing};
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
 

@@ -87,6 +87,34 @@ PNG icons under `public/icons/` are **generated**, not hand-edited. Sources:
 
 To change the icon, edit the appropriate SVG source and re-run dev/build (or `npm run icons:sync`). Don't commit PNGs into the repo.
 
+## Build chunking and lazy loading
+
+`vite.config.js` defines `build.rollupOptions.output.manualChunks` that splits heavy vendors into their own content-hashed chunks: `react` (react/react-dom/scheduler), `codemirror` (@codemirror/@uiw/@lezer/codemirror), `highlight` (highlight.js), and `markdown` (react-markdown + the remark/rehype/micromark/unified stack). This keeps the initial entry chunk small.
+
+- **Mermaid is intentionally NOT in `manualChunks`.** It is dynamically imported in [`Mermaid.jsx`](src/App/Components/Markdown/Previewer/Mermaid.jsx) (`import('mermaid')`) and self-splits its diagram engines into many small chunks. Forcing it into one manual chunk coalesces those into a single >2 MB file that exceeds workbox's default `maximumFileSizeToCacheInBytes` (2 MiB) and **fails the build**. Leave mermaid out of the chunk rules.
+- The `waitForMermaidRenders()` export in `Mermaid.jsx` is imported by the Header's print handler; keep it exported. Because mermaid is dynamically imported, the Header no longer pulls the mermaid engine into the entry bundle.
+- All emitted chunks match the PWA precache glob (`**/*.js`), so offline support holds. If you add a vendor that produces a single chunk >2 MB, either let it self-split or raise `workbox.maximumFileSizeToCacheInBytes`.
+- `public/.htaccess` caches hashed `assets/*` as `immutable, max-age=31536000`; `index.html` / `sw.js` / `workbox-*.js` / `manifest.json` stay `no-cache`. Don't give entry points long-lived caching.
+
+## Accessibility conventions
+
+- The mobile/tablet (≤768px) Editor/Preview switcher in [`Markdown/index.js`](src/App/Components/Markdown/index.js) is a real ARIA tablist: `role="tablist"` on the bar, `role="tab"` + `aria-selected` + roving `tabIndex` + arrow/Home/End key nav on each tab, and `role="tabpanel"` + `aria-labelledby` on the panes. Keep this markup when editing the tabs; both panes stay mounted (print needs the Previewer in the DOM, hidden via screen-only `display:none`).
+- Interactive controls use `:focus-visible` outlines driven by the `focusRing` theme token (`src/App/Theme/index.js`: `#0969da` light, `#58a6ff` dark). Don't strip focus outlines.
+- The Upload control ([`Upload.js`](src/App/Components/Header/Upload.js)) is a visually-hidden but **keyboard-focusable** file `<input>` (absolute, `opacity:0`, in tab order), not `display:none`. Keep it focusable; `styles.css` gives `.button.upload:focus-within` a ring.
+- Theme colors are tuned to WCAG 2.1 AA; the light active-tab blue is `#0969da` (white label 5.19:1). Re-check contrast before changing palette values.
+- `prefers-reduced-motion` disables tab/button transitions and the active-press scale. Respect it for new animated controls.
+
+## SEO and metadata
+
+- `index.html` is **deliberately `noindex, nofollow`** (plus per-bot noindex for Google/Bing/GPTBot/ClaudeBot/etc.) and `public/robots.txt` `Disallow: /`s crawlers. This is intentional; **do not make the site indexable.** Metadata work here is about unfurl/install correctness, not ranking.
+- `index.html` carries a `canonical`, full Open Graph set (`og:title/description/image/url/type/site_name/locale`), Twitter card tags, and a JSON-LD `WebApplication` block. The JSON-LD is `type="application/ld+json"` (data, not executable JS) so it is allowed under the CSP `script-src 'self' 'wasm-unsafe-eval'`. **Never add `'unsafe-inline'` to `script-src`** to accommodate scripts.
+- `public/manifest.json` is complete (`id`, `scope`, `start_url: '/'`, `categories`, `lang`, `dir`, `orientation`, `theme_color` `#0d6efd` matching the meta). Keep `start_url`/`scope`/`id` consistent with the canonical root.
+
+## Auditing (performance / a11y / SEO / code quality)
+
+- `scripts/audit-screenshots.mjs` (Playwright, a devDependency) captures the key views at desktop (1280), tablet (768), and mobile (375) breakpoints, toggling the mobile Editor/Preview tabs. Usage: `node scripts/audit-screenshots.mjs <outDir> [baseUrl]` with the dev server running on 5173. Output (`screenshots/`) is gitignored.
+- The `/audit` skill (`.claude/skills/audit/`) reruns the full workflow: baseline screenshots, four parallel audit agents with disjoint file ownership, central `npm test` + `npm run build`, and a post-change screenshot comparison.
+
 ## Style and tooling
 
 - `.prettierrc` is the formatting source of truth.
