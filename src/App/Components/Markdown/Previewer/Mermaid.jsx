@@ -1,9 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mermaid from 'mermaid';
 import { useThemeMode } from '../../../Theme';
 
+// The mermaid engine is the single heaviest dependency in the app. Load it
+// only when a diagram is actually rendered (dynamic import => its own chunk),
+// so the initial page load and the Header import of waitForMermaidRenders
+// below do not pull it into the main bundle. The module-level promise caches
+// the load so concurrent diagrams share one fetch.
+let mermaidPromise = null;
+const loadMermaid = () => {
+  if (!mermaidPromise) {
+    mermaidPromise = import('mermaid').then((m) => m.default || m);
+  }
+  return mermaidPromise;
+};
+
 let currentTheme = null;
-const initMermaid = (theme) => {
+const initMermaid = (mermaid, theme) => {
   if (currentTheme === theme) return;
   mermaid.initialize({
     startOnLoad: false,
@@ -36,7 +48,6 @@ export default function Mermaid({ code }) {
   const idRef = useRef(`mermaid-${++uid}`);
 
   useEffect(() => {
-    initMermaid(mermaidTheme);
     let cancelled = false;
     setFailed(false);
 
@@ -49,6 +60,8 @@ export default function Mermaid({ code }) {
 
     (async () => {
       try {
+        const mermaid = await loadMermaid();
+        initMermaid(mermaid, mermaidTheme);
         await mermaid.parse(code);
         const { svg: out } = await mermaid.render(idRef.current, code);
         if (!cancelled) setSvg(out);

@@ -2,6 +2,22 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.11.0] - 2026-06-04
+
+- **Enhance:** Mark the mobile Editor/Preview switcher as an ARIA tablist with roving tabindex and arrow-key navigation.
+- **Enhance:** Add visible `:focus-visible` rings on toolbar controls and tabs via a theme `focusRing` token.
+- **Enhance:** Make the file-import control keyboard-focusable instead of a hidden, unreachable label.
+- **Enhance:** Add canonical, Open Graph url/type/site_name/locale, and JSON-LD WebApplication structured data.
+- **Enhance:** Complete the PWA manifest with id, scope, categories, lang, dir, and orientation.
+- **Fix:** Darken the light active-tab blue so the tab label meets WCAG AA contrast.
+- **Fix:** Log Previewer errors instead of silently swallowing them in the error boundary.
+- **Perf:** Dynamically import Mermaid so the print path no longer bundles the engine upfront.
+- **Perf:** Split react, codemirror, highlight.js, and markdown libraries into separate cached vendor chunks.
+- **Perf:** Cache hashed build assets as immutable for a year while keeping entry points no-cache.
+- **Docs:** Document build chunking, accessibility, metadata, and audit conventions in CLAUDE.md.
+- **Build:** Add a Playwright audit screenshot script and an `/audit` skill for repeatable site reviews.
+- **Chore:** Remove dead code and normalize quotes across hooks, editor, and error boundaries.
+
 ## [2.10.6] - 2026-06-02
 
 - **Enhance:** Accept `.markdown`, `.mdown`, and `.mkd` files on import, not just `.md`.

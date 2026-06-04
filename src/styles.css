@@ -15,6 +15,23 @@ header a {
   color: inherit;
 }
 
+/* Accessible focus indicator for the Upload control. It is a <p> wrapping a
+   visually-hidden file <input>, so the real focus lands on the input; we
+   surface the ring on the wrapping .button via :focus-within (styled-components
+   cannot target the parent from the inner input). The other header controls get
+   their :focus-visible ring from the theme token in Header/index.js. The color
+   here tracks the OS scheme as a fallback and is overridden in dark theme. */
+.button.upload:focus-within {
+  outline: 2px solid #0969da;
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .button.upload:focus-within {
+    outline-color: #58a6ff;
+  }
+}
+
 /* Preview layout tweaks (theme-neutral); colors come from the dynamically
    injected github-markdown light/dark stylesheet. */
 .preview.markdown-body {

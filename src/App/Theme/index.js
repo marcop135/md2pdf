@@ -53,11 +53,12 @@ export const lightTheme = {
     dragBarActive: '#0984e3',
     tabBarBg: 'rgb(233, 233, 233)',
     tabBarBorder: 'rgba(0, 0, 0, 0.1)',
-    tabActiveBg: '#0984e3',
+    tabActiveBg: '#0969da',
     tabActiveText: '#fff',
     tabInactiveText: '#333',
     tabInactiveHoverBg: 'rgba(0,0,0,0.06)',
     accent: 'rgb(53, 123, 253)',
+    focusRing: '#0969da',
   },
 };
 
@@ -88,6 +89,7 @@ export const darkTheme = {
     tabInactiveText: '#c9d1d9',
     tabInactiveHoverBg: 'rgba(255,255,255,0.06)',
     accent: 'rgb(88, 166, 255)',
+    focusRing: '#58a6ff',
   },
 };
 

@@ -69,6 +69,43 @@ export default defineConfig(({ command }) => ({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // Split heavy vendors into their own long-lived, content-hashed chunks
+        // so the initial paint is not blocked by libraries that are only needed
+        // on demand. mermaid is dynamically imported (see Mermaid.jsx) and
+        // self-splits its diagram engines into many small chunks; forcing it
+        // into one manual chunk would coalesce those into a single >2MB file
+        // that exceeds workbox's precache limit, so it is intentionally left
+        // out of the rules below. The remaining large libs are kept out of the
+        // main bundle and cached independently across deploys. All emitted
+        // chunks match the PWA precache glob (**/*.js), so offline is unaffected.
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return undefined;
+          if (/[\\/]node_modules[\\/]highlight\.js[\\/]/.test(id))
+            return 'highlight';
+          if (
+            /[\\/]node_modules[\\/](@codemirror|@uiw|@lezer|codemirror)[\\/]/.test(
+              id,
+            )
+          )
+            return 'codemirror';
+          if (
+            /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)
+          )
+            return 'react';
+          if (
+            /[\\/]node_modules[\\/](react-markdown|remark-gfm|rehype-raw|rehype-sanitize|micromark|mdast-.*|hast-.*|unified|unist-.*)[\\/]/.test(
+              id,
+            )
+          )
+            return 'markdown';
+          return undefined;
+        },
+      },
+    },
+  },
   server: {
     port: 5173,
     strictPort: true,
