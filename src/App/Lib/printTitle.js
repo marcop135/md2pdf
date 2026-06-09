@@ -1,5 +1,20 @@
 export const DEFAULT_TITLE = 'Markdown to PDF';
 
+// Firefox on Android derives the saved/printed PDF name from the document URL
+// (via GeckoView's guessFileName), not document.title, so the continuous title
+// sync that fixes Chromium and desktop has no effect there. The print handler
+// briefly rewrites the URL path to this slug so Firefox names the file from the
+// heading. Keep it ASCII path-safe: collapse every non-alphanumeric run to a
+// single hyphen and cap the length so the path stays short.
+export const toFilenameSlug = (raw) =>
+  (raw ?? '')
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^A-Za-z0-9]+/g, '-')
+    .replace(/^-+/, '')
+    .slice(0, 100)
+    .replace(/-+$/, '');
+
 export const sanitizeForFilename = (raw) =>
   (raw ?? '')
     .replace(/[\\/:*?"<>|\r\n\t]+/g, ' ')

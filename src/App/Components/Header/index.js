@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap-icons';
 import UploadButton from './Upload.js';
 import { waitForMermaidRenders } from '../Markdown/Previewer/Mermaid.jsx';
+import { toFilenameSlug } from '../../Lib/printTitle.js';
 import { useThemeMode } from '../../Theme';
 import packageMeta from '../../../../package.json';
 
@@ -32,12 +33,39 @@ const Header = ({ className }) => {
   const { mode, cycleMode } = useThemeMode();
   const ThemeIcon = THEME_ICON[mode] || CircleHalf;
 
-  // The Markdown component keeps document.title synced to the first heading
-  // so that any print path (this button, Ctrl/Cmd+P, browser menu, Android
-  // share-to-PDF) reads the right value. See src/App/Lib/printTitle.js.
+  // The Markdown component keeps document.title synced to the first heading so
+  // Chromium and desktop browsers suggest a heading-based PDF filename. Firefox
+  // on Android ignores the title and derives the name from the URL path, so we
+  // briefly rewrite the path to a heading slug for the duration of the print,
+  // then restore it. navigateFallback ('/index.html') and the .htaccess SPA
+  // rule keep that throwaway path loadable if the user reloads before restore.
   const onTransform = async () => {
+    const slug = toFilenameSlug(document.title);
+    const { pathname, search, hash } = window.location;
+    const originalUrl = pathname + search + hash;
+
+    let restored = false;
+    const handleVisible = () => {
+      if (document.visibilityState === 'visible') restore();
+    };
+    const restore = () => {
+      if (restored) return;
+      restored = true;
+      window.removeEventListener('afterprint', restore);
+      document.removeEventListener('visibilitychange', handleVisible);
+      window.history.replaceState(null, '', originalUrl);
+    };
+
     try {
       await waitForMermaidRenders();
+      if (slug) {
+        window.history.replaceState(null, '', `/${slug}`);
+        // afterprint covers desktop/Chromium (fires when the dialog closes);
+        // returning to a visible tab covers Android, where afterprint is
+        // unreliable and the filename is captured during the system print UI.
+        window.addEventListener('afterprint', restore);
+        document.addEventListener('visibilitychange', handleVisible);
+      }
     } finally {
       window.print();
     }
