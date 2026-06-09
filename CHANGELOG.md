@@ -2,6 +2,10 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.11.2] - 2026-06-09
+
+- **Build:** Bump the npm minor/patch group: React 19.2.7, styled-components 6.4.2, CodeMirror, Workbox, and Vite/Vitest tooling.
+
 ## [2.11.1] - 2026-06-09
 
 - **Fix:** Briefly reflect the heading in the URL while printing so Firefox Android names the exported PDF correctly.
