@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.11.1] - 2026-06-09
+
+- **Fix:** Briefly reflect the heading in the URL while printing so Firefox Android names the exported PDF correctly.
+- **Sec:** Re-enable the http-to-https redirect in production so insecure requests are upgraded.
+- **Build:** Add an SPA fallback rewrite so the temporary print-time URL still serves the app on reload.
+
 ## [2.11.0] - 2026-06-04
 
 - **Enhance:** Mark the mobile Editor/Preview switcher as an ARIA tablist with roving tabindex and arrow-key navigation.
