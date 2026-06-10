@@ -7,9 +7,11 @@ import {
   MoonFill,
   SunFill,
 } from 'react-bootstrap-icons';
+import { useProvided } from 'nonaction';
 import UploadButton from './Upload.js';
 import { waitForMermaidRenders } from '../Markdown/Previewer/Mermaid.jsx';
-import { toFilenameSlug } from '../../Lib/printTitle.js';
+import { DEFAULT_TITLE, extractHeading } from '../../Lib/printTitle.js';
+import { TextContainer } from '../../Container';
 import { useThemeMode } from '../../Theme';
 import packageMeta from '../../../../package.json';
 
@@ -32,42 +34,21 @@ const NEXT_MODE_LABEL = {
 const Header = ({ className }) => {
   const { mode, cycleMode } = useThemeMode();
   const ThemeIcon = THEME_ICON[mode] || CircleHalf;
+  const [text] = useProvided(TextContainer);
 
-  // The Markdown component keeps document.title synced to the first heading so
-  // Chromium and desktop browsers suggest a heading-based PDF filename. Firefox
-  // on Android ignores the title and derives the name from the URL path, so we
-  // briefly rewrite the path to a heading slug for the duration of the print,
-  // then restore it. navigateFallback ('/index.html') and the .htaccess SPA
-  // rule keep that throwaway path loadable if the user reloads before restore.
+  // The tab title stays DEFAULT_TITLE; the heading is applied as document.title
+  // only for the duration of the print so desktop and Chromium suggest a
+  // heading-based PDF filename (both read the title at window.print()). Firefox
+  // on Android assigns the name at the OS/GeckoView level and is not
+  // controllable from web content, so it is unaffected here.
   const onTransform = async () => {
-    const slug = toFilenameSlug(document.title);
-    const { pathname, search, hash } = window.location;
-    const originalUrl = pathname + search + hash;
-
-    let restored = false;
-    const handleVisible = () => {
-      if (document.visibilityState === 'visible') restore();
-    };
-    const restore = () => {
-      if (restored) return;
-      restored = true;
-      window.removeEventListener('afterprint', restore);
-      document.removeEventListener('visibilitychange', handleVisible);
-      window.history.replaceState(null, '', originalUrl);
-    };
-
+    const heading = extractHeading(text);
     try {
       await waitForMermaidRenders();
-      if (slug) {
-        window.history.replaceState(null, '', `/${slug}`);
-        // afterprint covers desktop/Chromium (fires when the dialog closes);
-        // returning to a visible tab covers Android, where afterprint is
-        // unreliable and the filename is captured during the system print UI.
-        window.addEventListener('afterprint', restore);
-        document.addEventListener('visibilitychange', handleVisible);
-      }
     } finally {
+      if (heading) document.title = heading;
       window.print();
+      document.title = DEFAULT_TITLE;
     }
   };
 
