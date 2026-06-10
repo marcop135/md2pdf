@@ -2,6 +2,11 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.11.3] - 2026-06-10
+
+- **Fix:** Keep the browser tab titled "Markdown to PDF" and apply the heading only while exporting.
+- **Chore:** Remove the Firefox Android URL-slug print hack that never controlled the PDF filename.
+
 ## [2.11.2] - 2026-06-09
 
 - **Build:** Bump the npm minor/patch group: React 19.2.7, styled-components 6.4.2, CodeMirror, Workbox, and Vite/Vitest tooling.
