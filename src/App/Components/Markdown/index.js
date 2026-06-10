@@ -7,7 +7,7 @@ import Editor from './Editor';
 import DragBar from './DragBar.js';
 import useDrop from '../../Container/Hooks/useDrop.js';
 import useIsMobile from '../../Container/Hooks/useIsMobile.js';
-import { DEFAULT_TITLE, extractHeading } from '../../Lib/printTitle.js';
+import { DEFAULT_TITLE } from '../../Lib/printTitle.js';
 
 const Markdown = ({ className }) => {
   const [text, setText] = useProvided(TextContainer);
@@ -66,22 +66,11 @@ const Markdown = ({ className }) => {
     };
   }, []);
 
-  // Keep document.title synced to the first heading so the suggested PDF
-  // filename is correct on every print path. Android Firefox does not fire
-  // beforeprint reliably (saves as tempXXXX) and Chromium-on-Android reads
-  // document.title at window.print() invocation, so a beforeprint swap can
-  // arrive too late. A continuous sync makes the title correct in advance.
+  // The tab title stays the app name; the Header's export handler applies the
+  // heading as document.title only for the duration of the print.
   useEffect(() => {
-    const originalTitle = document.title;
-    return () => {
-      document.title = originalTitle;
-    };
+    document.title = DEFAULT_TITLE;
   }, []);
-
-  useEffect(() => {
-    const heading = extractHeading(text);
-    document.title = heading || DEFAULT_TITLE;
-  }, [text]);
 
   const handleMouseMove = (e) => {
     if (!isDrag) return;
