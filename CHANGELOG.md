@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.11.4] - 2026-06-23
+
+- **Sec:** Patch undici, Vite, DOMPurify, and Babel advisories via npm audit fix.
+- **Build:** Bump the npm minor/patch group: CodeMirror, Playwright, Vitest, esbuild, and the Vite React plugin.
+- **CI:** Bump actions/checkout from v6 to v7 in the deploy workflow.
+
 ## [2.11.3] - 2026-06-10
 
 - **Fix:** Keep the browser tab titled "Markdown to PDF" and apply the heading only while exporting.
