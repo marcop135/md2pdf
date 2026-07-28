@@ -416,8 +416,9 @@ AddDefaultCharset utf-8
 # | Single-page-app fallback                                           |
 # ----------------------------------------------------------------------
 
-# The app briefly rewrites the URL path to a heading slug while printing so
-# Firefox on Android names the exported PDF from the path. Those paths are not
+# The app briefly rewrites the URL path to a heading slug while printing (see
+# docs/print-filename.md and printFilenameSession.js) so Firefox on Android
+# can name the exported PDF from the path. Those paths are not real files, so
 # real files, so serve `index.html` for any request that does not map to an
 # existing file or directory. Hashed assets, the service worker, and the
 # manifest all resolve to real files and are unaffected.
