@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.11.6] - 2026-07-28
+
+- **Sec:** Patch brace-expansion, PostCSS, fast-uri, and DOMPurify advisories via npm audit fix.
+- **Build:** Bump the npm minor/patch group: React 19.2.8, Mermaid 11.16, CodeMirror, Playwright, and Vitest.
+- **CI:** Bump actions/setup-node from v6 to v7 in the deploy workflow.
+
 ## [2.11.5] - 2026-07-21
 
 - **Fix:** Hold the heading in a guarded print session so Android save dialogs keep the suggested PDF filename.
