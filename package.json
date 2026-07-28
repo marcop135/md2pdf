@@ -17,7 +17,7 @@
   "homepage": "./",
   "main": "src/index.js",
   "dependencies": {
-    "@babel/runtime": "^7.29.7",
+    "@babel/runtime": "^8.0.0",
     "@codemirror/autocomplete": "^6.20.3",
     "@codemirror/lang-markdown": "^6.5.1",
     "@codemirror/language": "^6.12.4",
