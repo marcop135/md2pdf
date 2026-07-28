@@ -80,7 +80,7 @@ This fork is maintained on its own track: **Mermaid** preview, **GFM** + highlig
 
 - Type or paste Markdown in the editor.
 - Use the **Preview** tab (on mobile) or the right panel (on desktop) to see the rendered result.
-- Click **Export to .pdf** to open the print dialog; choose “Save as PDF” (or equivalent) to get a PDF.
+- Click **Export to .pdf** to open the print dialog; choose “Save as PDF” (or equivalent) to get a PDF. The suggested filename comes from the first markdown heading.
 - Use **Import .md file** or drag-and-drop a `.md` file to load its content.
 
 Mermaid example (marketing-site flow):

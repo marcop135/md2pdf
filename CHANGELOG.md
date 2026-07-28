@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.11.5] - 2026-07-21
+
+- **Fix:** Hold the heading in a guarded print session so Android save dialogs keep the suggested PDF filename.
+- **Fix:** Restore the Firefox Android URL-slug hint and multi-signal session teardown.
+- **Docs:** Add print-filename behavior spec for maintainers.
+
 ## [2.11.4] - 2026-06-23
 
 - **Sec:** Patch undici, Vite, DOMPurify, and Babel advisories via npm audit fix.

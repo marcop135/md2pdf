@@ -47,6 +47,7 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 - If you change the header's `min-height` (currently **48px**), update [`Markdown/index.js`](src/App/Components/Markdown/index.js) `height: calc(100% - …px)` to match — the layout subtracts the header bar height.
 - The GitHub icon-only control matches toolbar button height; **18px** icons align inside **32px** rows.
 - If labels feel too light on a given OS, adjust `letter-spacing` or `font-size` before bumping weight above **400**.
+- **PDF filename on export:** tab title stays `Markdown to PDF` while editing; `printFilenameSession.js` applies the first heading only for the print/save flow. Never reset `document.title`/URL synchronously after `window.print()` on mobile. See [`docs/print-filename.md`](docs/print-filename.md).
 
 ## Changelog format (enforced by lint)
 
