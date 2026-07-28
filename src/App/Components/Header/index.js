@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import {
   CircleHalf,
@@ -10,7 +10,11 @@ import {
 import { useProvided } from 'nonaction';
 import UploadButton from './Upload.js';
 import { waitForMermaidRenders } from '../Markdown/Previewer/Mermaid.jsx';
-import { DEFAULT_TITLE, extractHeading } from '../../Lib/printTitle.js';
+import { extractHeading } from '../../Lib/printTitle.js';
+import {
+  beginPrintFilenameSession,
+  endPrintFilenameSession,
+} from '../../Lib/printFilenameSession.js';
 import { TextContainer } from '../../Container';
 import { useThemeMode } from '../../Theme';
 import packageMeta from '../../../../package.json';
@@ -36,19 +40,33 @@ const Header = ({ className }) => {
   const ThemeIcon = THEME_ICON[mode] || CircleHalf;
   const [text] = useProvided(TextContainer);
 
-  // The tab title stays DEFAULT_TITLE; the heading is applied as document.title
-  // only for the duration of the print so desktop and Chromium suggest a
-  // heading-based PDF filename (both read the title at window.print()). Firefox
-  // on Android assigns the name at the OS/GeckoView level and is not
-  // controllable from web content, so it is unaffected here.
+  // Tab title stays the app name during editing; printFilenameSession applies
+  // the heading (and optional URL slug) only for the print/save flow. See
+  // docs/print-filename.md.
+  useEffect(() => {
+    const handleBeforePrint = () => {
+      beginPrintFilenameSession(extractHeading(text));
+    };
+    const handleAfterPrint = () => {
+      endPrintFilenameSession();
+    };
+
+    window.addEventListener('beforeprint', handleBeforePrint);
+    window.addEventListener('afterprint', handleAfterPrint);
+    return () => {
+      window.removeEventListener('beforeprint', handleBeforePrint);
+      window.removeEventListener('afterprint', handleAfterPrint);
+      endPrintFilenameSession();
+    };
+  }, [text]);
+
   const onTransform = async () => {
     const heading = extractHeading(text);
     try {
       await waitForMermaidRenders();
     } finally {
-      if (heading) document.title = heading;
+      if (heading) beginPrintFilenameSession(heading);
       window.print();
-      document.title = DEFAULT_TITLE;
     }
   };
 

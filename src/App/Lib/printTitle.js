@@ -1,5 +1,17 @@
 export const DEFAULT_TITLE = 'Markdown to PDF';
 
+// ASCII path slug for Firefox Android URL-based PDF naming. Collapses non-
+// alphanumeric runs to hyphens and caps length so the throwaway print path
+// stays short. See docs/print-filename.md.
+export const toFilenameSlug = (raw) =>
+  (raw ?? '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Za-z0-9]+/g, '-')
+    .replace(/^-+/, '')
+    .slice(0, 100)
+    .replace(/-+$/, '');
+
 export const sanitizeForFilename = (raw) =>
   (raw ?? '')
     .replace(/[\\/:*?"<>|\r\n\t]+/g, ' ')
