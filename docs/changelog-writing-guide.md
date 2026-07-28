@@ -13,3 +13,23 @@ Use this guide for entries in `CHANGELOG.md`.
 5. Release headings: `## [x.y.z] - YYYY-MM-DD` (ISO date).
 
 Run `npm run changelog:lint` before committing changelog edits.
+
+## GitHub releases and tags
+
+Keep three surfaces aligned for each version:
+
+| Surface | Format |
+| ------- | ------ |
+| Git tag | `vX.Y.Z` (annotated tag message: `vX.Y.Z`) |
+| GitHub release **name** | `vX.Y.Z` (same as the tag) |
+| GitHub release **notes** | Copy the release bullets from `CHANGELOG.md` only; **do not** repeat the `## [x.y.z] - YYYY-MM-DD` heading |
+
+Example for 2.11.5: the release at `releases/tag/v2.11.5` lists the three changelog bullets under the title `v2.11.5`, with no date heading in the notes body.
+
+Create or edit releases with:
+
+```bash
+gh release create vX.Y.Z --title "vX.Y.Z" --notes "$(sed -n '/^## \[X.Y.Z\]/,/^## \[/p' CHANGELOG.md | sed '1d;$d')"
+```
+
+(or paste the bullets manually after linting the changelog entry).
