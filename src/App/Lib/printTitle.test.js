@@ -3,6 +3,7 @@ import {
   DEFAULT_TITLE,
   extractHeading,
   sanitizeForFilename,
+  toFilenameSlug,
 } from './printTitle.js';
 
 describe('sanitizeForFilename', () => {
@@ -96,6 +97,38 @@ describe('extractHeading', () => {
     expect(extractHeading('    # not a heading\n\n# Real one')).toBe(
       'Real one',
     );
+  });
+});
+
+describe('toFilenameSlug', () => {
+  test('hyphenates spaces and drops trailing punctuation', () => {
+    expect(toFilenameSlug('Hello World!')).toBe('Hello-World');
+  });
+
+  test('collapses runs of non-alphanumerics into single hyphens', () => {
+    expect(toFilenameSlug('foo / bar : baz')).toBe('foo-bar-baz');
+  });
+
+  test('trims leading and trailing hyphens', () => {
+    expect(toFilenameSlug('  --weird-- ')).toBe('weird');
+  });
+
+  test('transliterates accented characters to ASCII', () => {
+    expect(toFilenameSlug('Café Résumé')).toBe('Cafe-Resume');
+  });
+
+  test('caps the length so the URL path stays short', () => {
+    expect(toFilenameSlug('a'.repeat(200))).toHaveLength(100);
+  });
+
+  test('returns empty string for empty or null input', () => {
+    expect(toFilenameSlug('')).toBe('');
+    expect(toFilenameSlug(null)).toBe('');
+    expect(toFilenameSlug(undefined)).toBe('');
+  });
+
+  test('returns empty string when nothing alphanumeric remains', () => {
+    expect(toFilenameSlug('!!! ??? ...')).toBe('');
   });
 });
 
