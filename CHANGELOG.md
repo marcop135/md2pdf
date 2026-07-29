@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.11.7] - 2026-07-29
+
+- **Docs:** Tighten README structure with usage-first flow and trimmed feature copy.
+- **Perf:** Import highlight.js common build to shrink the highlight vendor chunk for faster loads.
+- **Sec:** Add tests for syntax-highlight HTML sanitization and unknown-language fenced code blocks.
+
 ## [2.11.6] - 2026-07-28
 
 - **Sec:** Patch brace-expansion, PostCSS, fast-uri, and DOMPurify advisories via npm audit fix.
