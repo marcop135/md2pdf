@@ -125,7 +125,7 @@ export default defineConfig(({ command }) => ({
       'remark-gfm',
       'rehype-raw',
       'rehype-sanitize',
-      'highlight.js',
+      'highlight.js/lib/common',
       '@uiw/codemirror-theme-github',
     ],
   },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Preview from './Preview.js';
+import Preview, { sanitizeHighlightHtml } from './Preview.js';
 
 test('strips <script> tags from embedded HTML', () => {
   const source = '<p>Hello</p><script>window.__pwned = true;</script>';
@@ -143,4 +143,25 @@ test('renders full CV-style contacts HTML (nested tables, photo, tel/mailto)', (
   expect(container.textContent).toContain('EU, unrestricted');
   expect(container.textContent).toContain('Summary');
   expect(container.textContent).toContain('Intro.');
+});
+
+test('keeps only span class wrappers in syntax-highlight HTML', () => {
+  const sanitized = sanitizeHighlightHtml(
+    '<span class="hljs-keyword" data-x="1">const</span><em> remove tag </em><span onclick="x()">x</span>',
+  );
+
+  expect(sanitized).toContain('<span class="hljs-keyword">const</span>');
+  expect(sanitized).toContain(' remove tag ');
+  expect(sanitized).toContain('<span>x</span>');
+  expect(sanitized).not.toContain('<em>');
+  expect(sanitized).not.toContain('onclick=');
+  expect(sanitized).not.toContain('data-x=');
+});
+
+test('renders fenced code blocks even with unknown languages', () => {
+  const source = ['```unknownlang', 'const foo = 1;', '```'].join('\n');
+  const { container } = render(<Preview source={source} />);
+  const code = container.querySelector('code.language-unknownlang');
+  expect(code).toBeTruthy();
+  expect(code.textContent).toContain('const foo = 1;');
 });
