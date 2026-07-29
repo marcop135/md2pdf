@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 concurrency:
   group: production-deploy
@@ -57,3 +58,4 @@ jobs:
           port: 21
           security: strict
           dangerous-clean-slate: false
+          timeout: 120000
