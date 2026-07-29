@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactMarkdown, { defaultUrlTransform } from 'react-markdown';
-import hljs from 'highlight.js';
+import hljs from 'highlight.js/lib/common';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';

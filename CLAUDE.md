@@ -58,6 +58,7 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 - **Max 20 words** in the sentence after the label.
 - Within a release, order bullets: Feat, Enhance, Fix, Sec, Perf, Style, Docs, Build, CI, Chore, Revert.
 - Release heading: `## [x.y.z] - YYYY-MM-DD`.
+- GitHub release **name** and tag: `vX.Y.Z`; release **notes** are the changelog bullets only (no `##` heading). See [`docs/changelog-writing-guide.md`](docs/changelog-writing-guide.md).
 - Run `npm run changelog:lint` before committing changelog changes.
 
 ## README hero image
