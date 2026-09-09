@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Build and FTP deploy
+    name: Build and deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,13 +42,38 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Sync dist via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      # Prefer SFTP: a single SSH channel avoids the FTPS control-socket
+      # timeouts Netsons hits on first connect, and it sidesteps TLS hostname
+      # verification entirely. `mirror -R --delete` reproduces the FTPS action's
+      # sync-and-prune. If SFTP cannot connect, the FTPS fallback below runs.
+      # Mirrors the transport strategy proven in the marcopontili.com repo.
+      - name: Deploy via SFTP
+        id: sftp
+        continue-on-error: true
+        env:
+          SFTP_HOST: ${{ secrets.FTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT || '22' }}
+          SFTP_USER: ${{ secrets.FTP_USERNAME_PRODUCTION }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
+        run: |
+          lftp -u "$SFTP_USER" --env-password \
+            -e "set cmd:fail-exit yes; set sftp:auto-confirm yes; set net:max-retries 5; set net:timeout 60; mirror -R --delete --verbose --exclude '^\.well-known/' --exclude '\.ftp-deploy-sync-state\.json\$' dist/ /; bye" \
+            "sftp://$SFTP_HOST:$SFTP_PORT"
+
+      # Fallback to FTPS only when SFTP failed. `security` is deliberately left
+      # at the action's default (loose): the shared-hosting server presents a
+      # certificate for its own Netsons hostname, which never covers a vanity
+      # FTP_HOST, so `strict` aborts the transfer with
+      # ERR_TLS_CERT_ALTNAME_INVALID. The channel is still TLS-encrypted.
+      - name: Sync dist via FTPS (fallback)
+        id: ftps
+        if: steps.sftp.outcome == 'failure'
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
         with:
-          # FTP_HOST must match the CN/SAN on the FTPS server's TLS cert
-          # (typically the bare shared-hosting hostname), not a vanity FQDN
-          # like ftp.example.com. With `security: strict`, hostname mismatch
-          # aborts the deploy.
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME_PRODUCTION }}
           password: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
@@ -56,6 +81,41 @@ jobs:
           local-dir: ./dist/
           protocol: ftps
           port: 21
-          security: strict
           dangerous-clean-slate: false
-          timeout: 120000
+          timeout: 60000
+
+      - name: Sync dist via FTPS (fallback retry)
+        id: ftps-retry
+        if: steps.sftp.outcome == 'failure' && steps.ftps.outcome == 'failure'
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME_PRODUCTION }}
+          password: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
+          server-dir: ./
+          local-dir: ./dist/
+          protocol: ftps
+          port: 21
+          dangerous-clean-slate: false
+          timeout: 60000
+
+      # Every transport step is continue-on-error, so the job result comes from
+      # here: green only when one of them actually uploaded.
+      - name: Verify deploy succeeded
+        if: always()
+        run: |
+          if [ "${{ steps.sftp.outcome }}" = "success" ]; then
+            echo "Deploy succeeded via SFTP."
+            exit 0
+          fi
+          if [ "${{ steps.ftps.outcome }}" = "success" ]; then
+            echo "Deploy succeeded via FTPS fallback."
+            exit 0
+          fi
+          if [ "${{ steps.ftps-retry.outcome }}" = "success" ]; then
+            echo "Deploy succeeded via FTPS retry."
+            exit 0
+          fi
+          echo "All deploy methods failed."
+          exit 1
