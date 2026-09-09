@@ -18,6 +18,7 @@
 - **Perf:** Drop the highlight.js language pack from the entry chunk, cutting 157 KB from first load.
 - **Build:** Bump the npm minor/patch group: Mermaid 11.17, highlight.js 11.12, CodeMirror, styled-components, Playwright.
 - **Build:** Take Vitest 5, jsdom 30, Vite 8.2.2, and Babel runtime 8.
+- **CI:** Deploy over SFTP first with an FTPS fallback, fixing the strict-TLS hostname mismatch.
 
 ## [2.11.7] - 2026-07-29
 
