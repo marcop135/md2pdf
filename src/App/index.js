@@ -41,17 +41,30 @@ export default styled(App)`
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
-    /* Avoid orphaned headings / split code blocks. */
+    /* Keep a heading with the text it introduces. */
     .preview.markdown-body h1,
     .preview.markdown-body h2,
-    .preview.markdown-body h3 {
+    .preview.markdown-body h3,
+    .preview.markdown-body h4,
+    .preview.markdown-body h5,
+    .preview.markdown-body h6 {
       break-after: avoid;
       page-break-after: avoid;
     }
-    .preview.markdown-body pre,
-    .preview.markdown-body table {
+    /* Only blocks that reliably fit on one page get break-inside: avoid. On an
+       unbounded block (a long code fence or table) browsers push it to a fresh
+       page and then overflow it, cutting the bottom off — pre and table are
+       deliberately absent here so they paginate instead. */
+    .preview.markdown-body blockquote,
+    .preview.markdown-body li,
+    .preview.markdown-body img {
       break-inside: avoid;
       page-break-inside: avoid;
+    }
+    .preview.markdown-body p,
+    .preview.markdown-body li {
+      orphans: 3;
+      widows: 3;
     }
   }
 
