@@ -83,7 +83,17 @@ export default defineConfig(({ command }) => ({
         // chunks match the PWA precache glob (**/*.js), so offline is unaffected.
         manualChunks(id) {
           if (!id.includes('node_modules')) return undefined;
-          if (/[\\/]node_modules[\\/]highlight\.js[\\/]/.test(id))
+          // Exclude the stylesheets: Previewer/index.js imports two of them as
+          // `?raw`, and it is eager, so matching them here made the whole
+          // highlight chunk (the language pack, ~157 kB) a static import of the
+          // entry. The `styles/` carve-out keeps the engine behind the lazy
+          // Preview.js boundary. Do not narrow this to `lib/` instead —
+          // highlight.js resolves `lib/common` to `es/common.js` under the
+          // `import` condition, so a lib-only rule would miss the engine.
+          if (
+            /[\\/]node_modules[\\/]highlight\.js[\\/]/.test(id) &&
+            !/[\\/]styles[\\/]/.test(id)
+          )
             return 'highlight';
           if (
             /[\\/]node_modules[\\/](@codemirror|@uiw|@lezer|codemirror)[\\/]/.test(
