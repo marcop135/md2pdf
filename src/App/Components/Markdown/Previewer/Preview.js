@@ -130,7 +130,50 @@ const urlTransform = (value) => {
   return defaultUrlTransform(value);
 };
 
-export default ({ source, children }) => {
+// Hoisted: rebuilding these per render gave ReactMarkdown new prop identities
+// every time, which defeats the memo below and forces a fresh unified()
+// pipeline on every keystroke.
+const components = {
+  pre({ children, ...rest }) {
+    const only = React.Children.toArray(children).find((c) =>
+      React.isValidElement(c),
+    );
+    const cls = only?.props?.className || '';
+    const m = /language-(\w+)/.exec(cls);
+    if (m && m[1] === 'mermaid') {
+      const raw = String(only.props.children || '').replace(/\n$/, '');
+      return <Mermaid code={raw} />;
+    }
+    return <pre {...rest}>{children}</pre>;
+  },
+  code({ className, children: codeChildren }) {
+    const match = /language-(\w+)/.exec(className || '');
+    const rawCode = String(codeChildren || '');
+    const trimmedCode = rawCode.replace(/\n$/, '');
+
+    if (!match || match[1] === 'mermaid') {
+      return <code className={className}>{codeChildren}</code>;
+    }
+
+    return (
+      <code
+        className={className}
+        dangerouslySetInnerHTML={{
+          __html: sanitizeHighlightHtml(highlight(trimmedCode, match[1])),
+        }}
+      />
+    );
+  },
+};
+
+const remarkPlugins = [remarkGfm];
+const rehypePlugins = [rehypeRaw, [rehypeSanitize, sanitizeSchema]];
+
+// react-markdown has no internal caching: every render re-parses the whole
+// document through remark + rehype-raw + rehype-sanitize. Memoizing on the
+// source string keeps splitter drags, window resizes and theme toggles from
+// paying that cost.
+const Preview = ({ source, children }) => {
   const markdownSource =
     typeof source === 'string'
       ? source
@@ -138,43 +181,10 @@ export default ({ source, children }) => {
         ? children
         : '';
 
-  const components = {
-    pre({ children, ...rest }) {
-      const only = React.Children.toArray(children).find((c) =>
-        React.isValidElement(c),
-      );
-      const cls = only?.props?.className || '';
-      const m = /language-(\w+)/.exec(cls);
-      if (m && m[1] === 'mermaid') {
-        const raw = String(only.props.children || '').replace(/\n$/, '');
-        return <Mermaid code={raw} />;
-      }
-      return <pre {...rest}>{children}</pre>;
-    },
-    code({ className, children: codeChildren }) {
-      const match = /language-(\w+)/.exec(className || '');
-      const rawCode = String(codeChildren || '');
-      const trimmedCode = rawCode.replace(/\n$/, '');
-
-      if (!match || match[1] === 'mermaid') {
-        return <code className={className}>{codeChildren}</code>;
-      }
-
-      return (
-        <code
-          className={className}
-          dangerouslySetInnerHTML={{
-            __html: sanitizeHighlightHtml(highlight(trimmedCode, match[1])),
-          }}
-        />
-      );
-    },
-  };
-
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema]]}
+      remarkPlugins={remarkPlugins}
+      rehypePlugins={rehypePlugins}
       urlTransform={urlTransform}
       components={components}
     >
@@ -182,3 +192,5 @@ export default ({ source, children }) => {
     </ReactMarkdown>
   );
 };
+
+export default React.memo(Preview);
