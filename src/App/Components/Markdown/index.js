@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useDeferredValue } from 'react';
 import styled from 'styled-components';
 import { useProvided } from 'nonaction';
 import { TextContainer } from '../../Container';
@@ -41,16 +41,28 @@ const Markdown = ({ className }) => {
   };
   const [uploading, isOver] = useDrop(markdownRef, setText);
   const isMobile = useIsMobile();
+  // Keeps typing responsive: the preview re-parses at a lower priority instead
+  // of blocking each keystroke on a full remark/rehype pass.
+  const previewText = useDeferredValue(text);
 
   useEffect(() => {
     // The editor pane is flex-shrink:0 with a pixel width, so shrinking the
     // window would otherwise push the divider and preview off-screen. Clamp
     // the stored width down (never up) to leave room for the preview.
-    const handleResize = () => {
+    let frame = null;
+    const applyResize = () => {
+      frame = null;
       setWidth((w) => Math.min(w, Math.max(200, window.innerWidth - 200)));
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const handleResize = () => {
+      if (frame !== null) return;
+      frame = requestAnimationFrame(applyResize);
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => {
+      if (frame !== null) cancelAnimationFrame(frame);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -145,7 +157,7 @@ const Markdown = ({ className }) => {
               aria-labelledby="tab-preview"
               $hidden={activeTab !== 'preview'}
             >
-              <Previewer>{text}</Previewer>
+              <Previewer>{previewText}</Previewer>
             </MobilePane>
           </MobilePanel>
         </>
@@ -164,7 +176,7 @@ const Markdown = ({ className }) => {
             setStartX={setStartX}
             currentWidth={width}
           />
-          <Previewer>{text}</Previewer>
+          <Previewer>{previewText}</Previewer>
         </>
       )}
     </div>
@@ -241,7 +253,12 @@ export default styled(Markdown)`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 769px) {
+  /* Exactly the complement of useIsMobile's '(max-width: 768px)'. A
+     (min-width: 769px) query left a dead zone at fractional widths like
+     768.5px (browser zoom, 125% Windows scaling) where neither matched: the
+     desktop panes rendered inside a column flex container and the preview was
+     pushed off-screen. */
+  @media not all and (max-width: 768px) {
     flex-direction: row;
   }
 `;
