@@ -90,11 +90,61 @@ header a {
   overflow: visible;
 }
 
+/* In dark mode a diagram is rendered twice: the dark SVG for screen and a
+   light copy for paper. mermaid bakes its palette into a <style> inside the
+   SVG with no media guard, so the dark copy would print dark-on-white.
+   `!important` is required: the Previewer's styled-components rule sets
+   `.mermaid-diagram { display: flex }` at a higher specificity. */
+@media screen {
+  .preview.markdown-body .mermaid-diagram--print,
+  .markdown-body .mermaid-diagram--print {
+    display: none !important;
+  }
+}
+
 @media print {
   .preview.markdown-body .mermaid-diagram,
   .markdown-body .mermaid-diagram {
     break-inside: avoid;
     page-break-inside: avoid;
     overflow: visible;
+  }
+
+  .preview.markdown-body .mermaid-diagram--screen,
+  .markdown-body .mermaid-diagram--screen {
+    display: none !important;
+  }
+
+  /* github-markdown-css makes tables `display: block; overflow: auto`, which
+     is not a table box: thead cannot repeat across pages and anything wider
+     than the page is clipped rather than paginated. Restore a real table for
+     paper only; the screen keeps its horizontal scroll. */
+  .preview.markdown-body table {
+    display: table;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  .preview.markdown-body th,
+  .preview.markdown-body td {
+    overflow-wrap: anywhere;
+  }
+
+  .preview.markdown-body tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Long code lines must wrap instead of being cut at the page edge. The
+     `pre > code` half is required: the vendored `.markdown-body pre > code`
+     rule sets `white-space: pre` at the same specificity as `pre` alone. */
+  .preview.markdown-body pre,
+  .preview.markdown-body pre > code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    word-wrap: break-word;
+    overflow-x: visible;
   }
 }

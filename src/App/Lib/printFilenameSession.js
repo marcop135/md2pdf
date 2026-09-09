@@ -38,6 +38,12 @@ const installTitleGuard = (heading) => {
 export const beginPrintFilenameSession = (heading) => {
   if (!heading) return false;
 
+  // The export button begins a session and window.print() then fires
+  // beforeprint, which begins it again. Restarting would restore the title and
+  // URL and re-capture them mid-print; for the same heading there is nothing
+  // to do.
+  if (activeSession && activeSession.heading === heading) return true;
+
   endPrintFilenameSession();
 
   const originalTitle = document.title;
@@ -74,7 +80,7 @@ export const beginPrintFilenameSession = (heading) => {
   document.addEventListener('visibilitychange', onVisible);
   const safetyTimer = window.setTimeout(end, SAFETY_TIMEOUT_MS);
 
-  activeSession = { end };
+  activeSession = { end, heading };
   return true;
 };
 

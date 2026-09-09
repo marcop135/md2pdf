@@ -61,15 +61,20 @@ const Wrapper = styled.div`
 
   @media print {
     padding: 0;
-    overflow-y: hidden;
+    /* Not overflow-y alone: the wrapper's overflow-x: hidden would otherwise
+       stay active on paper and clip anything wider than the page. */
+    overflow: visible;
 
     .mermaid-diagram {
       page-break-inside: avoid;
       break-inside: avoid;
     }
+    /* 100% resolves against an auto-height parent, i.e. no cap at all. Cap
+       against the page box so an oversized diagram scales to fit one page
+       rather than being cut at the page break. */
     .mermaid-diagram svg {
       max-width: 100%;
-      max-height: 100%;
+      max-height: 92vh;
     }
   }
 `;
