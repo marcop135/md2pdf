@@ -2,6 +2,23 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.12.0] - 2026-09-09
+
+- **Fix:** Print Mermaid diagrams in light colors so dark-mode exports stay readable on paper.
+- **Fix:** Paginate wide tables with repeating headers instead of clipping them at the page edge.
+- **Fix:** Wrap long code lines in exported PDFs rather than cutting them off.
+- **Fix:** Split tall code blocks and tables across pages instead of overflowing and losing their bottoms.
+- **Fix:** Give the export wait a deadline so a hidden tab no longer blocks the print dialog.
+- **Fix:** Stop service worker updates from reloading the tab and discarding the unsaved document.
+- **Fix:** Keep print listeners stable so typing cannot clear the suggested PDF filename mid-export.
+- **Fix:** Give every Mermaid render a unique id so concurrent renders stop dropping diagrams.
+- **Fix:** Align the layout breakpoint with the mobile query so zoomed viewports keep the preview visible.
+- **Sec:** Patch brace-expansion, browserslist, fast-uri, nanoid, undici, DOMPurify, and Mermaid advisories.
+- **Perf:** Memoize the preview and defer its source so typing and splitter drags stop reparsing.
+- **Perf:** Drop the highlight.js language pack from the entry chunk, cutting 157 KB from first load.
+- **Build:** Bump the npm minor/patch group: Mermaid 11.17, highlight.js 11.12, CodeMirror, styled-components, Playwright.
+- **Build:** Take Vitest 5, jsdom 30, Vite 8.2.2, and Babel runtime 8.
+
 ## [2.11.7] - 2026-07-29
 
 - **Docs:** Tighten README structure with usage-first flow and trimmed feature copy.
