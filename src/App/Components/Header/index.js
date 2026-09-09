@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import {
   CircleHalf,
@@ -40,12 +40,20 @@ const Header = ({ className }) => {
   const ThemeIcon = THEME_ICON[mode] || CircleHalf;
   const [text] = useProvided(TextContainer);
 
+  // Read the live text without making it an effect dependency: a [text] dep
+  // would re-register the listeners on every keystroke and, worse, run the
+  // cleanup's endPrintFilenameSession() mid-print. On Android window.print()
+  // is non-blocking, so that would drop the filename hint while the save sheet
+  // is still open (the v2.11.3 regression in docs/print-filename.md).
+  const textRef = useRef(text);
+  textRef.current = text;
+
   // Tab title stays the app name during editing; printFilenameSession applies
   // the heading (and optional URL slug) only for the print/save flow. See
   // docs/print-filename.md.
   useEffect(() => {
     const handleBeforePrint = () => {
-      beginPrintFilenameSession(extractHeading(text));
+      beginPrintFilenameSession(extractHeading(textRef.current));
     };
     const handleAfterPrint = () => {
       endPrintFilenameSession();
@@ -58,10 +66,10 @@ const Header = ({ className }) => {
       window.removeEventListener('afterprint', handleAfterPrint);
       endPrintFilenameSession();
     };
-  }, [text]);
+  }, []);
 
   const onTransform = async () => {
-    const heading = extractHeading(text);
+    const heading = extractHeading(textRef.current);
     try {
       await waitForMermaidRenders();
     } finally {
