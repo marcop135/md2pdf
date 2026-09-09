@@ -43,6 +43,23 @@ describe('printFilenameSession', () => {
     expect(document.title).toBe(DEFAULT_TITLE);
   });
 
+  test('re-begin with the same heading keeps the live session', () => {
+    window.history.replaceState(null, '', '/app');
+    beginPrintFilenameSession('Same Heading');
+
+    // The export button starts the session and window.print() then fires
+    // beforeprint, which starts it again. A restart would restore the title
+    // and URL and re-capture them mid-print.
+    expect(beginPrintFilenameSession('Same Heading')).toBe(true);
+
+    expect(document.title).toBe('Same Heading');
+    expect(window.location.pathname).toBe('/Same-Heading');
+
+    endPrintFilenameSession();
+    expect(document.title).toBe(DEFAULT_TITLE);
+    expect(window.location.pathname).toBe('/app');
+  });
+
   test('double begin ends prior session cleanly', () => {
     beginPrintFilenameSession('First');
     beginPrintFilenameSession('Second');
