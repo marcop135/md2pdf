@@ -1,8 +1,12 @@
+[![Markdown to PDF: split editor and live preview with Mermaid](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
+
 # Markdown to PDF
 
-Mobile-friendly Markdown to PDF converter that runs in your browser. Works offline, and nothing is uploaded during conversion.
+[![Deploy](https://github.com/marcop135/md2pdf/actions/workflows/deploy.yaml/badge.svg)](https://github.com/marcop135/md2pdf/actions/workflows/deploy.yaml)
+[![Release](https://img.shields.io/github/v/release/marcop135/md2pdf)](https://github.com/marcop135/md2pdf/releases)
+[![License: MIT](https://img.shields.io/github/license/marcop135/md2pdf)](./LICENSE)
 
-[![Markdown to PDF: split editor and live preview with Mermaid](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
+Mobile-friendly Markdown to PDF converter that runs in your browser. Works offline, and nothing is uploaded during conversion.
 
 Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
 
@@ -139,9 +143,12 @@ flowchart TD
 
 Contributions welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to contribute.
 
-- Found a bug? [Open an issue](https://github.com/marcop135/md2pdf/issues)
-- Have a feature request? [Open an issue](https://github.com/marcop135/md2pdf/issues)
+- Found a bug? [Open an issue](https://github.com/marcop135/md2pdf/issues/new?template=bug.yml)
+- Have a feature request? [Open an issue](https://github.com/marcop135/md2pdf/issues/new?template=feature.yml)
 - Want to contribute? [Read the contributing guide](./CONTRIBUTING.md)
+- Found a security problem? [Report it privately](./SECURITY.md), not in an issue.
+
+Participation is covered by the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## License
 
