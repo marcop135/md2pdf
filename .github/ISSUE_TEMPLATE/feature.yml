@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest an addition or change to the app.
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This app is client-only and offline-first. Requests that need a backend or server-side conversion are out of scope; see [CONTRIBUTING.md](../../CONTRIBUTING.md).
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What gap or friction prompts this request?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This works entirely in the browser, with no backend and no upload of the document.
+          required: true
