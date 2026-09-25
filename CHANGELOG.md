@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.12.1] - 2026-09-25
+
+- **Docs:** Lead the README with the app screenshot and add build, release, and license badges.
+- **Docs:** Add a security policy, a code of conduct, issue forms, and a pull request template.
+- **Chore:** Normalize line endings and mark binary assets through a new `.gitattributes`.
+
 ## [2.12.0] - 2026-09-09
 
 - **Fix:** Print Mermaid diagrams in light colors so dark-mode exports stay readable on paper.
