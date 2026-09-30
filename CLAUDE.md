@@ -24,17 +24,24 @@ This project uses **npm** (not yarn). The `packageManager` field plus a `preinst
 | `npm test`               | Run the Vitest suite once                        |
 | `npm run test:watch`     | Vitest in watch mode                             |
 | `npm run changelog:lint` | Validate `CHANGELOG.md` (run before changelog commits) |
+| `npm run verify:agent-readiness` | Agent discovery files + `window.md2pdf` wiring |
 
 If `npm start` fails because **5173 is already bound**, a previous Vite session is still running — quit it rather than picking a different port. The port being predictable matters for the manifest, debugger config (`.claude/launch.json`, `.vscode/tasks.json`), and the PWA service worker scope.
 
+## Agent surface
+
+Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md2pdf` (no hosted MCP). Discovery: `/llms.txt`, `/for-agents.html`, `/auth.md`, `/openapi.json`, `/.well-known/ard.json`. Contract: [`docs/agent-surface.md`](docs/agent-surface.md). Skill: [`.claude/skills/md2pdf-export/SKILL.md`](.claude/skills/md2pdf-export/SKILL.md). Keep the privacy-first `robots.txt` `Disallow` for the app UI; only agent discovery paths are Allow-listed.
+
 ## Project layout (only the non-obvious bits)
 
-- `src/App/Components/Header/` — toolbar (brand title, version chip, Import/Export, GitHub link). See **Header toolbar conventions** below.
+- `src/App/Components/Header/` — toolbar (brand title, version chip, For agents link, Import/Export, GitHub link). See **Header toolbar conventions** below.
 - `src/App/Container/` — state via `nonaction` and hooks like `useIsMobile`, `useDrop`.
-- `src/App/Lib/` — small utilities (e.g. upload helper).
+- `src/App/Lib/` — utilities including `agentBridge.js` (`window.md2pdf`).
 - `public/.htaccess` — Apache security/caching headers used in production deploys.
+- `public/llms.txt`, `auth.md`, `for-agents.html`, `openapi.json`, `.well-known/` — agent discovery (must ship as real files, not SPA HTML).
 - `public/static/og-img.png` — generated 1200x630 social-preview image; rendered from `docs/og-img.svg` by `scripts/sync-hero.mjs`. Separate from the README hero.
 - `scripts/changelog-lint.mjs` — enforces the changelog format; do not bypass.
+- `scripts/verify-agent-readiness.mjs` — static agent-surface checks.
 
 ## Header toolbar conventions
 
