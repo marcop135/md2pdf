@@ -19,7 +19,7 @@ Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
 
 ## For agents
 
-Coding agents can drive the live app with Playwriter via `window.md2pdf` (set markdown, prepare export, print). Start at [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) or the [`For agents`](https://md2pdf.marcopontili.com/for-agents.html) portal. There is no hosted MCP and no upload API; conversion stays in the browser. Maintainer notes: [`docs/agent-surface.md`](docs/agent-surface.md).
+Coding agents drive the live app through Playwriter using `window.md2pdf` (set markdown, prepare export, print). Start at [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) or the [`For agents`](https://md2pdf.marcopontili.com/for-agents.html) portal. There is no hosted MCP and no upload API; conversion stays in the browser. Maintainer notes: [`docs/agent-surface.md`](docs/agent-surface.md).
 
 ## Acknowledgements
 
