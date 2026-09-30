@@ -4,6 +4,7 @@
 
 ## [2.13.1] - 2026-09-30
 
+- **Fix:** Hide the For agents header link below 600px so the toolbar stays usable.
 - **Sec:** Patch brace-expansion and fast-uri advisories via npm audit fix.
 - **Build:** Take the npm minor/patch group: React 19.3, CodeMirror, Vitest, jsdom, and UIW.
 
