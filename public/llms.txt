@@ -1,0 +1,46 @@
+# Markdown to PDF (md2pdf.marcopontili.com)
+
+> Client-only Markdown to PDF converter. Runs in the browser, works offline, and never uploads your document for conversion.
+
+Live app: https://md2pdf.marcopontili.com  
+Source: https://github.com/marcop135/md2pdf
+
+## When to use
+
+Use this app when an agent or person needs to turn Markdown (GFM, Mermaid, optional HTML/`style` blocks) into a PDF via the browser print pipeline.
+
+**Good fits**
+
+- Export a Markdown document to PDF without a server
+- Preview GFM and Mermaid before printing
+- Drive the live UI from a coding agent with Playwriter
+
+**Prefer something else for**
+
+- Server-side or headless batch conversion APIs (this product has none)
+- Hosted MCP tools (none; see `/auth.md`)
+- Search indexing of private drafts (the app is intentionally `noindex`)
+
+## How agents control the app
+
+1. Open https://md2pdf.marcopontili.com/ (or a local Vite server on port 5173).
+2. Wait until `window.md2pdf` is defined.
+3. Call `window.md2pdf.setMarkdown(markdownString)`.
+4. Call `await window.md2pdf.prepareExport()` so Mermaid and the preview settle.
+5. Export with CDP `Page.printToPDF` (`printBackground: true`, `preferCSSPageSize: true`), or call `await window.md2pdf.exportPdf()` to open the print dialog.
+
+Repo skill: `.claude/skills/md2pdf-export/SKILL.md` (Playwriter procedure).
+
+## Machine-readable surfaces
+
+- [For agents](https://md2pdf.marcopontili.com/for-agents.html): portal inventory
+- [auth.md](https://md2pdf.marcopontili.com/auth.md): authentication (none)
+- [openapi.json](https://md2pdf.marcopontili.com/openapi.json): public surface description
+- [ARD catalog](https://md2pdf.marcopontili.com/.well-known/ard.json)
+- [Agent skills index](https://md2pdf.marcopontili.com/.well-known/agent-skills/index.json)
+
+## Notes
+
+- No accounts, API keys, OAuth, or hosted MCP.
+- Conversion stays in the browser session.
+- Crawlers remain disallowed in `robots.txt` by design; this file is for agents that already have the URL.
