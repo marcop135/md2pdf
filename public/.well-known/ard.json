@@ -1,0 +1,59 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:md2pdf.marcopontili.com:llms",
+      "displayName": "llms.txt",
+      "type": "text/plain",
+      "url": "https://md2pdf.marcopontili.com/llms.txt",
+      "description": "Site map, when-to-use notes, and Playwriter control overview for Markdown to PDF.",
+      "representativeQueries": [
+        "How should an agent use md2pdf.marcopontili.com?",
+        "When should I convert Markdown to PDF in the browser?"
+      ]
+    },
+    {
+      "identifier": "urn:air:md2pdf.marcopontili.com:auth",
+      "displayName": "auth.md",
+      "type": "text/markdown",
+      "url": "https://md2pdf.marcopontili.com/auth.md",
+      "description": "Authentication notes: no accounts, API keys, OAuth, or hosted MCP.",
+      "representativeQueries": [
+        "Does Markdown to PDF require an API key?",
+        "How do agents authenticate to md2pdf?"
+      ]
+    },
+    {
+      "identifier": "urn:air:md2pdf.marcopontili.com:openapi",
+      "displayName": "openapi.json",
+      "type": "application/json",
+      "url": "https://md2pdf.marcopontili.com/openapi.json",
+      "description": "OpenAPI description of public static surfaces; conversion is browser-side only.",
+      "representativeQueries": [
+        "What public URLs does md2pdf expose?",
+        "Is there a Markdown to PDF REST API?"
+      ]
+    },
+    {
+      "identifier": "urn:air:md2pdf.marcopontili.com:for-agents",
+      "displayName": "For agents portal",
+      "type": "text/html",
+      "url": "https://md2pdf.marcopontili.com/for-agents.html",
+      "description": "Inventory of agent discovery files and the window.md2pdf control contract.",
+      "representativeQueries": [
+        "Where is the md2pdf agent portal?",
+        "How do I drive Markdown to PDF from Playwriter?"
+      ]
+    },
+    {
+      "identifier": "urn:air:md2pdf.marcopontili.com:agent-skills",
+      "displayName": "Agent skills index",
+      "type": "application/json",
+      "url": "https://md2pdf.marcopontili.com/.well-known/agent-skills/index.json",
+      "description": "Published skills for coding agents, including the Playwriter export workflow.",
+      "representativeQueries": [
+        "What agent skills does md2pdf publish?",
+        "How do I export a PDF from md2pdf with Playwriter?"
+      ]
+    }
+  ]
+}
