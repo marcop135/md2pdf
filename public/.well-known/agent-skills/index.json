@@ -1,0 +1,11 @@
+{
+  "name": "md2pdf.marcopontili.com",
+  "description": "Published agent skills for Markdown to PDF (browser-only conversion).",
+  "skills": [
+    {
+      "name": "md2pdf-export",
+      "description": "Drive the live Markdown to PDF app with Playwriter: set markdown, wait for preview, export PDF via CDP printToPDF.",
+      "url": "https://raw.githubusercontent.com/marcop135/md2pdf/develop/.claude/skills/md2pdf-export/SKILL.md"
+    }
+  ]
+}

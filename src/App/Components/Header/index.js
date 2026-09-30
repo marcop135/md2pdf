@@ -15,6 +15,10 @@ import {
   beginPrintFilenameSession,
   endPrintFilenameSession,
 } from '../../Lib/printFilenameSession.js';
+import {
+  registerAgentHandlers,
+  unregisterAgentHandlers,
+} from '../../Lib/agentBridge.js';
 import { TextContainer } from '../../Container';
 import { useThemeMode } from '../../Theme';
 import packageMeta from '../../../../package.json';
@@ -22,6 +26,7 @@ import packageMeta from '../../../../package.json';
 const { version } = packageMeta;
 
 const SOURCE_REPO_URL = 'https://github.com/marcop135/md2pdf';
+const FOR_AGENTS_HREF = '/for-agents.html';
 
 const THEME_ICON = {
   system: CircleHalf,
@@ -35,10 +40,17 @@ const NEXT_MODE_LABEL = {
   dark: 'system',
 };
 
+const settlePreviewFrames = () =>
+  new Promise((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(resolve);
+    });
+  });
+
 const Header = ({ className }) => {
   const { mode, cycleMode } = useThemeMode();
   const ThemeIcon = THEME_ICON[mode] || CircleHalf;
-  const [text] = useProvided(TextContainer);
+  const [text, setText] = useProvided(TextContainer);
 
   // Read the live text without making it an effect dependency: a [text] dep
   // would re-register the listeners on every keystroke and, worse, run the
@@ -47,6 +59,23 @@ const Header = ({ className }) => {
   // is still open (the v2.11.3 regression in docs/print-filename.md).
   const textRef = useRef(text);
   textRef.current = text;
+  const setTextRef = useRef(setText);
+  setTextRef.current = setText;
+
+  const prepareExport = async () => {
+    await settlePreviewFrames();
+    await waitForMermaidRenders();
+    const heading = extractHeading(textRef.current);
+    if (heading) beginPrintFilenameSession(heading);
+  };
+
+  const runExport = async () => {
+    try {
+      await prepareExport();
+    } finally {
+      window.print();
+    }
+  };
 
   // Tab title stays the app name during editing; printFilenameSession applies
   // the heading (and optional URL slug) only for the print/save flow. See
@@ -68,15 +97,17 @@ const Header = ({ className }) => {
     };
   }, []);
 
-  const onTransform = async () => {
-    const heading = extractHeading(textRef.current);
-    try {
-      await waitForMermaidRenders();
-    } finally {
-      if (heading) beginPrintFilenameSession(heading);
-      window.print();
-    }
-  };
+  useEffect(() => {
+    registerAgentHandlers({
+      getText: () => textRef.current,
+      setText: (next) => setTextRef.current(next),
+      prepareExport,
+      exportPdf: runExport,
+    });
+    return () => {
+      unregisterAgentHandlers();
+    };
+  }, []);
 
   return (
     <header className={className + ' no-print'}>
@@ -86,11 +117,18 @@ const Header = ({ className }) => {
       </p>
 
       <div className="menu">
+        <a
+          className="agents-link"
+          href={FOR_AGENTS_HREF}
+          aria-label="For agents"
+        >
+          For agents
+        </a>
         <UploadButton className="button upload" />
         <button
           type="button"
           className="button download primary"
-          onClick={onTransform}
+          onClick={runExport}
           aria-label="Export to .pdf"
         >
           <FileEarmarkPdfFill size={18} aria-hidden />
@@ -191,6 +229,31 @@ export default styled(Header)`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    .agents-link {
+      margin-right: 4px;
+      padding: 0 8px;
+      font-size: 13px;
+      font-weight: 400;
+      color: ${({ theme }) => theme.colors.versionChip};
+      text-decoration: none;
+      white-space: nowrap;
+
+      &:hover {
+        color: ${({ theme }) => theme.colors.buttonText};
+        text-decoration: underline;
+      }
+
+      &:focus-visible {
+        outline: 2px solid ${({ theme }) => theme.colors.focusRing};
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+
+      @media (max-width: 420px) {
+        display: none;
+      }
+    }
 
     a.button {
       text-decoration: none;

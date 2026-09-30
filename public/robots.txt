@@ -3,9 +3,19 @@
 # Social link-preview bots (WhatsApp, Slack, Telegram, Discord, etc.) are
 # allowed so shared links render the og:title / og:image instead of a host
 # interstitial. They are listed explicitly below.
+#
+# Agent discovery files are Allow-listed so known-URL agents can fetch them
+# without opening the editor UI to crawlers. Start at /llms.txt.
 
 User-agent: *
 Disallow: /
+Allow: /llms.txt
+Allow: /auth.md
+Allow: /for-agents.html
+Allow: /openapi.json
+Allow: /.well-known/ard.json
+Allow: /.well-known/ai-catalog.json
+Allow: /.well-known/agent-skills/
 
 # Social link-preview / unfurl bots — allowed so shared links unfurl correctly.
 User-agent: WhatsApp

@@ -2,6 +2,15 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.13.0] - 2026-09-30
+
+- **Feat:** Expose `window.md2pdf` so Playwriter agents can set markdown and export PDFs.
+- **Feat:** Publish agent discovery files, a For agents portal, OpenAPI, and an ARD catalog.
+- **Fix:** Return HTTP 404 for missing agent static paths instead of the SPA shell.
+- **Fix:** Deploy `.well-known` agent catalogs while still excluding ACME challenge paths.
+- **Docs:** Document the agent surface in the README, portal, and `docs/agent-surface.md`.
+- **CI:** Narrow the SFTP `.well-known` exclude so agent catalogs reach production.
+
 ## [2.12.1] - 2026-09-25
 
 - **Docs:** Lead the README with the app screenshot and add build, release, and license badges.
