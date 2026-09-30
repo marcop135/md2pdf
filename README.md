@@ -17,6 +17,10 @@ Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
 - Click **Export to .pdf** to open the print dialog; choose “Save as PDF” (or equivalent) to get a PDF. The suggested filename comes from the first markdown heading.
 - Use **Import .md file** or drag-and-drop a `.md` file to load its content.
 
+## For agents
+
+Coding agents can drive the live app with Playwriter via `window.md2pdf` (set markdown, prepare export, print). Start at [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) or the [`For agents`](https://md2pdf.marcopontili.com/for-agents.html) portal. There is no hosted MCP and no upload API; conversion stays in the browser. Maintainer notes: [`docs/agent-surface.md`](docs/agent-surface.md).
+
 ## Acknowledgements
 
 This repository is derived from **[realdennis/md2pdf](https://github.com/realdennis/md2pdf)** (MIT). Thanks to Dennis for the original app.
@@ -60,8 +64,9 @@ This fork is maintained on its own track: Mermaid, GFM, offline PWA, CI/deploy, 
 | `src/App/Components/` | Header, Markdown editor, preview, drag bar                 |
 | `src/App/Container/`  | State (nonaction), hooks (e.g. useIsMobile, useDrop)       |
 | `src/App/Lib/`        | Utilities (e.g. upload helper)                             |
-| `public/`             | Static assets (`.htaccess`, `manifest.json`, `robots.txt`) |
+| `public/`             | Static assets (`.htaccess`, `manifest.json`, `robots.txt`, agent discovery) |
 | `dist/`               | Production output (after `npm run build`)                  |
+| `docs/agent-surface.md` | Agent control contract and discovery notes               |
 
 ## Scripts
 
@@ -73,6 +78,7 @@ This fork is maintained on its own track: Mermaid, GFM, offline PWA, CI/deploy, 
 | `npm run preview`        | Preview production build (`dist/`)                               |
 | `npm run hero:sync`      | Render social-preview SVGs to PNGs (og:image + GitHub repo card) |
 | `npm run changelog:lint` | Validate `CHANGELOG.md` formatting                               |
+| `npm run verify:agent-readiness` | Check agent discovery files and `window.md2pdf` wiring   |
 
 ## Installation
 

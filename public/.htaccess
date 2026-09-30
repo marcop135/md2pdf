@@ -419,13 +419,27 @@ AddDefaultCharset utf-8
 # The app briefly rewrites the URL path to a heading slug while printing (see
 # docs/print-filename.md and printFilenameSession.js) so Firefox on Android
 # can name the exported PDF from the path. Those paths are not real files, so
-# real files, so serve `index.html` for any request that does not map to an
-# existing file or directory. Hashed assets, the service worker, and the
-# manifest all resolve to real files and are unaffected.
+# serve `index.html` for any request that does not map to an existing file or
+# directory. Hashed assets, the service worker, and the manifest all resolve
+# to real files and are unaffected.
+#
+# Agent discovery probes (missing .md / .txt / .json / .well-known paths) must
+# return a real HTTP 404 instead of the SPA shell (soft-404). Portal aliases
+# map common docs URLs onto for-agents.html.
 
 <IfModule mod_rewrite.c>
 
     RewriteEngine On
+
+    # Portal aliases (Ora probes /docs, /developers, /api).
+    RewriteRule ^(docs|developers|api)/?$ /for-agents.html [L]
+
+    # Missing agent-facing static paths: hard 404, not index.html.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} \.(md|txt|json)$ [OR]
+    RewriteCond %{REQUEST_URI} ^/\.well-known/
+    RewriteRule ^ - [R=404,L]
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
