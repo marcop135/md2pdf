@@ -250,7 +250,7 @@ export default styled(Header)`
         border-radius: 4px;
       }
 
-      @media (max-width: 420px) {
+      @media (max-width: 600px) {
         display: none;
       }
     }
