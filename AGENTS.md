@@ -2,6 +2,8 @@
 
 Entry point for AI agents in this repository. Detailed maintainer rules live in [`CLAUDE.md`](CLAUDE.md); read that file for renderer pipeline, changelog format, PWA constraints, and release workflow.
 
+**Live agent surface:** coding agents drive https://md2pdf.marcopontili.com via Playwriter and `window.md2pdf`. Start at [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) or [`/for-agents.html`](https://md2pdf.marcopontili.com/for-agents.html). Maintainer contract: [`docs/agent-surface.md`](docs/agent-surface.md). Skill: [`.claude/skills/md2pdf-export/SKILL.md`](.claude/skills/md2pdf-export/SKILL.md).
+
 **Cursor CLI:** [Official docs](https://cursor.com/docs/cli/overview). Run headless from the repo root with this file and `CLAUDE.md` in context.
 
 ## Stack

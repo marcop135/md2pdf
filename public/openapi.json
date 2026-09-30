@@ -1,0 +1,89 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Markdown to PDF",
+    "version": "2.13.0",
+    "summary": "Client-only Markdown to PDF in the browser",
+    "description": "There is no remote conversion HTTP API. Agents load https://md2pdf.marcopontili.com/ and drive window.md2pdf via Playwriter (or equivalent browser automation). See /llms.txt and /for-agents.html.",
+    "contact": {
+      "name": "Marco Pontili",
+      "url": "https://github.com/marcop135/md2pdf"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/marcop135/md2pdf/blob/main/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://md2pdf.marcopontili.com",
+      "description": "Production PWA (static files + SPA)"
+    }
+  ],
+  "paths": {
+    "/llms.txt": {
+      "get": {
+        "operationId": "getLlmsTxt",
+        "summary": "Agent site map and when-to-use notes",
+        "responses": {
+          "200": {
+            "description": "Plain-text llms.txt",
+            "content": {
+              "text/plain": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth.md": {
+      "get": {
+        "operationId": "getAuthMd",
+        "summary": "Authentication notes (none required)",
+        "responses": {
+          "200": {
+            "description": "Markdown auth document",
+            "content": {
+              "text/markdown": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/for-agents.html": {
+      "get": {
+        "operationId": "getForAgents",
+        "summary": "Human and agent portal",
+        "responses": {
+          "200": {
+            "description": "HTML portal",
+            "content": {
+              "text/html": {
+                "schema": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "operationId": "getOpenApi",
+        "summary": "This OpenAPI document",
+        "responses": {
+          "200": {
+            "description": "OpenAPI 3.1 JSON",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
