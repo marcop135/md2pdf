@@ -2,6 +2,10 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [Unreleased]
+
+- **Enhance:** Show For agents as a header icon beside the theme toggle, hidden on small screens.
+
 ## [2.13.3] - 2026-10-01
 
 - **Fix:** Strip the CSP meta tag on the dev server as intended.
