@@ -42,6 +42,7 @@ export default (props) => {
         id="mdFile"
         type="file"
         aria-label="Import .md file"
+        title="Import .md file"
         style={{
           position: 'absolute',
           top: 0,
@@ -57,7 +58,8 @@ export default (props) => {
         accept=".md,.markdown,.mdown,.mkd"
       />
       <FileEarmarkArrowUpFill size={18} aria-hidden />
-      <span>Import .md file</span>
+      <span className="label-long">Import .md file</span>
+      <span className="label-short">Import</span>
     </p>
   );
 };
