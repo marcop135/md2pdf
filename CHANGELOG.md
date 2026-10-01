@@ -4,7 +4,7 @@
 
 ## Unreleased
 
-- **Docs:** Add unified README, og:image, and GitHub social images in the site fonts on a sky gradient.
+- **Docs:** Add unified README, og:image, and GitHub social images in the site fonts on a deep sky gradient.
 - **Build:** Render brand images from `.github/brand/` with `npm run brand:images`, replacing `hero:sync` and its SVG sources.
 
 ## [2.13.4] - 2026-10-01
