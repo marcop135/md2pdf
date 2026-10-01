@@ -2,6 +2,11 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.14.1] - 2026-10-01
+
+- **Fix:** Restore the previous phone header with the title text, wider Import and Export buttons, and no logo.
+- **Docs:** Move the app screenshot in the README below the live app link.
+
 ## [2.14.0] - 2026-10-01
 
 - **Docs:** Add unified README, og:image, and GitHub social images in the site fonts on a deep sky gradient.
