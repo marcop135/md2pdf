@@ -26,7 +26,7 @@ const stripCspMetaInDev = {
     // Production CSP stays in built index.html; Vite/HMR overlays can violate
     // the meta policy in serve mode and leave an empty-looking page.
     return html.replace(
-      /\s*<meta\s+http-equiv=["']Content-Security-Policy["'][^>]*\/>\s*/i,
+      /\s*<meta\s+http-equiv=["']Content-Security-Policy["'][^>]*\/?>\s*/i,
       '\n'
     );
   },
