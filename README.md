@@ -1,3 +1,5 @@
+[![Markdown to PDF: a Markdown file turns into a PDF document in the browser](.github/brand/readme.png)](https://md2pdf.marcopontili.com)
+
 [![Markdown to PDF: split editor and live preview with a table, code, and a Mermaid diagram](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
 
 # Markdown to PDF
@@ -76,7 +78,7 @@ This fork is maintained on its own track: Mermaid, GFM, offline PWA, CI/deploy, 
 | `npm run build`          | Production build                                                 |
 | `npm test`               | Run tests                                                        |
 | `npm run preview`        | Preview production build (`dist/`)                               |
-| `npm run hero:sync`      | Render social-preview SVGs to PNGs (og:image + GitHub repo card) |
+| `npm run brand:images`   | Render README, og:image, and GitHub social PNGs from `.github/brand/` |
 | `npm run changelog:lint` | Validate `CHANGELOG.md` formatting                               |
 | `npm run verify:agent-readiness` | Check agent discovery files and `window.md2pdf` wiring   |
 

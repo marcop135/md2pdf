@@ -39,7 +39,7 @@ Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md
 - `src/App/Lib/` — utilities including `agentBridge.js` (`window.md2pdf`).
 - `public/.htaccess` — Apache security/caching headers used in production deploys.
 - `public/llms.txt`, `auth.md`, `for-agents.html`, `openapi.json`, `.well-known/` — agent discovery (must ship as real files, not SPA HTML).
-- `public/static/og-img.png` — committed 1200x630 social-preview image; rendered from `docs/og-img.svg` by `npm run hero:sync`. Separate from the README hero.
+- `public/static/og-img.png`: committed 1200x630 og:image; rendered from `.github/brand/og.svg` by `npm run brand:images`.
 - `scripts/changelog-lint.mjs` — enforces the changelog format; do not bypass.
 - `scripts/verify-agent-readiness.mjs` — static agent-surface checks.
 
@@ -74,18 +74,14 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 
 The hero uses plain markdown image+link form (`[![alt](src)](url)`), with **no surrounding `<div>` or `<p>` wrapper**. Markdown-inside-HTML rendering is inconsistent across local previewers (VS Code, JetBrains, etc.) even when GitHub handles it, so we keep it pure markdown.
 
-`docs/readme-hero.png` is the README screenshot. It is referenced directly from the README and is **not** the social-preview image — those are separate assets with different aspect ratios and design constraints.
+The README root image is the brand banner `.github/brand/readme.png`; `docs/readme-hero.png` sits directly below it as the product screenshot (committed, not generated).
 
-## Social preview (og:image)
+## Brand images (README, og:image, GitHub social)
 
-`docs/og-img.svg` is the source for the social-preview image; `docs/github-social.svg` is the same composition at 1280x640 for the GitHub repo social preview (uploaded by hand in repo Settings). `npm run hero:sync` renders them to `public/static/og-img.png` (**1200x630**, the Open Graph standard) and `docs/github-social-preview.png`. It is **manual only**: the Linux deploy runner lacks the SVG fonts (`'Segoe UI'`, then `'Helvetica Neue'`), so both PNGs are rendered locally and committed.
+Sources live in `.github/brand/` (`readme.svg`, `social.svg`, `og.svg`, `brand.config.json`; the kit files there are vendored, do not edit them). `npm run brand:images` renders `.github/brand/readme.png` (2560x1280), `.github/brand/social.png` (1280x640, uploaded by hand in repo Settings > Social preview) and `public/static/og-img.png` (**1200x630**, under 300 KB). Fonts are embedded in the SVGs, so output does not depend on installed fonts. It is **manual only**, not part of dev/build; `npm run brand:images:check` exits 1 if anything is stale.
 
-Constraints:
-
-- **Dimensions:** 1200x630 (16:8.4 ratio that all major unfurl bots target).
-- **File size:** keep under **600 KB** — WhatsApp drops larger images.
-- **No CTA pill or URL on the artwork** — keep the unfurl composition clean; the platform shows the link separately.
-- To update: edit the SVG, run `npm run hero:sync`, commit the PNG, and bump the `?v=` query on `og:image`, `og:image:secure_url`, and `twitter:image` in `index.html` so unfurl caches refetch.
+- **No CTA pill or URL on the artwork**; the platform shows the link separately.
+- After re-rendering, bump the `?v=` query on `og:image`, `og:image:secure_url`, and `twitter:image` in `index.html` so unfurl caches refetch.
 
 ## PWA icons
 
