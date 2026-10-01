@@ -7,6 +7,10 @@
 - **Docs:** Add unified README, og:image, and GitHub social images in the site fonts on a sky gradient.
 - **Build:** Render brand images from `.github/brand/` with `npm run brand:images`, replacing `hero:sync` and its SVG sources.
 
+## [2.13.4] - 2026-10-01
+
+- **Enhance:** Show For agents as a header icon beside the theme toggle, hidden on small screens.
+
 ## [2.13.3] - 2026-10-01
 
 - **Fix:** Strip the CSP meta tag on the dev server as intended.

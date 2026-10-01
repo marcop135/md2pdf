@@ -140,15 +140,6 @@ const Header = ({ className }) => {
       </p>
 
       <div className="menu">
-        <a
-          className="button agents-link"
-          href={FOR_AGENTS_HREF}
-          aria-label="For agents"
-          title="For agents"
-        >
-          <Robot size={18} aria-hidden />
-          <span className="label-long">For agents</span>
-        </a>
         <UploadButton className="button upload" />
         <button
           type="button"
@@ -161,6 +152,14 @@ const Header = ({ className }) => {
           <span className="label-long">Export to .pdf</span>
           <span className="label-short">Export PDF</span>
         </button>
+        <a
+          className="button agents-link icon-only"
+          href={FOR_AGENTS_HREF}
+          aria-label="For agents"
+          title="For agents"
+        >
+          <Robot size={18} aria-hidden />
+        </a>
         <button
           type="button"
           className="button theme-toggle icon-only"
@@ -339,26 +338,6 @@ export default styled(Header)`
       }
     }
 
-    /* Full width: For agents reads as a quiet text link, not a button. */
-    .agents-link {
-      padding: 0 8px;
-      font-size: 13px;
-      border-color: transparent;
-      background-color: transparent;
-      color: ${({ theme }) => theme.colors.versionChip};
-
-      svg {
-        display: none;
-      }
-
-      &:hover {
-        border-color: transparent;
-        background-color: transparent;
-        color: ${({ theme }) => theme.colors.buttonText};
-        text-decoration: underline;
-      }
-    }
-
     @media (max-width: ${BP.COMPACT}px) {
       .button .label-long {
         display: none;
@@ -366,24 +345,6 @@ export default styled(Header)`
 
       .button .label-short {
         display: inline;
-      }
-
-      .agents-link {
-        width: 34px;
-        padding: 0;
-        border-color: ${({ theme }) => theme.colors.buttonBorder};
-        background-color: ${({ theme }) => theme.colors.buttonBg};
-        color: ${({ theme }) => theme.colors.buttonText};
-
-        svg {
-          display: block;
-        }
-
-        &:hover {
-          border-color: ${({ theme }) => theme.colors.buttonHoverBorder};
-          background-color: ${({ theme }) => theme.colors.buttonHoverBg};
-          text-decoration: none;
-        }
       }
     }
 
@@ -395,6 +356,10 @@ export default styled(Header)`
         .label-short {
           display: none;
         }
+      }
+
+      .agents-link {
+        display: none;
       }
     }
   }
