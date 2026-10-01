@@ -39,7 +39,7 @@ Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md
 - `src/App/Lib/` — utilities including `agentBridge.js` (`window.md2pdf`).
 - `public/.htaccess` — Apache security/caching headers used in production deploys.
 - `public/llms.txt`, `auth.md`, `for-agents.html`, `openapi.json`, `.well-known/` — agent discovery (must ship as real files, not SPA HTML).
-- `public/static/og-img.png` — generated 1200x630 social-preview image; rendered from `docs/og-img.svg` by `scripts/sync-hero.mjs`. Separate from the README hero.
+- `public/static/og-img.png` — committed 1200x630 social-preview image; rendered from `docs/og-img.svg` by `npm run hero:sync`. Separate from the README hero.
 - `scripts/changelog-lint.mjs` — enforces the changelog format; do not bypass.
 - `scripts/verify-agent-readiness.mjs` — static agent-surface checks.
 
@@ -47,8 +47,10 @@ Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md
 
 The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](src/App/index.js) and [`src/styles.css`](src/styles.css)).
 
-- Brand title `Markdown to PDF` uses `.brand-title` at **`font-weight: 700`**.
-- Version chip = `v` + `major.minor.patch` from `package.json`, rendered as `.version-chip` (color `#656d76`, weight `400`, slightly smaller). **Hide on `≤420px` width.**
+- Brand = 24px `/favicon.svg` logo + `.brand-title` `Markdown to PDF` at **`font-weight: 700`** (truncates with an ellipsis rather than scrolling the bar).
+- Version chip = `v` + `major.minor.patch` from `package.json`, rendered as `.version-chip` (color `#656d76`, weight `400`, slightly smaller).
+- Breakpoints live in the `BP` constant in `Header/index.js`, each set from the measured width of the tier above it: `≤768` For agents icon-only + short labels (`Import`, `Export PDF`), `≤640` all controls icon-only, `≤480` chip hidden, `≤400` title visually hidden (logo only). After any header change, sweep 300-1280px and confirm no label wraps or clips.
+- Every control keeps an `aria-label` and `title` independent of its visible label (`Header.test.jsx`).
 - Import / Export buttons stay **`font-weight: 400`**, **`font-size: 14px`**, **`height: 32px`**.
 - Prefer `font-family: inherit` on header and toolbar controls ([`Header/index.js`](src/App/Components/Header/index.js), [`Upload.js`](src/App/Components/Header/Upload.js)).
 - If you change the header's `min-height` (currently **48px**), update [`Markdown/index.js`](src/App/Components/Markdown/index.js) `height: calc(100% - …px)` to match — the layout subtracts the header bar height.
@@ -76,14 +78,14 @@ The hero uses plain markdown image+link form (`[![alt](src)](url)`), with **no s
 
 ## Social preview (og:image)
 
-`docs/og-img.svg` is the source for the social-preview image. `scripts/sync-hero.mjs` (run on `npm start` / `npm run dev` / `npm run build`, or manually via `npm run hero:sync`) renders it to `public/static/og-img.png` at **1200x630** (the Open Graph standard) so unfurls render correctly across WhatsApp, Slack, Twitter, LinkedIn, Discord, etc.
+`docs/og-img.svg` is the source for the social-preview image; `docs/github-social.svg` is the same composition at 1280x640 for the GitHub repo social preview (uploaded by hand in repo Settings). `npm run hero:sync` renders them to `public/static/og-img.png` (**1200x630**, the Open Graph standard) and `docs/github-social-preview.png`. It is **manual only**: the Linux deploy runner lacks the SVG fonts (`'Segoe UI'`, then `'Helvetica Neue'`), so both PNGs are rendered locally and committed.
 
 Constraints:
 
 - **Dimensions:** 1200x630 (16:8.4 ratio that all major unfurl bots target).
 - **File size:** keep under **600 KB** — WhatsApp drops larger images.
 - **No CTA pill or URL on the artwork** — keep the unfurl composition clean; the platform shows the link separately.
-- The destination is gitignored; to update, edit `docs/og-img.svg` and re-run dev/build.
+- To update: edit the SVG, run `npm run hero:sync`, commit the PNG, and bump the `?v=` query on `og:image`, `og:image:secure_url`, and `twitter:image` in `index.html` so unfurl caches refetch.
 
 ## PWA icons
 

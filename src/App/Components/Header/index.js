@@ -5,6 +5,7 @@ import {
   FileEarmarkPdfFill,
   Github,
   MoonFill,
+  Robot,
   SunFill,
 } from 'react-bootstrap-icons';
 import { useProvided } from 'nonaction';
@@ -27,6 +28,21 @@ const { version } = packageMeta;
 
 const SOURCE_REPO_URL = 'https://github.com/marcop135/md2pdf';
 const FOR_AGENTS_HREF = '/for-agents.html';
+
+// Toolbar breakpoints (max-width, px). Each tier's natural width (Segoe UI)
+// sits below the next breakpoint up with slack for wider system fonts:
+//  - full row needs ~700px            -> COMPACT below 768
+//  - COMPACT (short labels) ~590px    -> ICON_ONLY below 640
+//  - ICON_ONLY with chip ~436px       -> NO_CHIP below 480
+//  - NO_CHIP with title ~372px        -> LOGO_ONLY below 400
+// The brand title also truncates with an ellipsis, so a wider font degrades
+// to "Markdown to P…" instead of scrolling the bar.
+const BP = {
+  COMPACT: 768,
+  ICON_ONLY: 640,
+  NO_CHIP: 480,
+  LOGO_ONLY: 400,
+};
 
 const THEME_ICON = {
   system: CircleHalf,
@@ -112,17 +128,26 @@ const Header = ({ className }) => {
   return (
     <header className={className + ' no-print'}>
       <p className="project">
-        <strong className="brand-title">Markdown to PDF</strong>{' '}
+        <img
+          className="brand-logo"
+          src="/favicon.svg"
+          alt=""
+          width="24"
+          height="24"
+        />
+        <strong className="brand-title">Markdown to PDF</strong>
         <small className="version-chip">v{version}</small>
       </p>
 
       <div className="menu">
         <a
-          className="agents-link"
+          className="button agents-link"
           href={FOR_AGENTS_HREF}
           aria-label="For agents"
+          title="For agents"
         >
-          For agents
+          <Robot size={18} aria-hidden />
+          <span className="label-long">For agents</span>
         </a>
         <UploadButton className="button upload" />
         <button
@@ -130,9 +155,11 @@ const Header = ({ className }) => {
           className="button download primary"
           onClick={runExport}
           aria-label="Export to .pdf"
+          title="Export to .pdf"
         >
           <FileEarmarkPdfFill size={18} aria-hidden />
-          <span>Export to .pdf</span>
+          <span className="label-long">Export to .pdf</span>
+          <span className="label-short">Export PDF</span>
         </button>
         <button
           type="button"
@@ -149,6 +176,7 @@ const Header = ({ className }) => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="View source on GitHub"
+          title="View source on GitHub"
         >
           <Github size={18} aria-hidden />
         </a>
@@ -163,16 +191,11 @@ export default styled(Header)`
   }
 
   flex-shrink: 0;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
   user-select: none;
-  padding: 0 12px;
-  gap: 8px;
-
-  @media (max-width: 420px) {
-    padding: 0 8px;
-    gap: 4px;
-  }
+  padding-block: 0;
+  padding-inline: max(12px, env(safe-area-inset-left, 0px))
+    max(12px, env(safe-area-inset-right, 0px));
+  gap: 12px;
   font-family: inherit;
   color: ${({ theme }) => theme.colors.headerText};
   background-color: ${({ theme }) => theme.colors.headerBg};
@@ -182,77 +205,73 @@ export default styled(Header)`
   min-height: 48px;
   -webkit-font-smoothing: antialiased;
 
+  @media (max-width: ${BP.NO_CHIP}px) {
+    padding-inline: max(8px, env(safe-area-inset-left, 0px))
+      max(8px, env(safe-area-inset-right, 0px));
+    gap: 8px;
+  }
+
   .project {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    margin: 0;
     font-weight: 400;
     font-size: 15px;
     letter-spacing: 0.2px;
-    margin: 0;
-    flex-shrink: 0;
     line-height: 1.35;
+    white-space: nowrap;
+
+    .brand-logo {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
 
     .brand-title {
       font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .version-chip {
-      margin-left: 4px;
+      margin-left: -4px;
       color: ${({ theme }) => theme.colors.versionChip};
       font-weight: 400;
       font-size: 0.9em;
     }
 
-    @media (max-width: 480px) {
-      font-size: 13px;
+    @media (max-width: ${BP.ICON_ONLY}px) {
+      font-size: 14px;
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: ${BP.NO_CHIP}px) {
       .version-chip {
         display: none;
       }
     }
 
-    @media (max-width: 360px) {
-      font-size: 12px;
-      letter-spacing: 0;
-    }
-
-    @media (max-width: 320px) {
+    @media (max-width: ${BP.LOGO_ONLY}px) {
       .brand-title {
-        font-size: 11px;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
       }
     }
   }
 
   .menu {
-    width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    gap: 8px;
+    margin-left: auto;
+    flex-shrink: 0;
 
-    .agents-link {
-      margin-right: 4px;
-      padding: 0 8px;
-      font-size: 13px;
-      font-weight: 400;
-      color: ${({ theme }) => theme.colors.versionChip};
-      text-decoration: none;
-      white-space: nowrap;
-
-      &:hover {
-        color: ${({ theme }) => theme.colors.buttonText};
-        text-decoration: underline;
-      }
-
-      &:focus-visible {
-        outline: 2px solid ${({ theme }) => theme.colors.focusRing};
-        outline-offset: 2px;
-        border-radius: 4px;
-      }
-
-      @media (max-width: 600px) {
-        display: none;
-      }
+    @media (max-width: ${BP.NO_CHIP}px) {
+      gap: 6px;
     }
 
     a.button {
@@ -261,15 +280,16 @@ export default styled(Header)`
 
     .button {
       height: 32px;
-      min-width: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-left: 8px;
+      gap: 6px;
+      margin: 0;
       padding: 0 12px;
       font-size: 14px;
       font-family: inherit;
       font-weight: 400;
+      white-space: nowrap;
       border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
       border-radius: 6px;
       cursor: pointer;
@@ -279,24 +299,6 @@ export default styled(Header)`
         background-color 0.15s ease,
         border-color 0.15s ease,
         transform 0.15s ease;
-
-      @media (max-width: 600px) {
-        svg + span {
-          display: none;
-        }
-        svg {
-          margin: auto !important;
-        }
-        min-width: 64px;
-        width: 64px;
-        padding: 0 22px;
-      }
-
-      @media (max-width: 355px) {
-        min-width: 34px;
-        width: 34px;
-        padding: 0;
-      }
 
       &:hover {
         background-color: ${({ theme }) => theme.colors.buttonHoverBg};
@@ -323,25 +325,76 @@ export default styled(Header)`
         color: rgb(53, 123, 253);
       }
 
-      &:not(.icon-only) {
-        justify-content: flex-start;
-      }
-
       svg {
-        margin-right: 6px;
         flex-shrink: 0;
       }
 
-      &.icon-only {
-        min-width: 34px;
-        width: 34px;
-        padding: 0;
-        margin-left: 8px;
+      .label-short {
+        display: none;
       }
 
-      &.icon-only svg {
-        margin-right: 0;
-        margin-left: 0;
+      &.icon-only {
+        width: 34px;
+        padding: 0;
+      }
+    }
+
+    /* Full width: For agents reads as a quiet text link, not a button. */
+    .agents-link {
+      padding: 0 8px;
+      font-size: 13px;
+      border-color: transparent;
+      background-color: transparent;
+      color: ${({ theme }) => theme.colors.versionChip};
+
+      svg {
+        display: none;
+      }
+
+      &:hover {
+        border-color: transparent;
+        background-color: transparent;
+        color: ${({ theme }) => theme.colors.buttonText};
+        text-decoration: underline;
+      }
+    }
+
+    @media (max-width: ${BP.COMPACT}px) {
+      .button .label-long {
+        display: none;
+      }
+
+      .button .label-short {
+        display: inline;
+      }
+
+      .agents-link {
+        width: 34px;
+        padding: 0;
+        border-color: ${({ theme }) => theme.colors.buttonBorder};
+        background-color: ${({ theme }) => theme.colors.buttonBg};
+        color: ${({ theme }) => theme.colors.buttonText};
+
+        svg {
+          display: block;
+        }
+
+        &:hover {
+          border-color: ${({ theme }) => theme.colors.buttonHoverBorder};
+          background-color: ${({ theme }) => theme.colors.buttonHoverBg};
+          text-decoration: none;
+        }
+      }
+    }
+
+    @media (max-width: ${BP.ICON_ONLY}px) {
+      .button {
+        width: 34px;
+        padding: 0;
+
+        .label-short {
+          display: none;
+        }
       }
     }
   }
