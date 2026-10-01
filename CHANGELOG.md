@@ -2,6 +2,11 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## Unreleased
+
+- **Docs:** Add unified README, og:image, and GitHub social images in the site fonts on a sky gradient.
+- **Build:** Render brand images from `.github/brand/` with `npm run brand:images`, replacing `hero:sync` and its SVG sources.
+
 ## [2.13.3] - 2026-10-01
 
 - **Fix:** Strip the CSP meta tag on the dev server as intended.
