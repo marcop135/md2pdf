@@ -49,7 +49,7 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 
 - Brand = 24px `/favicon.svg` logo + `.brand-title` `Markdown to PDF` at **`font-weight: 700`** (truncates with an ellipsis rather than scrolling the bar).
 - Version chip = `v` + `major.minor.patch` from `package.json`, rendered as `.version-chip` (color `#656d76`, weight `400`, slightly smaller).
-- Breakpoints live in the `BP` constant in `Header/index.js`, each set from the measured width of the tier above it: For agents is an icon-only control between Export and the theme toggle; `≤768` short labels (`Import`, `Export PDF`), `≤640` all controls icon-only and For agents hidden, `≤480` chip hidden, `≤400` title visually hidden (logo only). After any header change, sweep 300-1280px and confirm no label wraps or clips.
+- Breakpoints live in the `BP` constant in `Header/index.js`, each set from the measured width of the tier above it: For agents is an icon-only control between Export and the theme toggle; `≤768` short labels (`Import`, `Export PDF`), `≤640` logo and For agents hidden, Import/Export icon-only at 64px wide, title text kept and stepped down to 13px (`≤480`), 12px (`≤360`), 11px (`≤320`), chip hidden `≤420`, all buttons 34px `≤355`. After any header change, sweep 300-1280px and confirm no label wraps or clips.
 - Every control keeps an `aria-label` and `title` independent of its visible label (`Header.test.jsx`).
 - Import / Export buttons stay **`font-weight: 400`**, **`font-size: 14px`**, **`height: 32px`**.
 - Prefer `font-family: inherit` on header and toolbar controls ([`Header/index.js`](src/App/Components/Header/index.js), [`Upload.js`](src/App/Components/Header/Upload.js)).
@@ -74,7 +74,7 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 
 The hero uses plain markdown image+link form (`[![alt](src)](url)`), with **no surrounding `<div>` or `<p>` wrapper**. Markdown-inside-HTML rendering is inconsistent across local previewers (VS Code, JetBrains, etc.) even when GitHub handles it, so we keep it pure markdown.
 
-The README root image is the brand banner `.github/brand/readme.png`; `docs/readme-hero.png` sits directly below it as the product screenshot (committed, not generated).
+The README root image is the brand banner `.github/brand/readme.png`; `docs/readme-hero.png` is the product screenshot, placed right after the `Live app:` line (committed, not generated).
 
 ## Brand images (README, og:image, GitHub social)
 
