@@ -2,7 +2,7 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
-## [Unreleased]
+## [2.13.2] - 2026-10-01
 
 - **Enhance:** Rebuild the header on measured breakpoints with a logo, short labels, and icon-only controls that never wrap.
 - **Fix:** Ship a committed, cache-busted og:image so the deploy runner no longer renders it with fallback fonts.
