@@ -1,4 +1,4 @@
-[![Markdown to PDF: split editor and live preview with Mermaid](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
+[![Markdown to PDF: split editor and live preview with a table, code, and a Mermaid diagram](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
 
 # Markdown to PDF
 
