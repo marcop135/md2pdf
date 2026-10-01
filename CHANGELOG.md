@@ -2,6 +2,11 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.14.0] - 2026-10-01
+
+- **Docs:** Add unified README, og:image, and GitHub social images in the site fonts on a deep sky gradient.
+- **Build:** Render brand images from `.github/brand/` with `npm run brand:images`, replacing `hero:sync` and its SVG sources.
+
 ## [2.13.4] - 2026-10-01
 
 - **Enhance:** Show For agents as a header icon beside the theme toggle, hidden on small screens.
