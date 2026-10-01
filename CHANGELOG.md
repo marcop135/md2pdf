@@ -2,7 +2,7 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
-## [Unreleased]
+## [2.13.4] - 2026-10-01
 
 - **Enhance:** Show For agents as a header icon beside the theme toggle, hidden on small screens.
 
