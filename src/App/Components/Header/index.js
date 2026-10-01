@@ -33,15 +33,19 @@ const FOR_AGENTS_HREF = '/for-agents.html';
 // sits below the next breakpoint up with slack for wider system fonts:
 //  - full row needs ~700px            -> COMPACT below 768
 //  - COMPACT (short labels) ~590px    -> ICON_ONLY below 640
-//  - ICON_ONLY with chip ~436px       -> NO_CHIP below 480
-//  - NO_CHIP with title ~372px        -> LOGO_ONLY below 400
+//  - ICON_ONLY with chip ~400px       -> NO_CHIP below 420
+// Phone tiers (ICON_ONLY and below) drop the logo and keep the title text,
+// stepping its size down at SMALL, TINY and MICRO.
 // The brand title also truncates with an ellipsis, so a wider font degrades
 // to "Markdown to P…" instead of scrolling the bar.
 const BP = {
   COMPACT: 768,
   ICON_ONLY: 640,
-  NO_CHIP: 480,
-  LOGO_ONLY: 400,
+  SMALL: 480,
+  NO_CHIP: 420,
+  TINY: 360,
+  NARROW: 355,
+  MICRO: 320,
 };
 
 const THEME_ICON = {
@@ -207,7 +211,7 @@ export default styled(Header)`
   @media (max-width: ${BP.NO_CHIP}px) {
     padding-inline: max(8px, env(safe-area-inset-left, 0px))
       max(8px, env(safe-area-inset-right, 0px));
-    gap: 8px;
+    gap: 4px;
   }
 
   .project {
@@ -243,6 +247,14 @@ export default styled(Header)`
 
     @media (max-width: ${BP.ICON_ONLY}px) {
       font-size: 14px;
+
+      .brand-logo {
+        display: none;
+      }
+    }
+
+    @media (max-width: ${BP.SMALL}px) {
+      font-size: 13px;
     }
 
     @media (max-width: ${BP.NO_CHIP}px) {
@@ -251,13 +263,14 @@ export default styled(Header)`
       }
     }
 
-    @media (max-width: ${BP.LOGO_ONLY}px) {
+    @media (max-width: ${BP.TINY}px) {
+      font-size: 12px;
+      letter-spacing: 0;
+    }
+
+    @media (max-width: ${BP.MICRO}px) {
       .brand-title {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip-path: inset(50%);
+        font-size: 11px;
       }
     }
   }
@@ -269,7 +282,7 @@ export default styled(Header)`
     margin-left: auto;
     flex-shrink: 0;
 
-    @media (max-width: ${BP.NO_CHIP}px) {
+    @media (max-width: ${BP.SMALL}px) {
       gap: 6px;
     }
 
@@ -350,16 +363,26 @@ export default styled(Header)`
 
     @media (max-width: ${BP.ICON_ONLY}px) {
       .button {
-        width: 34px;
+        width: 64px;
         padding: 0;
 
         .label-short {
           display: none;
         }
+
+        &.icon-only {
+          width: 34px;
+        }
       }
 
       .agents-link {
         display: none;
+      }
+    }
+
+    @media (max-width: ${BP.NARROW}px) {
+      .button {
+        width: 34px;
       }
     }
   }
