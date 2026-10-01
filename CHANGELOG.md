@@ -2,6 +2,11 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.13.3] - 2026-10-01
+
+- **Fix:** Strip the CSP meta tag on the dev server as intended.
+- **Sec:** Move CSP frame-ancestors from the meta tag to an HTTP header so browsers enforce it.
+
 ## [2.13.2] - 2026-10-01
 
 - **Enhance:** Rebuild the header on measured breakpoints with a logo, short labels, and icon-only controls that never wrap.
