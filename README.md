@@ -1,7 +1,5 @@
 [![Markdown to PDF: a Markdown file turns into a PDF document in the browser](.github/brand/readme.png)](https://md2pdf.marcopontili.com)
 
-[![Markdown to PDF: split editor and live preview with a table, code, and a Mermaid diagram](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
-
 # Markdown to PDF
 
 [![Deploy](https://github.com/marcop135/md2pdf/actions/workflows/deploy.yaml/badge.svg)](https://github.com/marcop135/md2pdf/actions/workflows/deploy.yaml)
@@ -11,6 +9,8 @@
 Mobile-friendly Markdown to PDF converter that runs in your browser. Works offline, and nothing is uploaded during conversion.
 
 Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
+
+[![Markdown to PDF: split editor and live preview with a table, code, and a Mermaid diagram](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
 
 ## Usage
 
