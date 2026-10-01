@@ -10,6 +10,11 @@
 //
 // docs/readme-hero.png is the README screenshot (different aspect ratio).
 // It is intentionally NOT used for og:image — separate purposes.
+//
+// Run manually (`npm run hero:sync`) and commit both PNGs. It is not part of
+// dev/build: the Linux deploy runner lacks the SVG fonts, so a CI render would
+// ship fallback typography. Bump the `?v=` query on og:image in index.html
+// after re-rendering so unfurl caches refetch.
 import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
