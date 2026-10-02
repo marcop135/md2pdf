@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.15.1] - 2026-10-02
+
+- **Fix:** Revalidate HTML, text, Markdown, and JSON files on every request instead of caching them for a year.
+- **Fix:** Drop `web-share` from the Permissions-Policy, which Chrome reports as an unrecognized feature.
+- **CI:** Keep the cPanel `.ftpquota` file out of the SFTP mirror's delete pass.
+
 ## [2.15.0] - 2026-10-02
 
 - **Enhance:** Separate the GitHub link from the in-app header controls with a thin divider.

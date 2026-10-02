@@ -77,7 +77,7 @@ jobs:
           printf '%s\n' "$SFTP_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/known_hosts"
           lftp -u "$SFTP_USER" --env-password \
-            -e "set cmd:fail-exit yes; set sftp:connect-program 'ssh -a -x -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts'; set net:max-retries 5; set net:timeout 60; mirror -R --delete --verbose --exclude '^\.well-known/acme-challenge/' --exclude '^\.well-known/cpanel-dcv/' --exclude '^\.well-known/pki-validation/' --exclude '\.ftp-deploy-sync-state\.json\$' dist/ /; bye" \
+            -e "set cmd:fail-exit yes; set sftp:connect-program 'ssh -a -x -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts'; set net:max-retries 5; set net:timeout 60; mirror -R --delete --verbose --exclude '^\.well-known/acme-challenge/' --exclude '^\.well-known/cpanel-dcv/' --exclude '^\.well-known/pki-validation/' --exclude '\.ftp-deploy-sync-state\.json\$' --exclude '^\.ftpquota\$' dist/ /; bye" \
             "sftp://$SFTP_HOST:$SFTP_PORT"
 
       # FTPS when SFTP did not run or failed. FTPS_HOST is the Netsons server
