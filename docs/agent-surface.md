@@ -1,6 +1,10 @@
 # Agent surface
 
-Maintainer notes for opening Markdown to PDF to coding agents (v2.13.0+).
+How coding agents use Markdown to PDF, plus maintainer notes (v2.13.0+).
+
+## Using the app from an agent
+
+Open [md2pdf.marcopontili.com](https://md2pdf.marcopontili.com) in a browser (for example with Playwriter), call `window.md2pdf.setMarkdown(markdown)`, then `exportPdf()` for the print dialog. For a file without a dialog, call `prepareExport()` and save the page with the Chrome DevTools Protocol `Page.printToPDF`. Start at [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) or [For agents](https://md2pdf.marcopontili.com/for-agents.html). There is no hosted API: conversion always happens in the browser.
 
 ## Control contract
 
