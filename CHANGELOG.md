@@ -2,6 +2,13 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.15.0] - 2026-10-02
+
+- **Sec:** Verify the FTPS certificate and pin the SFTP host key, so deploys cannot leak credentials to an impostor.
+- **Sec:** Install from the committed lockfile and restrict workflow tokens to read-only repository contents.
+- **CI:** Purge the Cloudflare cache for md2pdf after each successful production deploy.
+- **CI:** Run audit, changelog lint, tests, and build on pull requests to develop and main.
+
 ## [2.14.1] - 2026-10-01
 
 - **Fix:** Restore the previous phone header with the title text, wider Import and Export buttons, and no logo.
