@@ -36,8 +36,13 @@ const sanitizeSchema = {
   ...defaultSchema,
   attributes: {
     ...defaultSchema.attributes,
+    // `name` is dropped: clobbering is off (see below), so `<img name="title">`
+    // or `name="querySelector"` would shadow document properties the app reads.
     '*': [
-      ...((defaultSchema.attributes && defaultSchema.attributes['*']) || []),
+      ...(
+        (defaultSchema.attributes && defaultSchema.attributes['*']) ||
+        []
+      ).filter((attribute) => attribute !== 'name'),
       'className',
     ],
     a: [

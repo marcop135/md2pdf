@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import {
-  MAX_MARKDOWN_CHARS,
+  MAX_MARKDOWN_BYTES,
   registerAgentHandlers,
   unregisterAgentHandlers,
 } from './agentBridge.js';
@@ -36,9 +36,41 @@ describe('agentBridge', () => {
     });
     expect(() => window.md2pdf.setMarkdown(1)).toThrow(/string/);
     expect(() =>
-      window.md2pdf.setMarkdown('x'.repeat(MAX_MARKDOWN_CHARS + 1)),
+      window.md2pdf.setMarkdown('x'.repeat(MAX_MARKDOWN_BYTES + 1)),
     ).toThrow(/2MB/);
     expect(setText).not.toHaveBeenCalled();
+  });
+
+  test('setMarkdown caps multi-byte text by UTF-8 bytes, like file import', () => {
+    const setText = vi.fn();
+    registerAgentHandlers({
+      getText: () => '',
+      setText,
+      prepareExport: vi.fn(),
+      exportPdf: vi.fn(),
+    });
+    // 1M three-byte characters: under the cap in UTF-16 units, 3 MB in bytes.
+    expect(() => window.md2pdf.setMarkdown('€'.repeat(1024 * 1024))).toThrow(
+      /2MB/,
+    );
+    expect(setText).not.toHaveBeenCalled();
+  });
+
+  test('window.md2pdf cannot be reassigned or mutated', () => {
+    registerAgentHandlers({
+      getText: () => 'real',
+      setText: vi.fn(),
+      prepareExport: vi.fn(),
+      exportPdf: vi.fn(),
+    });
+    const bridge = window.md2pdf;
+    expect(() => {
+      window.md2pdf = { getMarkdown: () => 'fake' };
+    }).toThrow(TypeError);
+    expect(() => {
+      bridge.getMarkdown = () => 'fake';
+    }).toThrow(TypeError);
+    expect(window.md2pdf.getMarkdown()).toBe('real');
   });
 
   test('setMarkdown updates text through handlers', () => {
