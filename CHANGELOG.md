@@ -5,6 +5,7 @@
 ## [2.15.1] - 2026-10-02
 
 - **Fix:** Revalidate HTML, text, Markdown, and JSON files on every request instead of caching them for a year.
+- **CI:** Keep the cPanel `.ftpquota` file out of the SFTP mirror's delete pass.
 
 ## [2.15.0] - 2026-10-02
 
