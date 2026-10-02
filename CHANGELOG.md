@@ -11,6 +11,7 @@
 - **Sec:** Cap `window.md2pdf.setMarkdown` by UTF-8 bytes like file import, and make the bridge read-only.
 - **Sec:** Send HSTS, Permissions-Policy, and COOP headers, and stop caching plain-text agent files for a year.
 - **Perf:** Apply the immutable cache rule to hashed `/assets/` files, which the old pattern never matched.
+- **Docs:** Rewrite the README with a clearer structure, accurate security details, and a complete scripts table.
 - **CI:** Purge the Cloudflare cache for md2pdf after each successful production deploy.
 - **CI:** Run audit, changelog lint, tests, and build on pull requests to develop and main.
 
