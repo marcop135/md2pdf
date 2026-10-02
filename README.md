@@ -2,162 +2,103 @@
 
 # Markdown to PDF
 
+[![CI](https://github.com/marcop135/md2pdf/actions/workflows/ci.yml/badge.svg)](https://github.com/marcop135/md2pdf/actions/workflows/ci.yml)
 [![Deploy](https://github.com/marcop135/md2pdf/actions/workflows/deploy.yaml/badge.svg)](https://github.com/marcop135/md2pdf/actions/workflows/deploy.yaml)
 [![Release](https://img.shields.io/github/v/release/marcop135/md2pdf)](https://github.com/marcop135/md2pdf/releases)
 [![License: MIT](https://img.shields.io/github/license/marcop135/md2pdf)](./LICENSE)
 
-Mobile-friendly Markdown to PDF converter that runs in your browser. Works offline, and nothing is uploaded during conversion.
+Write Markdown, see it rendered, save it as a PDF. Everything runs in your browser: no account, no upload, and it keeps working offline.
 
-Live app: **[md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
+**Live app: [md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
 
-[![Markdown to PDF: split editor and live preview with a table, code, and a Mermaid diagram](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
+[![Editor and live preview side by side, with a table, a code block, and a Mermaid diagram](docs/readme-hero.png)](https://md2pdf.marcopontili.com)
 
-## Usage
+## Features
 
-- Type or paste Markdown in the editor.
-- Use the **Preview** tab (on mobile) or the right panel (on desktop) to see the rendered result.
-- Click **Export to .pdf** to open the print dialog; choose “Save as PDF” (or equivalent) to get a PDF. The suggested filename comes from the first markdown heading.
-- Use **Import .md file** or drag-and-drop a `.md` file to load its content.
+- **GitHub-flavored Markdown**: tables, task lists, footnotes, and syntax-highlighted code.
+- **Mermaid diagrams** from fenced `mermaid` code blocks.
+- **Print-ready output** styled like GitHub, with the PDF named after the document's first heading.
+- **Layout control** through allow-listed inline HTML and `<style>` blocks, for CVs and reports.
+- **Works on any screen**: split editor and preview on desktop, Editor and Preview tabs on phones.
+- **Installable and offline** as a PWA after the first visit.
+- **Agent-ready**: coding agents drive the app through `window.md2pdf`.
+
+## How it works
+
+1. Type or paste Markdown, or import a `.md` file (button or drag and drop, up to 2 MB).
+2. Check the live preview.
+3. Click **Export to .pdf** and choose **Save as PDF** in the print dialog.
 
 ## For agents
 
-Coding agents drive the live app through Playwriter using `window.md2pdf` (set markdown, prepare export, print). Start at [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) or the [`For agents`](https://md2pdf.marcopontili.com/for-agents.html) portal. There is no hosted MCP and no upload API; conversion stays in the browser. Maintainer notes: [`docs/agent-surface.md`](docs/agent-surface.md).
+Agents open the live app in a browser (for example with Playwriter) and call `window.md2pdf`:
+
+| Method | Result |
+| --- | --- |
+| `getMarkdown()` | Current editor source |
+| `setMarkdown(markdown)` | Replaces the source (string, up to 2 MB) |
+| `prepareExport()` | Waits for the preview and Mermaid diagrams, sets the PDF filename |
+| `exportPdf()` | `prepareExport()`, then the print dialog |
+
+For a file without a dialog, call `prepareExport()` and save the page with the Chrome DevTools Protocol `Page.printToPDF`. Start at [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) or [For agents](https://md2pdf.marcopontili.com/for-agents.html); maintainer notes are in [`docs/agent-surface.md`](docs/agent-surface.md). There is no hosted API: conversion always happens in the browser.
+
+## Privacy and security
+
+- **No backend.** Documents stay in the browser tab; nothing is sent anywhere for conversion or stored.
+- **Sanitized rendering.** Raw HTML is parsed with `rehype-raw`, then `rehype-sanitize` keeps only an allow-list of tags and attributes. Scripts, event handlers, and `javascript:` links are removed.
+- **Mermaid** runs with `securityLevel: 'strict'`.
+- **Content Security Policy** allows scripts from the app's own origin only. Images with an `https` address in a document load from their host.
+- **Hosting**: HTTPS behind Cloudflare, with HSTS, `nosniff`, `frame-ancestors 'none'`, and a strict Permissions-Policy.
+
+Report vulnerabilities privately as described in [SECURITY.md](./SECURITY.md).
+
+## Development
+
+Requires Node.js 22 and npm.
+
+```bash
+git clone https://github.com/marcop135/md2pdf.git
+cd md2pdf
+npm install
+npm start          # http://localhost:5173
+```
+
+| Command | Purpose |
+| --- | --- |
+| `npm start` | Dev server on port 5173 |
+| `npm test` | Vitest suite |
+| `npm run test:watch` | Vitest in watch mode |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Serve the production build |
+| `npm run changelog:lint` | Validate `CHANGELOG.md` |
+| `npm run verify:agent-readiness` | Check agent discovery files and the `window.md2pdf` wiring |
+| `npm run icons:sync` | Render PWA icons from `public/favicon*.svg` |
+| `npm run brand:images` | Render the README, og:image, and GitHub social images (`brand:images:check` reports stale ones) |
+
+`dist/` deploys to any static host. On Apache, the bundled `.htaccess` sets the security and caching headers.
+
+## Project structure
+
+| Path | Contents |
+| --- | --- |
+| `src/App/Components/` | Header toolbar, editor, preview, drag bar |
+| `src/App/Container/` | State and hooks (`useIsMobile`, `useDrop`) |
+| `src/App/Lib/` | Agent bridge and print filename helpers |
+| `public/` | `.htaccess`, manifest, robots.txt, agent discovery files |
+| `docs/` | Agent surface, print filename, and changelog guides |
+
+## Built with
+
+React 19, Vite, CodeMirror 6, react-markdown with remark-gfm, rehype-raw and rehype-sanitize, highlight.js, Mermaid, styled-components, and vite-plugin-pwa.
 
 ## Acknowledgements
 
-This repository is derived from **[realdennis/md2pdf](https://github.com/realdennis/md2pdf)** (MIT). Thanks to Dennis for the original app.
-
-This fork is maintained on its own track: Mermaid, GFM, offline PWA, CI/deploy, and tests.
-
----
-
-## Main Features
-
-- Convert Markdown to PDF via the browser print dialog
-- 100% offline: works without internet after first load
-- Client-only workflow: no backend; Markdown is rendered and printed from your browser session
-- Responsive / mobile: tabbed Editor and Preview on narrow viewports; split editor + preview on desktop
-- PWA support (installable, cache-first for repeat visits)
-- Custom styles for PDF output (GitHub-style markdown CSS)
-- Instant live preview and syntax-highlighted code blocks
-- Mermaid diagrams from fenced `mermaid` code blocks
-
-## Tech Stack
-
-- **React 19** with Vite
-- **styled-components** for styling
-- **CodeMirror 6** for the editor
-- **react-markdown** + **remark-gfm** + **highlight.js** for markdown rendering
-- **vite-plugin-pwa** (Workbox-powered) for the service worker (offline/caching)
-
-## Security
-
-- **Privacy**: Markdown and preview live in your browser; there is no backend that receives your document for conversion.
-- **No raw HTML in markdown**: the preview renders markdown only; raw HTML in `.md` is not executed, which prevents XSS from untrusted content.
-- **Strict file handling**: only `.md` files are accepted on import; content is read with the File API and never sent over the network.
-- **Security headers**: when served with Apache, the app uses safe defaults (e.g. `X-Content-Type-Options: nosniff`, no directory listing, blocked access to hidden and backup files). Optional headers (X-Frame-Options, Referrer-Policy) are documented in `public/.htaccess`.
-
-## Project Structure
-
-| Path                  | Description                                                |
-| --------------------- | ---------------------------------------------------------- |
-| `src/`                | Application source                                         |
-| `src/App/`            | Root component, containers, layout                         |
-| `src/App/Components/` | Header, Markdown editor, preview, drag bar                 |
-| `src/App/Container/`  | State (nonaction), hooks (e.g. useIsMobile, useDrop)       |
-| `src/App/Lib/`        | Utilities (e.g. upload helper)                             |
-| `public/`             | Static assets (`.htaccess`, `manifest.json`, `robots.txt`, agent discovery) |
-| `dist/`               | Production output (after `npm run build`)                  |
-| `docs/agent-surface.md` | Agent control contract and discovery notes               |
-
-## Scripts
-
-| Command                  | Description                                                      |
-| ------------------------ | ---------------------------------------------------------------- |
-| `npm start`              | Development server                                               |
-| `npm run build`          | Production build                                                 |
-| `npm test`               | Run tests                                                        |
-| `npm run preview`        | Preview production build (`dist/`)                               |
-| `npm run brand:images`   | Render README, og:image, and GitHub social PNGs from `.github/brand/` |
-| `npm run changelog:lint` | Validate `CHANGELOG.md` formatting                               |
-| `npm run verify:agent-readiness` | Check agent discovery files and `window.md2pdf` wiring   |
-
-## Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/marcop135/md2pdf.git
-   cd md2pdf
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Run locally:
-
-   ```bash
-   npm start
-   ```
-
-   Then open [http://localhost:5173](http://localhost:5173); the terminal also prints the **`Local:`** URL.
-
-   If startup fails because **5173 is in use**, another process already bound that port (often a stray Vite terminal). Quit that session or kill the orphaned process so the app serves on **5173** consistently.
-
-4. Production build:
-
-   ```bash
-   npm run build
-   ```
-
-   Output is in the `dist/` folder. Serve it with any static host (e.g. Apache, Nginx, or a static hosting service). For Apache, copy `public/.htaccess` to the root of the deployed site for recommended security and caching.
-
----
-
-## Mermaid example
-
-Marketing website flow
-
-```mermaid
-flowchart TD
-  A[Channels] --> B[Landing]
-  B --> C[Hero + offer]
-  C --> D[Social proof]
-  D --> E{Intent}
-  E -->|Research| F[Inner pages]
-  E -->|Ready| G[CTA]
-  F --> G
-  G --> H[Convert]
-  H --> I[Activation]
-  I --> J[Retention]
-
-  classDef acquire fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
-  classDef engage fill:#ede9fe,stroke:#7c3aed,color:#4c1d95
-  classDef decide fill:#fef3c7,stroke:#d97706,color:#78350f
-  classDef convert fill:#d1fae5,stroke:#059669,color:#065f46
-  classDef grow fill:#cffafe,stroke:#0891b2,color:#0e7490
-
-  class A,B acquire
-  class C,D,F engage
-  class E decide
-  class G,H convert
-  class I,J grow
-```
+Started as a fork of [realdennis/md2pdf](https://github.com/realdennis/md2pdf) (MIT); thanks to Dennis for the original app. This version adds Mermaid, GitHub-flavored Markdown, offline support, the agent bridge, tests, and CI.
 
 ## Contributing
 
-Contributions welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to contribute.
-
-- Found a bug? [Open an issue](https://github.com/marcop135/md2pdf/issues/new?template=bug.yml)
-- Have a feature request? [Open an issue](https://github.com/marcop135/md2pdf/issues/new?template=feature.yml)
-- Want to contribute? [Read the contributing guide](./CONTRIBUTING.md)
-- Found a security problem? [Report it privately](./SECURITY.md), not in an issue.
-
-Participation is covered by the [Code of Conduct](./CODE_OF_CONDUCT.md).
+Read [CONTRIBUTING.md](./CONTRIBUTING.md), then [report a bug](https://github.com/marcop135/md2pdf/issues/new?template=bug.yml) or [request a feature](https://github.com/marcop135/md2pdf/issues/new?template=feature.yml). Participation follows the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## License
 
-Licensed under the [MIT](./LICENSE) License.
+[MIT](./LICENSE)
