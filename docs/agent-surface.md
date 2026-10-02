@@ -31,6 +31,7 @@ Preferred PDF path for agents: CDP `Page.printToPDF` with `printBackground: true
 ## Soft-404 and deploy
 
 - Apache: missing `.md` / `.txt` / `.json` and `/.well-known/*` return HTTP 404; other unknown paths still SPA-fallback for print slugs ([`public/.htaccess`](../public/.htaccess)).
+- The host is proxied by Cloudflare; Browser Integrity Check, Email Obfuscation, Rocket Loader and AI bot blocking stay off for it so agents and the CSP are unaffected. Each deploy purges the `md2pdf.marcopontili.com` edge cache.
 - Deploy SFTP mirror excludes only ACME / cPanel DCV / PKI validation under `.well-known/`, so agent catalogs ship with `dist/`.
 
 ## Ora score debt (intentional)
