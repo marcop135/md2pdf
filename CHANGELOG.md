@@ -2,7 +2,7 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
-## [Unreleased]
+## [2.15.2] - 2026-10-02
 
 - **Style:** Replace the arrow-based README, social, and og:image artwork with one editor-and-preview banner in light and dark.
 - **Docs:** Retell the README around light and dark desktop and mobile screenshots, and move agent usage to `docs/agent-surface.md`.
