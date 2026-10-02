@@ -2,6 +2,12 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [Unreleased]
+
+- **Style:** Replace the arrow-based README, social, and og:image artwork with one editor-and-preview banner in light and dark.
+- **Docs:** Retell the README around light and dark desktop and mobile screenshots, and move agent usage to `docs/agent-surface.md`.
+- **Chore:** Add `npm run readme:screenshots` to recapture the README screenshots with Playwright.
+
 ## [2.15.1] - 2026-10-02
 
 - **Fix:** Revalidate HTML, text, Markdown, and JSON files on every request instead of caching them for a year.
