@@ -173,6 +173,7 @@ const Header = ({ className }) => {
         >
           <ThemeIcon size={18} aria-hidden />
         </button>
+        <span className="menu-separator" aria-hidden="true" />
         <a
           className="button github-link icon-only"
           href={SOURCE_REPO_URL}
@@ -288,6 +289,14 @@ export default styled(Header)`
 
     a.button {
       text-decoration: none;
+    }
+
+    /* Sets the GitHub link (leaves the app) apart from the in-app controls. */
+    .menu-separator {
+      flex-shrink: 0;
+      width: 1px;
+      height: 20px;
+      background-color: ${({ theme }) => theme.colors.buttonBorder};
     }
 
     .button {

@@ -4,6 +4,7 @@
 
 ## [2.15.0] - 2026-10-02
 
+- **Enhance:** Separate the GitHub link from the in-app header controls with a thin divider.
 - **Sec:** Verify the FTPS certificate and pin the SFTP host key, so deploys cannot leak credentials to an impostor.
 - **Sec:** Install from the committed lockfile and restrict workflow tokens to read-only repository contents.
 - **Sec:** Strip `name` attributes from document HTML so imported Markdown cannot shadow page properties used by export.
