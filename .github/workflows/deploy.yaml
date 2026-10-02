@@ -10,31 +10,45 @@ concurrency:
   group: production-deploy
   cancel-in-progress: false
 
+# Deploys authenticate with the FTP/SFTP and Cloudflare secrets, never GITHUB_TOKEN.
+permissions:
+  contents: read
+
 jobs:
   deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
+    # Refuse manual dispatches from any branch other than main.
+    if: github.ref == 'refs/heads/main'
+    env:
+      SFTP_KNOWN_HOSTS: ${{ secrets.SFTP_KNOWN_HOSTS }}
     steps:
+      - name: Check deploy secrets
+        env:
+          FTPS_HOST: ${{ secrets.FTPS_HOST }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          missing=""
+          [ -n "$FTPS_HOST" ] || missing="$missing FTPS_HOST"
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || missing="$missing CLOUDFLARE_API_TOKEN"
+          [ -n "$CLOUDFLARE_ZONE_ID" ] || missing="$missing CLOUDFLARE_ZONE_ID"
+          if [ -n "$missing" ]; then
+            echo "::error::Set repository secrets:$missing"
+            exit 1
+          fi
+
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: "22"
           cache: npm
 
       - name: Install dependencies
-        # The committed package-lock.json is generated on Windows and only
-        # records the host platform's optional native binaries (rolldown
-        # bindings). Both `npm ci` and `npm install` honor that lockfile and
-        # skip the linux-x64-gnu binding this Ubuntu runner needs, breaking
-        # vite/rolldown at test time (npm/cli#4828). Removing the lockfile lets
-        # npm resolve the correct binary for the runner platform. The lockfile
-        # stays committed for local dev and Dependabot.
-        run: |
-          rm -f package-lock.json
-          npm install --no-audit --no-fund
+        run: npm ci --no-fund
 
       - name: Run tests
         run: npm test
@@ -45,13 +59,13 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # Prefer SFTP: a single SSH channel avoids the FTPS control-socket
-      # timeouts Netsons hits on first connect, and it sidesteps TLS hostname
-      # verification entirely. `mirror -R --delete` reproduces the FTPS action's
-      # sync-and-prune. If SFTP cannot connect, the FTPS fallback below runs.
-      # Mirrors the transport strategy proven in the marcopontili.com repo.
+      # SFTP runs only with a pinned host key (SFTP_KNOWN_HOSTS, from
+      # `ssh-keyscan -p <port> <host>`), so an unknown key aborts instead of
+      # being trusted on first use. Without the secret the job goes straight
+      # to FTPS. `mirror -R --delete` reproduces the FTPS action's sync-and-prune.
       - name: Deploy via SFTP
         id: sftp
+        if: env.SFTP_KNOWN_HOSTS != ''
         continue-on-error: true
         env:
           SFTP_HOST: ${{ secrets.FTP_HOST }}
@@ -59,43 +73,46 @@ jobs:
           SFTP_USER: ${{ secrets.FTP_USERNAME_PRODUCTION }}
           LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
         run: |
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$SFTP_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
           lftp -u "$SFTP_USER" --env-password \
-            -e "set cmd:fail-exit yes; set sftp:auto-confirm yes; set net:max-retries 5; set net:timeout 60; mirror -R --delete --verbose --exclude '^\.well-known/acme-challenge/' --exclude '^\.well-known/cpanel-dcv/' --exclude '^\.well-known/pki-validation/' --exclude '\.ftp-deploy-sync-state\.json\$' dist/ /; bye" \
+            -e "set cmd:fail-exit yes; set sftp:connect-program 'ssh -a -x -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts'; set net:max-retries 5; set net:timeout 60; mirror -R --delete --verbose --exclude '^\.well-known/acme-challenge/' --exclude '^\.well-known/cpanel-dcv/' --exclude '^\.well-known/pki-validation/' --exclude '\.ftp-deploy-sync-state\.json\$' dist/ /; bye" \
             "sftp://$SFTP_HOST:$SFTP_PORT"
 
-      # Fallback to FTPS only when SFTP failed. `security` is deliberately left
-      # at the action's default (loose): the shared-hosting server presents a
-      # certificate for its own Netsons hostname, which never covers a vanity
-      # FTP_HOST, so `strict` aborts the transfer with
-      # ERR_TLS_CERT_ALTNAME_INVALID. The channel is still TLS-encrypted.
-      - name: Sync dist via FTPS (fallback)
+      # FTPS when SFTP did not run or failed. FTPS_HOST is the Netsons server
+      # hostname that its certificate covers, so `strict` verifies the
+      # certificate and a man-in-the-middle cannot capture the password.
+      - name: Sync dist via FTPS
         id: ftps
-        if: steps.sftp.outcome == 'failure'
+        if: steps.sftp.outcome != 'success'
         continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
         with:
-          server: ${{ secrets.FTP_HOST }}
+          server: ${{ secrets.FTPS_HOST }}
           username: ${{ secrets.FTP_USERNAME_PRODUCTION }}
           password: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
           server-dir: ./
           local-dir: ./dist/
           protocol: ftps
+          security: strict
           port: 21
           dangerous-clean-slate: false
           timeout: 60000
 
-      - name: Sync dist via FTPS (fallback retry)
+      - name: Sync dist via FTPS (retry)
         id: ftps-retry
-        if: steps.sftp.outcome == 'failure' && steps.ftps.outcome == 'failure'
+        if: steps.sftp.outcome != 'success' && steps.ftps.outcome == 'failure'
         continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
         with:
-          server: ${{ secrets.FTP_HOST }}
+          server: ${{ secrets.FTPS_HOST }}
           username: ${{ secrets.FTP_USERNAME_PRODUCTION }}
           password: ${{ secrets.FTP_PASSWORD_PRODUCTION }}
           server-dir: ./
           local-dir: ./dist/
           protocol: ftps
+          security: strict
           port: 21
           dangerous-clean-slate: false
           timeout: 60000
@@ -110,7 +127,7 @@ jobs:
             exit 0
           fi
           if [ "${{ steps.ftps.outcome }}" = "success" ]; then
-            echo "Deploy succeeded via FTPS fallback."
+            echo "Deploy succeeded via FTPS."
             exit 0
           fi
           if [ "${{ steps.ftps-retry.outcome }}" = "success" ]; then
@@ -119,3 +136,19 @@ jobs:
           fi
           echo "All deploy methods failed."
           exit 1
+
+      # The host is proxied (orange) behind Cloudflare. Purge only this
+      # hostname, after the origin sync succeeded, so the next edge fetch pulls
+      # the new dist/ and the apex cache in the same zone stays warm.
+      - name: Purge Cloudflare cache
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          resp="$(curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"hosts":["md2pdf.marcopontili.com"]}')"
+          echo "$resp" | jq .
+          echo "$resp" | jq -e '.success == true' >/dev/null
