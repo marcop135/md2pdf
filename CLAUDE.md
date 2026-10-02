@@ -84,7 +84,7 @@ Sources live in `.github/brand/` (`readme.svg`, `readme-dark.svg`, `og.svg`, `br
 - **No CTA pill or URL on the artwork**; the platform shows the link separately.
 - **No standalone arrows**: the md2pdf icon already carries a down arrow.
 - The readme banners' window mock uses the app's own type: Selawik (open Segoe UI stand-in for `system-ui`) and Inconsolata (for Consolas), embedded between `@app-fonts` markers from `fonts/`.
-- `social.png` renders from `readme.svg` at 1x (no separate source). `og.svg` is only the icon, a one-line title and a tagline, centered and no wider than 620px, so it survives WhatsApp-style square crops and 300px thumbnails; keep it that bare.
+- `social.png` renders from `readme.svg` at 1x (no separate source). `og.svg` is the light `readme.svg` artwork shifted by `translate(-40 -5)` into the 1200x630 safe area; regenerate it whenever `readme.svg` changes.
 - After re-rendering, bump the `?v=` query on `og:image`, `og:image:secure_url`, and `twitter:image` in `index.html` so unfurl caches refetch.
 
 ## PWA icons

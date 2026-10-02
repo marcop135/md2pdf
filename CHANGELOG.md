@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 
-- **Style:** Replace the arrow-based README, social, and og:image artwork with app-font banners that stay legible as small link previews.
+- **Style:** Replace the arrow-based README, social, and og:image artwork with one editor-and-preview banner in light and dark.
 - **Docs:** Retell the README around light and dark desktop and mobile screenshots, and move agent usage to `docs/agent-surface.md`.
 - **Chore:** Add `npm run readme:screenshots` to recapture the README screenshots with Playwright.
 
