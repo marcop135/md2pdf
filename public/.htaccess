@@ -1164,7 +1164,6 @@ FileETag None
     # Specific: Documents
     ExpiresByType text/html                             "access"
     ExpiresByType text/markdown                         "access"
-    ExpiresByType text/plain                            "access"
     ExpiresByType text/calendar                         "access"
 
     # Specific: Other
@@ -1352,6 +1351,16 @@ FileETag None
 # stay cacheable for 1 year (the filename hash changes whenever the
 # content does, so they self-bust).
 <IfModule mod_headers.c>
+    # Pages, agent discovery files and data revalidate on every request. The
+    # host sends `text/plain; charset=utf-8` and similar, which the
+    # ExpiresByType rules above never match, so they fell through to the
+    # 1-year ExpiresDefault. Listed before the stricter rule below, which wins
+    # for the files both match.
+    <FilesMatch "\.(html|txt|md|json|xml)$">
+        Header set Cache-Control "no-cache"
+        Header unset Expires
+    </FilesMatch>
+
     <FilesMatch "(^|/)(index\.html|sw\.js|workbox-[a-z0-9]+\.js|manifest\.json|favicon\.svg)$">
         Header set Cache-Control "no-cache, no-store, must-revalidate"
         Header set Pragma "no-cache"
