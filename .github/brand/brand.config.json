@@ -8,7 +8,14 @@
       "scale": 2
     },
     {
-      "source": "social.svg",
+      "source": "readme-dark.svg",
+      "output": "readme-dark.png",
+      "width": 1280,
+      "height": 640,
+      "scale": 2
+    },
+    {
+      "source": "readme.svg",
       "output": "social.png",
       "width": 1280,
       "height": 640,

@@ -76,7 +76,8 @@
     "verify:agent-readiness": "node scripts/verify-agent-readiness.mjs",
     "icons:sync": "node scripts/sync-icons.mjs",
     "brand:images": "node .github/brand/render.mjs",
-    "brand:images:check": "node .github/brand/render.mjs --check"
+    "brand:images:check": "node .github/brand/render.mjs --check",
+    "readme:screenshots": "node scripts/readme-screenshots.mjs"
   },
   "overrides": {
     "@rollup/plugin-terser": "^1.0.0",

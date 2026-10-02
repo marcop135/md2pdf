@@ -40,6 +40,7 @@ Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md
 - `public/.htaccess` — Apache security/caching headers used in production deploys.
 - `public/llms.txt`, `auth.md`, `for-agents.html`, `openapi.json`, `.well-known/` — agent discovery (must ship as real files, not SPA HTML).
 - `public/static/og-img.png`: committed 1200x630 og:image; rendered from `.github/brand/og.svg` by `npm run brand:images`.
+- `docs/screenshots/`: committed README screenshots from `scripts/readme-screenshots.mjs`.
 - `scripts/changelog-lint.mjs` — enforces the changelog format; do not bypass.
 - `scripts/verify-agent-readiness.mjs` — static agent-surface checks.
 
@@ -70,17 +71,20 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 - GitHub release **name** and tag: `vX.Y.Z`; release **notes** are the changelog bullets only (no `##` heading). See [`docs/changelog-writing-guide.md`](docs/changelog-writing-guide.md).
 - Run `npm run changelog:lint` before committing changelog changes.
 
-## README hero image
+## README images
 
-The hero uses plain markdown image+link form (`[![alt](src)](url)`), with **no surrounding `<div>` or `<p>` wrapper**. Markdown-inside-HTML rendering is inconsistent across local previewers (VS Code, JetBrains, etc.) even when GitHub handles it, so we keep it pure markdown.
+Every README image uses plain markdown image(+link) form (`[![alt](src)](url)`), with **no surrounding `<div>` or `<p>` wrapper**. Markdown-inside-HTML rendering is inconsistent across local previewers (VS Code, JetBrains, etc.) even when GitHub handles it, so we keep it pure markdown.
 
-The README root image is the brand banner `.github/brand/readme.png`; `docs/readme-hero.png` is the product screenshot, placed right after the `Live app:` line (committed, not generated).
+Each image is a light/dark pair: `src#gh-light-mode-only` then `src#gh-dark-mode-only`, so GitHub shows the one matching the viewer's theme (local previewers show both). Pairs: the brand banner `.github/brand/readme{,-dark}.png`, `docs/screenshots/desktop-{light,dark}.png` under "Write, preview, save", and `docs/screenshots/mobile-{light,dark}.png` (Editor and Preview tabs side by side). Screenshots are committed; recapture them with `npm run readme:screenshots` while `npm start` runs (demo document lives in `scripts/readme-screenshots.mjs`).
 
 ## Brand images (README, og:image, GitHub social)
 
-Sources live in `.github/brand/` (`readme.svg`, `social.svg`, `og.svg`, `brand.config.json`; the kit files there are vendored, do not edit them). `npm run brand:images` renders `.github/brand/readme.png` (2560x1280), `.github/brand/social.png` (1280x640, uploaded by hand in repo Settings > Social preview) and `public/static/og-img.png` (**1200x630**, under 300 KB). Fonts are embedded in the SVGs, so output does not depend on installed fonts. It is **manual only**, not part of dev/build; `npm run brand:images:check` exits 1 if anything is stale.
+Sources live in `.github/brand/` (`readme.svg`, `readme-dark.svg`, `og.svg`, `brand.config.json`; the kit files there are vendored, do not edit them). `npm run brand:images` renders `.github/brand/readme.png` and `readme-dark.png` (2560x1280), `.github/brand/social.png` (1280x640, uploaded by hand in repo Settings > Social preview) and `public/static/og-img.png` (**1200x630**, under 300 KB). Fonts are embedded in the SVGs, so output does not depend on installed fonts. It is **manual only**, not part of dev/build; `npm run brand:images:check` exits 1 if anything is stale.
 
 - **No CTA pill or URL on the artwork**; the platform shows the link separately.
+- **No standalone arrows**: the md2pdf icon already carries a down arrow.
+- The readme banners' window mock uses the app's own type: Selawik (open Segoe UI stand-in for `system-ui`) and Inconsolata (for Consolas), embedded between `@app-fonts` markers from `fonts/`.
+- `social.png` renders from `readme.svg` at 1x (no separate source). `og.svg` is only the icon, a one-line title and a tagline, centered and no wider than 620px, so it survives WhatsApp-style square crops and 300px thumbnails; keep it that bare.
 - After re-rendering, bump the `?v=` query on `og:image`, `og:image:secure_url`, and `twitter:image` in `index.html` so unfurl caches refetch.
 
 ## PWA icons
