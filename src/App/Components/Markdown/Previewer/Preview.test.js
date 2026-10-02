@@ -26,6 +26,17 @@ test('strips javascript: URLs from anchors', () => {
   expect(href).not.toMatch(/^javascript:/i);
 });
 
+test('strips name attributes so content cannot clobber document properties', () => {
+  const source =
+    '<img name="querySelector" src="/x.png" alt="x"><img name="title" src="/y.png" alt="y">';
+  const { container } = render(<Preview source={source} />);
+  container.querySelectorAll('img').forEach((img) => {
+    expect(img.hasAttribute('name')).toBe(false);
+  });
+  expect(typeof document.querySelector).toBe('function');
+  expect(typeof document.title).toBe('string');
+});
+
 test('preserves <style> blocks for user-defined custom styling', () => {
   const source = [
     '<style>',

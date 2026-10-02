@@ -2,6 +2,19 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [2.15.0] - 2026-10-02
+
+- **Enhance:** Separate the GitHub link from the in-app header controls with a thin divider.
+- **Sec:** Verify the FTPS certificate and pin the SFTP host key, so deploys cannot leak credentials to an impostor.
+- **Sec:** Install from the committed lockfile and restrict workflow tokens to read-only repository contents.
+- **Sec:** Strip `name` attributes from document HTML so imported Markdown cannot shadow page properties used by export.
+- **Sec:** Cap `window.md2pdf.setMarkdown` by UTF-8 bytes like file import, and make the bridge read-only.
+- **Sec:** Send HSTS, Permissions-Policy, and COOP headers, and stop caching plain-text agent files for a year.
+- **Perf:** Apply the immutable cache rule to hashed `/assets/` files, which the old pattern never matched.
+- **Docs:** Rewrite the README with a clearer structure, accurate security details, and a complete scripts table.
+- **CI:** Purge the Cloudflare cache for md2pdf after each successful production deploy.
+- **CI:** Run audit, changelog lint, tests, and build on pull requests to develop and main.
+
 ## [2.14.1] - 2026-10-01
 
 - **Fix:** Restore the previous phone header with the title text, wider Import and Export buttons, and no logo.

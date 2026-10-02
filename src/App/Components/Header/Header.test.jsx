@@ -31,6 +31,17 @@ test('<Header /> controls keep accessible names at every breakpoint', () => {
   ).toBeTruthy();
 });
 
+test('<Header /> separates the GitHub link from the in-app controls', () => {
+  renderHeader();
+  const github = screen.getByRole('link', { name: 'View source on GitHub' });
+  const separator = github.previousElementSibling;
+  expect(separator.classList.contains('menu-separator')).toBe(true);
+  expect(separator.getAttribute('aria-hidden')).toBe('true');
+  expect(separator.previousElementSibling.classList.contains('theme-toggle')).toBe(
+    true,
+  );
+});
+
 test('<Header /> keeps the brand title in the DOM', () => {
   const { container } = renderHeader();
   expect(container.querySelector('.brand-title').textContent).toBe(
