@@ -3,30 +3,30 @@
 
 # Markdown to PDF
 
-[![CI](https://github.com/marcop135/md2pdf/actions/workflows/ci.yml/badge.svg)](https://github.com/marcop135/md2pdf/actions/workflows/ci.yml)
-[![Deploy](https://github.com/marcop135/md2pdf/actions/workflows/deploy.yaml/badge.svg)](https://github.com/marcop135/md2pdf/actions/workflows/deploy.yaml)
-[![Release](https://img.shields.io/github/v/release/marcop135/md2pdf)](https://github.com/marcop135/md2pdf/releases)
-[![License: MIT](https://img.shields.io/github/license/marcop135/md2pdf)](./LICENSE)
-
 You have a Markdown file and need a PDF: a report, a CV, meeting notes. Open the app, paste or drop the file, and save it as a PDF. No account, no upload, no install, and it keeps working offline.
 
 **Live app: [md2pdf.marcopontili.com](https://md2pdf.marcopontili.com)**
 
-## Write, preview, save
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/readme/desktop-dark.png">
+    <img alt="Desktop: editor and live preview with a table, task list, code block, and Mermaid diagram" src="docs/readme/desktop-light.png" width="73%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/readme/mobile-dark.png">
+    <img alt="Mobile: the same document on a phone, Preview tab, with Import, Export, theme and GitHub in the toolbar" src="docs/readme/mobile-light.png" width="21%">
+  </picture>
+</p>
+
+<p align="center"><strong>Desktop</strong> (left) · <strong>Mobile</strong> (right)</p>
+
+## How it works
 
 1. Type or paste Markdown, or import a `.md` file (button or drag and drop, up to 2 MB).
 2. Watch the preview render as you type, styled like GitHub.
 3. Click **Export to .pdf** and choose **Save as PDF** in the print dialog. The file is named after the document's first heading.
 
-![Editor and live preview side by side, with a table, task list, code block, and Mermaid diagram](docs/screenshots/desktop-light.png#gh-light-mode-only)
-![Editor and live preview side by side, with a table, task list, code block, and Mermaid diagram](docs/screenshots/desktop-dark.png#gh-dark-mode-only)
-
-## On your phone too
-
-On small screens the editor and preview become two tabs, so the same document fits a phone. The app follows your system theme, or pick light or dark from the toolbar.
-
-![Editor and Preview tabs on a phone](docs/screenshots/mobile-light.png#gh-light-mode-only)
-![Editor and Preview tabs on a phone](docs/screenshots/mobile-dark.png#gh-dark-mode-only)
+On small screens the editor and preview become two tabs. The app follows your system theme, or pick light or dark from the toolbar.
 
 ## What it renders
 
@@ -34,48 +34,40 @@ On small screens the editor and preview become two tabs, so the same document fi
 - **Mermaid diagrams** from fenced `mermaid` code blocks.
 - **Layout control** through allow-listed inline HTML and `<style>` blocks, for CVs and reports.
 - **Installable and offline** as a PWA after the first visit.
+- **Agent bridge**: coding agents drive the app through `window.md2pdf` ([docs](docs/agent-surface.md)).
 
-Coding agents can drive the same app through `window.md2pdf`; see [`docs/agent-surface.md`](docs/agent-surface.md).
+## Privacy
 
-## Private by design
+Documents stay in the browser tab; nothing is uploaded for conversion or stored.
 
-- **No backend.** Documents stay in the browser tab; nothing is sent anywhere for conversion or stored.
+## Security
+
 - **Sanitized rendering.** Raw HTML is parsed with `rehype-raw`, then `rehype-sanitize` keeps only an allow-list of tags and attributes. Scripts, event handlers, and `javascript:` links are removed.
 - **Mermaid** runs with `securityLevel: 'strict'`.
 - **Content Security Policy** allows scripts from the app's own origin only. Images with an `https` address in a document load from their host.
-- **Hosting**: HTTPS behind Cloudflare, with HSTS, `nosniff`, `frame-ancestors 'none'`, and a strict Permissions-Policy.
+- **Hosting:** HTTPS behind Cloudflare, with HSTS, `nosniff`, `frame-ancestors 'none'`, and a strict Permissions-Policy.
 
-Report vulnerabilities privately as described in [SECURITY.md](./SECURITY.md).
+Report vulnerabilities as described in [SECURITY.md](./SECURITY.md).
+
+## Built with
+
+| Layer | Stack |
+| --- | --- |
+| Frontend | React 19, CodeMirror 6, react-markdown, remark-gfm, rehype-raw, rehype-sanitize, highlight.js, Mermaid, styled-components |
+| Framework and build | Vite, vite-plugin-pwa (Workbox) |
+| Backend | None: a static single-page app; conversion runs in the tab |
+| Server | Apache behind Cloudflare, deployed from GitHub Actions |
 
 ## Development
-
-Requires Node.js 22 and npm.
 
 ```bash
 git clone https://github.com/marcop135/md2pdf.git
 cd md2pdf
-npm install
+npm ci
 npm start          # http://localhost:5173
 ```
 
-| Command | Purpose |
-| --- | --- |
-| `npm start` | Dev server on port 5173 |
-| `npm test` | Vitest suite |
-| `npm run test:watch` | Vitest in watch mode |
-| `npm run build` | Production build to `dist/` |
-| `npm run preview` | Serve the production build |
-| `npm run changelog:lint` | Validate `CHANGELOG.md` |
-| `npm run verify:agent-readiness` | Check agent discovery files and the `window.md2pdf` wiring |
-| `npm run icons:sync` | Render PWA icons from `public/favicon*.svg` |
-| `npm run brand:images` | Render the README, og:image, and GitHub social images (`brand:images:check` reports stale ones) |
-| `npm run readme:screenshots` | Recapture the README screenshots from the dev server |
-
-`dist/` deploys to any static host. On Apache, the bundled `.htaccess` sets the security and caching headers.
-
-## Built with
-
-React 19, Vite, CodeMirror 6, react-markdown with remark-gfm, rehype-raw and rehype-sanitize, highlight.js, Mermaid, styled-components, and vite-plugin-pwa.
+More commands: [docs/commands.md](docs/commands.md).
 
 ## Acknowledgements
 
@@ -83,7 +75,7 @@ Started as a fork of [realdennis/md2pdf](https://github.com/realdennis/md2pdf) (
 
 ## Contributing
 
-Read [CONTRIBUTING.md](./CONTRIBUTING.md), then [report a bug](https://github.com/marcop135/md2pdf/issues/new?template=bug.yml) or [request a feature](https://github.com/marcop135/md2pdf/issues/new?template=feature.yml). Participation follows the [Code of Conduct](./CODE_OF_CONDUCT.md).
+Read [CONTRIBUTING.md](./CONTRIBUTING.md), then [report a bug](https://github.com/marcop135/md2pdf/issues/new?template=bug.yml) or [request a feature](https://github.com/marcop135/md2pdf/issues/new?template=feature.yml).
 
 ## Author
 
