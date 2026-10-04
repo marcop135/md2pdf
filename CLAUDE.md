@@ -75,7 +75,7 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 
 Brand banners stay plain markdown light/dark pairs (`![alt](src#gh-light-mode-only)` then `src#gh-dark-mode-only`), with **no link around them**. GitHub does not hide a linked image by its `#gh-*-mode-only` fragment, so a linked pair shows both.
 
-Product screenshots sit under the live app link as one centered desktop + phone row: two `<picture>` elements with `prefers-color-scheme` sources and `width="73%"` / `width="21%"` (same pattern as draw). That HTML block is the exception to the plain-markdown rule; do not wrap the brand banners the same way. Paths: `docs/readme/desktop-{light,dark}.png` and `docs/readme/mobile-{light,dark}.png` (single Preview-tab phone frame). Recapture with `npm run readme:screenshots` while `npm start` runs (demo document lives in `scripts/readme-screenshots.mjs`).
+Product screenshots sit under the live app link as one centered desktop + phone row: two `<picture>` elements with `prefers-color-scheme` sources and `width="73%"` / `width="21%"` (same pattern as draw), then a caption line `<strong>Desktop</strong> (left) · <strong>Mobile</strong> (right)`. That HTML block is the exception to the plain-markdown rule; do not wrap the brand banners the same way. Paths: `docs/readme/desktop-{light,dark}.png` and `docs/readme/mobile-{light,dark}.png` (single Preview-tab phone frame). Recapture with `npm run readme:screenshots` while `npm start` runs (demo document lives in `scripts/readme-screenshots.mjs`). npm scripts for contributors live in [`docs/commands.md`](docs/commands.md); the README Development section links there.
 
 ## Brand images (README, og:image, GitHub social)
 

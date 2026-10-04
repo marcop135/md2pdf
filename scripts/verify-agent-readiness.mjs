@@ -96,7 +96,11 @@ if (baseArg) {
     join(root, 'src/App/Lib/agentBridge.js'),
     'utf8',
   );
-  assert(bridgeSrc.includes('window.md2pdf'), 'agentBridge must expose window.md2pdf');
+  assert(
+    /defineProperty\(\s*window\s*,\s*['"]md2pdf['"]/.test(bridgeSrc) ||
+      bridgeSrc.includes('window.md2pdf'),
+    'agentBridge must expose window.md2pdf',
+  );
   const headerSrc = readFileSync(
     join(root, 'src/App/Components/Header/index.js'),
     'utf8',
