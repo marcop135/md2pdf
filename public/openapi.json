@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Markdown to PDF",
-    "version": "2.15.2",
+    "version": "2.15.3",
     "summary": "Client-only Markdown to PDF in the browser",
     "description": "There is no remote conversion HTTP API. Agents load https://md2pdf.marcopontili.com/ and drive window.md2pdf via Playwriter (or equivalent browser automation). See /llms.txt and /for-agents.html.",
     "contact": {
@@ -30,7 +30,9 @@
             "description": "Plain-text llms.txt",
             "content": {
               "text/plain": {
-                "schema": { "type": "string" }
+                "schema": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -46,7 +48,9 @@
             "description": "Markdown auth document",
             "content": {
               "text/markdown": {
-                "schema": { "type": "string" }
+                "schema": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -62,7 +66,9 @@
             "description": "HTML portal",
             "content": {
               "text/html": {
-                "schema": { "type": "string" }
+                "schema": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -78,7 +84,9 @@
             "description": "OpenAPI 3.1 JSON",
             "content": {
               "application/json": {
-                "schema": { "type": "object" }
+                "schema": {
+                  "type": "object"
+                }
               }
             }
           }
