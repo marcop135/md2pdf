@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [2.15.3] - 2026-10-04
+
 - **Fix:** Recognize `Object.defineProperty(window, 'md2pdf')` in the agent-readiness check.
 - **Docs:** Align the README with draw: desktop and phone side by side, Privacy and Security split, and a Built-with table.
 - **Docs:** Drop the README badges and label the screenshot row as Desktop and Mobile.
