@@ -2,6 +2,11 @@
 
 **Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** for incomplete work.
 
+## [Unreleased]
+
+- **Docs:** Align the README with draw: desktop and phone side by side, Privacy and Security split, and a Built-with table.
+- **Chore:** Capture a single Preview-tab phone shot into `docs/readme/` for the README row.
+
 ## [2.15.2] - 2026-10-02
 
 - **Style:** Replace the arrow-based README, social, and og:image artwork with one editor-and-preview banner in light and dark.

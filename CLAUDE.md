@@ -40,7 +40,7 @@ Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md
 - `public/.htaccess` — Apache security/caching headers used in production deploys.
 - `public/llms.txt`, `auth.md`, `for-agents.html`, `openapi.json`, `.well-known/` — agent discovery (must ship as real files, not SPA HTML).
 - `public/static/og-img.png`: committed 1200x630 og:image; rendered from `.github/brand/og.svg` by `npm run brand:images`.
-- `docs/screenshots/`: committed README screenshots from `scripts/readme-screenshots.mjs`.
+- `docs/readme/`: committed README screenshots from `scripts/readme-screenshots.mjs`.
 - `scripts/changelog-lint.mjs` — enforces the changelog format; do not bypass.
 - `scripts/verify-agent-readiness.mjs` — static agent-surface checks.
 
@@ -73,9 +73,9 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 
 ## README images
 
-Every README image uses plain markdown image form (`![alt](src)`), with **no link around it and no surrounding `<div>` or `<p>` wrapper**; GitHub does not hide a linked image by its `#gh-*-mode-only` fragment, so a linked pair shows both images. Markdown-inside-HTML rendering is inconsistent across local previewers (VS Code, JetBrains, etc.) even when GitHub handles it, so we keep it pure markdown.
+Brand banners stay plain markdown light/dark pairs (`![alt](src#gh-light-mode-only)` then `src#gh-dark-mode-only`), with **no link around them**. GitHub does not hide a linked image by its `#gh-*-mode-only` fragment, so a linked pair shows both.
 
-Each image is a light/dark pair: `src#gh-light-mode-only` then `src#gh-dark-mode-only`, so GitHub shows the one matching the viewer's theme (local previewers show both). Pairs: the brand banner `.github/brand/readme-{light,dark}.png`, `docs/screenshots/desktop-{light,dark}.png` under "Write, preview, save", and `docs/screenshots/mobile-{light,dark}.png` (Editor and Preview tabs side by side). Screenshots are committed; recapture them with `npm run readme:screenshots` while `npm start` runs (demo document lives in `scripts/readme-screenshots.mjs`).
+Product screenshots sit under the live app link as one centered desktop + phone row: two `<picture>` elements with `prefers-color-scheme` sources and `width="73%"` / `width="21%"` (same pattern as draw). That HTML block is the exception to the plain-markdown rule; do not wrap the brand banners the same way. Paths: `docs/readme/desktop-{light,dark}.png` and `docs/readme/mobile-{light,dark}.png` (single Preview-tab phone frame). Recapture with `npm run readme:screenshots` while `npm start` runs (demo document lives in `scripts/readme-screenshots.mjs`).
 
 ## Brand images (README, og:image, GitHub social)
 
