@@ -17,10 +17,10 @@ const allowedSections = new Set([
 const sectionOrder = ["Added", "Changed", "Removed", "Fixed", "Security"];
 
 const requiredPreamble = [
-  "**Format:** Based on [Keep a Changelog](https://keepachangelog.com).",
-  "**Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.",
-  "**Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).",
-  "**Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.",
+  "- **Format:** Based on [Keep a Changelog](https://keepachangelog.com).",
+  "- **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.",
+  "- **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).",
+  "- **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.",
 ];
 
 const lines = md.split(/\r?\n/);
@@ -83,17 +83,18 @@ for (let i = 0; i < lines.length; i++) {
   }
 
   if (/^- \*\*[^*]+:\*\*/.test(line) || /^- \*\*[^*]+\*\*:/.test(line)) {
-    errors.push(
-      `Line ${i + 1}: label-style bullet; use ### Added/Changed/Removed/Fixed/Security sections instead`,
-    );
+    // Allow the four preamble meta-bullets; reject labeled changelog entries
+    const meta = /^- \*\*(Format|Voice|Length|Links):\*\*/.test(line);
+    if (!meta) {
+      errors.push(
+        `Line ${i + 1}: label-style bullet; use ### Added/Changed/Removed/Fixed/Security sections instead`,
+      );
+    }
   }
 
   const bullet = line.match(/^- (.+)$/);
   if (bullet && pastFirstVersion && currentVersion) {
     const body = bullet[1];
-    if (body.includes("\n")) {
-      errors.push(`Line ${i + 1}: bullet must be one line`);
-    }
     const len = visibleLen(body);
     if (len > 120) {
       errors.push(
