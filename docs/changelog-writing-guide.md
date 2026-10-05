@@ -2,13 +2,14 @@
 
 Use this guide for entries in `CHANGELOG.md`.
 
-**Format:** Based on [Keep a Changelog](https://keepachangelog.com).
+```markdown
+# Changelog
 
-**Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
-
-**Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
-
-**Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
+- **Format:** Based on [Keep a Changelog](https://keepachangelog.com).
+- **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
+- **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
+- **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
+```
 
 **Sections:** **Added**, **Changed**, **Removed**, **Fixed**, **Security** (omit empty ones).
 
