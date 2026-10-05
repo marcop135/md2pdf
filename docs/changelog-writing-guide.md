@@ -2,13 +2,22 @@
 
 Use this guide for entries in `CHANGELOG.md`.
 
-**Labels:** **Build**, **Chore**, **CI**, **Docs**, **Enhance**, **Feat**, **Fix**, **Perf**, **Revert**, **Sec**, **Style**; add **(WIP)** only for incomplete work.
+```markdown
+# Changelog
+
+- **Format:** Based on [Keep a Changelog](https://keepachangelog.com).
+- **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
+- **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
+- **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
+```
+
+**Sections:** **Added**, **Changed**, **Removed**, **Fixed**, **Security** (omit empty ones).
 
 ## Rules
 
-1. **One sentence** per bullet after the label.
-2. **Max twenty words** in that sentence (count words, not code tokens).
-3. **Order bullets** within a release: **Feat**, **Enhance**, **Fix**, **Sec**, **Perf**, **Style**, **Docs**, **Build**, **CI**, **Chore**, **Revert**.
+1. One sentence per bullet, imperative voice.
+2. Max 120 visible characters per bullet (markdown link URLs do not count).
+3. Order sections within a release: **Added** → **Changed** → **Removed** → **Fixed** → **Security**.
 4. End each sentence with **.** , **!** , or **?**
 5. Release headings: `## [x.y.z] - YYYY-MM-DD` (ISO date).
 
@@ -22,9 +31,7 @@ Keep three surfaces aligned for each version:
 | ------- | ------ |
 | Git tag | `vX.Y.Z` (annotated tag message: `vX.Y.Z`) |
 | GitHub release **name** | `vX.Y.Z` (same as the tag) |
-| GitHub release **notes** | Copy the release bullets from `CHANGELOG.md` only; **do not** repeat the `## [x.y.z] - YYYY-MM-DD` heading |
-
-Example for 2.11.5: the release at `releases/tag/v2.11.5` lists the three changelog bullets under the title `v2.11.5`, with no date heading in the notes body.
+| GitHub release **notes** | Copy that version’s `###` sections and bullets from `CHANGELOG.md` only; **do not** repeat the `## [x.y.z] - YYYY-MM-DD` heading |
 
 Create or edit releases with:
 
@@ -32,4 +39,4 @@ Create or edit releases with:
 gh release create vX.Y.Z --title "vX.Y.Z" --notes "$(sed -n '/^## \[X.Y.Z\]/,/^## \[/p' CHANGELOG.md | sed '1d;$d')"
 ```
 
-(or paste the bullets manually after linting the changelog entry).
+(or paste the section bullets manually after linting the changelog entry).

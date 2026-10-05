@@ -6,45 +6,101 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const md = readFileSync(join(root, "CHANGELOG.md"), "utf8");
 
-const allowed = new Set([
-  "Build",
-  "Chore",
-  "CI",
-  "Docs",
-  "Enhance",
-  "Feat",
-  "Fix",
-  "Perf",
-  "Revert",
-  "Sec",
-  "Style",
+const allowedSections = new Set([
+  "Added",
+  "Changed",
+  "Removed",
+  "Fixed",
+  "Security",
 ]);
+
+const sectionOrder = ["Added", "Changed", "Removed", "Fixed", "Security"];
+
+const requiredPreamble = [
+  "- **Format:** Based on [Keep a Changelog](https://keepachangelog.com).",
+  "- **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.",
+  "- **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).",
+  "- **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.",
+];
 
 const lines = md.split(/\r?\n/);
 const errors = [];
 
+for (const needle of requiredPreamble) {
+  if (!md.includes(needle)) {
+    errors.push(`Missing preamble line: ${needle}`);
+  }
+}
+
+/** Visible length excluding markdown link URLs: [text](url) counts as text only. */
+function visibleLen(body) {
+  return body.replace(/\[[^\]]*\]\([^)]*\)/g, (m) => {
+    const text = m.match(/^\[([^\]]*)\]/);
+    return text ? text[1] : "";
+  }).length;
+}
+
+let currentVersion = null;
+let seenInVersion = [];
+let pastFirstVersion = false;
+
 for (let i = 0; i < lines.length; i++) {
   const line = lines[i];
-  const m = line.match(/^- \*\*([^*]+):\*\*\s*(.+)$/);
-  if (!m) continue;
-
-  const rawLabel = m[1].replace(/\s*\(WIP\)\s*$/i, "").trim();
-  const body = m[2].trim();
-
-  if (!allowed.has(rawLabel)) {
-    errors.push(`Line ${i + 1}: unknown label "${rawLabel}"`);
+  const version = line.match(/^## \[([^\]]+)\]/);
+  if (version) {
+    currentVersion = version[1];
+    seenInVersion = [];
+    pastFirstVersion = true;
     continue;
   }
 
-  const words = body.replace(/[.,;:()\[\]`'"]/g, " ").split(/\s+/).filter(Boolean);
-  if (words.length > 20) {
-    errors.push(
-      `Line ${i + 1}: more than 20 words after label (${words.length}: "${rawLabel}")`,
-    );
+  const section = line.match(/^### (.+)$/);
+  if (section) {
+    const name = section[1].trim();
+    if (!allowedSections.has(name)) {
+      errors.push(
+        `Line ${i + 1}: unknown section "${name}" (use ${[...allowedSections].join(", ")})`,
+      );
+      continue;
+    }
+    if (seenInVersion.includes(name)) {
+      errors.push(
+        `Line ${i + 1}: duplicate ### ${name} under ${currentVersion ?? "unknown"}`,
+      );
+    }
+    const last = seenInVersion[seenInVersion.length - 1];
+    if (last) {
+      const prevIdx = sectionOrder.indexOf(last);
+      const nextIdx = sectionOrder.indexOf(name);
+      if (nextIdx < prevIdx) {
+        errors.push(
+          `Line ${i + 1}: ### ${name} out of order under ${currentVersion ?? "unknown"} (want ${sectionOrder.join(" → ")})`,
+        );
+      }
+    }
+    seenInVersion.push(name);
+    continue;
   }
 
-  if (body && !/[.!?]$/.test(body)) {
-    errors.push(`Line ${i + 1}: sentence should end with punctuation`);
+  if (/^- \*\*[^*]+:\*\*/.test(line) || /^- \*\*[^*]+\*\*:/.test(line)) {
+    // Allow the four preamble meta-bullets; reject labeled changelog entries
+    const meta = /^- \*\*(Format|Voice|Length|Links):\*\*/.test(line);
+    if (!meta) {
+      errors.push(
+        `Line ${i + 1}: label-style bullet; use ### Added/Changed/Removed/Fixed/Security sections instead`,
+      );
+    }
+  }
+
+  const bullet = line.match(/^- (.+)$/);
+  if (bullet && pastFirstVersion && currentVersion) {
+    const body = bullet[1];
+    const len = visibleLen(body);
+    if (len > 120) {
+      errors.push(
+        `Line ${i + 1}: bullet visible length ${len} > 120 (URLs excluded)`,
+      );
+    }
   }
 }
 
