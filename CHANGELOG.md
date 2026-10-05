@@ -12,9 +12,9 @@
 ### Changed
 
 - Align the README with draw: desktop and phone side by side, Privacy and Security split, and a Built-with table.
-- Move the npm command table to `docs/commands.md` and link it from Development.
+- Move the npm command table to [`docs/commands.md`](https://github.com/marcop135/md2pdf/blob/develop/docs/commands.md) and link it from Development.
 - Rewrite the Security section as bullets that name each control.
-- Capture a single Preview-tab phone shot into `docs/readme/` for the README row.
+- Capture a single Preview-tab phone shot into [`docs/readme/`](https://github.com/marcop135/md2pdf/blob/develop/docs/readme/) for the README row.
 
 ### Removed
 
@@ -29,7 +29,7 @@
 ### Changed
 
 - Replace the arrow-based README, social, and og:image artwork with one editor-and-preview banner in light and dark.
-- Retell the README around light and dark desktop and mobile screenshots, and move agent usage to `docs/agent-surface.md`.
+- Retell the README around light and dark desktop and mobile screenshots, and move agent usage to [`docs/agent-surface.md`](https://github.com/marcop135/md2pdf/blob/develop/docs/agent-surface.md).
 - Add `npm run readme:screenshots` to recapture the README screenshots with Playwright.
 
 ## [2.15.1] - 2026-10-02
@@ -79,7 +79,7 @@
 ### Changed
 
 - Add unified README, og:image, and GitHub social images in the site fonts on a deep sky gradient.
-- Render brand images from `.github/brand/` with `npm run brand:images`, replacing `hero:sync` and its SVG sources.
+- Render brand images from [`.github/brand/`](https://github.com/marcop135/md2pdf/blob/develop/.github/brand/) with `npm run brand:images`, replacing `hero:sync` and its SVG sources.
 
 ## [2.13.4] - 2026-10-01
 
@@ -131,7 +131,7 @@
 
 ### Changed
 
-- Document the agent surface in the README, portal, and `docs/agent-surface.md`.
+- Document the agent surface in the README, portal, and [`docs/agent-surface.md`](https://github.com/marcop135/md2pdf/blob/develop/docs/agent-surface.md).
 - Narrow the SFTP `.well-known` exclude so agent catalogs reach production.
 
 ### Fixed
@@ -460,7 +460,7 @@
 
 - Generate 192/512 PNG and maskable PWA icons so Android installs render the proper logo.
 - Strip the baked-in version chip from the README hero so semvers don't rot.
-- Document PWA icon generation in `CLAUDE.md`.
+- Document PWA icon generation in [`CLAUDE.md`](https://github.com/marcop135/md2pdf/blob/develop/CLAUDE.md).
 
 ### Removed
 
@@ -477,13 +477,13 @@
 
 - Align README, `package.json` description, and HTML meta with GitHub About.
 - Add hero at `docs/readme-hero.png` and Open Graph at `public/static/og-img.png`.
-- Add `CLAUDE.md` with project conventions and switch README hero to plain markdown for cross-previewer rendering.
+- Add [`CLAUDE.md`](https://github.com/marcop135/md2pdf/blob/develop/CLAUDE.md) with project conventions and switch README hero to plain markdown for cross-previewer rendering.
 - Auto-sync the README hero to `public/static/og-img.png` on dev and build.
 - Narrow `.gitignore` so shared `.claude` config can be tracked.
 
 ### Removed
 
-- Remove `.cursor/` rules; project conventions now live solely in `CLAUDE.md`.
+- Remove `.cursor/` rules; project conventions now live solely in [`CLAUDE.md`](https://github.com/marcop135/md2pdf/blob/develop/CLAUDE.md).
 
 ## [2.9.12] - 2026-05-02
 
@@ -586,7 +586,7 @@
 
 ### Removed
 
-- Remove stray root files and unused cross-env from devDependencies (#16).
+- Remove stray root files and unused cross-env from devDependencies ([#16](https://github.com/marcop135/md2pdf/issues/16)).
 
 ### Fixed
 
@@ -636,8 +636,8 @@
 
 ### Changed
 
-- Switch production deploy to FTP and FTPS and retire the Node 16 workflow (#5, #6).
-- Bump runtime dependencies plus Vite and uuid to patched releases (#7, #8).
+- Switch production deploy to FTP and FTPS and retire the Node 16 workflow ([#5](https://github.com/marcop135/md2pdf/issues/5), [#6](https://github.com/marcop135/md2pdf/issues/6)).
+- Bump runtime dependencies plus Vite and uuid to patched releases ([#7](https://github.com/marcop135/md2pdf/issues/7), [#8](https://github.com/marcop135/md2pdf/issues/8)).
 - Point release deploy workflows at the main branch.
 
 ### Security
@@ -648,7 +648,7 @@
 
 ### Added
 
-- Render Mermaid diagrams in preview and exported PDF (#3).
+- Render Mermaid diagrams in preview and exported PDF ([#3](https://github.com/marcop135/md2pdf/issues/3)).
 
 ### Changed
 
@@ -670,7 +670,7 @@
 
 ### Fixed
 
-- Render embedded HTML and tel links correctly in Markdown preview (#2).
+- Render embedded HTML and tel links correctly in Markdown preview ([#2](https://github.com/marcop135/md2pdf/issues/2)).
 
 ## [2.6.0] - 2026-04-03
 
