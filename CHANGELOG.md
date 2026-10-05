@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+## [2.15.4] - 2026-10-05
+
+### Changed
+
+- Standardize the changelog on Keep a Changelog sections with Format/Voice/Length/Links preamble and inline links.
+
 ## [2.15.3] - 2026-10-04
 
 ### Changed
