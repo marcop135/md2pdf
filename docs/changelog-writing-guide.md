@@ -2,16 +2,23 @@
 
 Use this guide for entries in `CHANGELOG.md`.
 
+**Format:** Based on [Keep a Changelog](https://keepachangelog.com).
+
+**Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
+
+**Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
+
+**Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
+
 **Sections:** **Added**, **Changed**, **Removed**, **Fixed**, **Security** (omit empty ones).
 
 ## Rules
 
-1. **One sentence** per bullet.
-2. **Max twenty words** per bullet (count words, not code tokens).
-3. **Order sections** within a release: **Added** → **Changed** → **Removed** → **Fixed** → **Security**.
+1. One sentence per bullet, imperative voice.
+2. Max 120 visible characters per bullet (markdown link URLs do not count).
+3. Order sections within a release: **Added** → **Changed** → **Removed** → **Fixed** → **Security**.
 4. End each sentence with **.** , **!** , or **?**
 5. Release headings: `## [x.y.z] - YYYY-MM-DD` (ISO date).
-6. Use the imperative voice (add, fix, remove), not past tense.
 
 Run `npm run changelog:lint` before committing changelog edits.
 
