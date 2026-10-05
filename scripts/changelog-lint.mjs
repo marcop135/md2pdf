@@ -16,11 +16,33 @@ const allowedSections = new Set([
 
 const sectionOrder = ["Added", "Changed", "Removed", "Fixed", "Security"];
 
+const requiredPreamble = [
+  "**Format:** Based on [Keep a Changelog](https://keepachangelog.com).",
+  "**Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.",
+  "**Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).",
+  "**Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.",
+];
+
 const lines = md.split(/\r?\n/);
 const errors = [];
 
+for (const needle of requiredPreamble) {
+  if (!md.includes(needle)) {
+    errors.push(`Missing preamble line: ${needle}`);
+  }
+}
+
+/** Visible length excluding markdown link URLs: [text](url) counts as text only. */
+function visibleLen(body) {
+  return body.replace(/\[[^\]]*\]\([^)]*\)/g, (m) => {
+    const text = m.match(/^\[([^\]]*)\]/);
+    return text ? text[1] : "";
+  }).length;
+}
+
 let currentVersion = null;
 let seenInVersion = [];
+let pastFirstVersion = false;
 
 for (let i = 0; i < lines.length; i++) {
   const line = lines[i];
@@ -28,6 +50,7 @@ for (let i = 0; i < lines.length; i++) {
   if (version) {
     currentVersion = version[1];
     seenInVersion = [];
+    pastFirstVersion = true;
     continue;
   }
 
@@ -59,11 +82,24 @@ for (let i = 0; i < lines.length; i++) {
     continue;
   }
 
-  // Reject leftover label-style bullets
   if (/^- \*\*[^*]+:\*\*/.test(line) || /^- \*\*[^*]+\*\*:/.test(line)) {
     errors.push(
       `Line ${i + 1}: label-style bullet; use ### Added/Changed/Removed/Fixed/Security sections instead`,
     );
+  }
+
+  const bullet = line.match(/^- (.+)$/);
+  if (bullet && pastFirstVersion && currentVersion) {
+    const body = bullet[1];
+    if (body.includes("\n")) {
+      errors.push(`Line ${i + 1}: bullet must be one line`);
+    }
+    const len = visibleLen(body);
+    if (len > 120) {
+      errors.push(
+        `Line ${i + 1}: bullet visible length ${len} > 120 (URLs excluded)`,
+      );
+    }
   }
 }
 
