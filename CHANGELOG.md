@@ -145,7 +145,7 @@
 
 - Lead the README with the app screenshot and add build, release, and license badges.
 - Add a security policy, a code of conduct, issue forms, and a pull request template.
-- Normalize line endings and mark binary assets through a new `.gitattributes`.
+- Normalize line endings and mark binary assets through a new [`.gitattributes`](https://github.com/marcop135/md2pdf/blob/develop/.gitattributes).
 
 ## [2.12.0] - 2026-09-09
 
@@ -406,8 +406,8 @@
 
 - Bigger headline, subtitle, and bullets in the GitHub social preview; drop the secondary copy line.
 - Wrap the app in a top-level ErrorBoundary so a crash shows a recoverable Reload screen instead of white.
-- Add `public/favicon.ico` for legacy clients and unfurl bots that still GET it from the root.
-- Fix stale `.gitignore` comment and the `yarn hero:sync` row in the README scripts table.
+- Add [`public/favicon.ico`](https://github.com/marcop135/md2pdf/blob/develop/public/favicon.ico) for legacy clients and unfurl bots that still GET it from the root.
+- Fix stale [`.gitignore`](https://github.com/marcop135/md2pdf/blob/develop/.gitignore) comment and the `yarn hero:sync` row in the README scripts table.
 - Migrate `transformWithEsbuild` to `transformWithOxc` and drop deprecated `optimizeDeps.esbuildOptions`.
 - Add a regression test asserting the Previewer stays mounted from the editor tab on mobile.
 
@@ -475,11 +475,11 @@
 
 ### Changed
 
-- Align README, `package.json` description, and HTML meta with GitHub About.
-- Add hero at `docs/readme-hero.png` and Open Graph at `public/static/og-img.png`.
+- Align README, [`package.json`](https://github.com/marcop135/md2pdf/blob/develop/package.json) description, and HTML meta with GitHub About.
+- Add hero at `docs/readme-hero.png` and Open Graph at [`public/static/og-img.png`](https://github.com/marcop135/md2pdf/blob/develop/public/static/og-img.png).
 - Add [`CLAUDE.md`](https://github.com/marcop135/md2pdf/blob/develop/CLAUDE.md) with project conventions and switch README hero to plain markdown for cross-previewer rendering.
-- Auto-sync the README hero to `public/static/og-img.png` on dev and build.
-- Narrow `.gitignore` so shared `.claude` config can be tracked.
+- Auto-sync the README hero to [`public/static/og-img.png`](https://github.com/marcop135/md2pdf/blob/develop/public/static/og-img.png) on dev and build.
+- Narrow [`.gitignore`](https://github.com/marcop135/md2pdf/blob/develop/.gitignore) so shared `.claude` config can be tracked.
 
 ### Removed
 
