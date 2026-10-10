@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [2.15.5] - 2026-10-10
+
 ### Changed
 
 - Replace the repo `audit` skill with an `## Audit contract` section in CLAUDE.md, read by the global `site-audit` skill.
