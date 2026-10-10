@@ -121,10 +121,22 @@ To change the icon, edit the appropriate SVG source and re-run dev/build (or `np
 - `index.html` carries a `canonical`, full Open Graph set (`og:title/description/image/url/type/site_name/locale`), Twitter card tags, and a JSON-LD `WebApplication` block. The JSON-LD is `type="application/ld+json"` (data, not executable JS) so it is allowed under the CSP `script-src 'self' 'wasm-unsafe-eval'`. **Never add `'unsafe-inline'` to `script-src`** to accommodate scripts.
 - `public/manifest.json` is complete (`id`, `scope`, `start_url: '/'`, `categories`, `lang`, `dir`, `orientation`, `theme_color` `#0d6efd` matching the meta). Keep `start_url`/`scope`/`id` consistent with the canonical root.
 
-## Auditing (performance / a11y / SEO / code quality)
+## Audit contract
 
-- `scripts/audit-screenshots.mjs` (Playwright, a devDependency) captures the key views at desktop (1280), tablet (768), and mobile (375) breakpoints, toggling the mobile Editor/Preview tabs. Usage: `node scripts/audit-screenshots.mjs <outDir> [baseUrl]` with the dev server running on 5173. Output (`screenshots/`) is gitignored.
-- The `/audit` skill (`.claude/skills/audit/`) reruns the full workflow: baseline screenshots, four parallel audit agents with disjoint file ownership, central `npm test` + `npm run build`, and a post-change screenshot comparison.
+Read by the global `site-audit` skill (performance, a11y, SEO, code quality).
+
+- Server: `npm start` on :5173 (fixed); reuse a running one.
+- Screenshots: `node scripts/audit-screenshots.mjs screenshots/<label> [baseUrl]` (Playwright devDependency). Desktop 1280, tablet 768, mobile 375, with the mobile Editor/Preview tabs. `screenshots/` is gitignored. The script matches the Preview control as `role="tab"` or `role="button"`; a missing `-preview.png` means the selector failed, fix the script.
+- Checks: `npm test`, then `npm run build`. A workbox `maximumFileSizeToCacheInBytes` error means a chunk over 2 MB, usually mermaid coalesced in `manualChunks`.
+
+| Lane | Owns | Goals |
+|---|---|---|
+| Performance / build | `vite.config.js`, `public/.htaccess`, `src/serviceWorkerRegistration.js`, `src/App/Components/Markdown/Previewer/{index.js,Mermaid.jsx,Loading.js}` | Vendor chunk split (not mermaid), lazy heavy deps, cache headers for hashed assets, valid PWA precache |
+| Accessibility | `src/App/Components/Header/{index.js,Upload.js}`, `src/App/Components/Markdown/index.js`, `src/App/Theme/index.js`, `src/styles.css` | ARIA tablist for Editor/Preview, `:focus-visible`, AA contrast, keyboard upload, reduced motion |
+| SEO / metadata | `index.html`, `public/manifest.json`, `public/robots.txt` | Canonical, OG/Twitter, JSON-LD `WebApplication`, complete manifest |
+| Code quality | remaining `src/` (hooks, `Lib/`, error boundaries, `Editor/`, `DragBar.js`, `src/index.js`) | Behavior-preserving cleanup |
+
+Pitfalls: offline-first, no backend or new network deps. Keep `rehype-raw` before `rehype-sanitize`; never remove `rehype-sanitize`. Never edit `Previewer/Preview.js` or `src/App/index.js` (print CSS) in an audit. Keep `noindex, nofollow`. Mermaid stays out of `manualChunks`. No `'unsafe-inline'` in `script-src`.
 
 ## Style and tooling
 
