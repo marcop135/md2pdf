@@ -1,4 +1,4 @@
-![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-light.png#gh-light-mode-only)
+![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-light-blue.png#gh-light-mode-only)
 ![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-dark.png#gh-dark-mode-only)
 
 # Markdown to PDF
