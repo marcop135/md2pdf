@@ -35,7 +35,8 @@ const PRIVACY_HREF = '/privacy';
 // sits below the next breakpoint up with slack for wider system fonts:
 //  - full row needs ~700px            -> COMPACT below 768
 //  - COMPACT (short labels) ~590px    -> ICON_ONLY below 640
-//  - ICON_ONLY with chip ~400px       -> NO_CHIP below 420
+//  - ICON_ONLY with chip ~440px       -> NO_CHIP below 460
+//  - NO_CHIP, 64px Import/Export      -> NARROW (34px buttons) below 400
 // Phone tiers (ICON_ONLY and below) drop the logo and keep the title text,
 // stepping its size down at SMALL, TINY and MICRO.
 // The brand title also truncates with an ellipsis, so a wider font degrades
@@ -44,9 +45,9 @@ const BP = {
   COMPACT: 768,
   ICON_ONLY: 640,
   SMALL: 480,
-  NO_CHIP: 420,
+  NO_CHIP: 460,
   TINY: 360,
-  NARROW: 355,
+  NARROW: 400,
   MICRO: 320,
 };
 
