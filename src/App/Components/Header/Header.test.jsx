@@ -21,6 +21,9 @@ test('<Header /> controls keep accessible names at every breakpoint', () => {
   expect(
     screen.getByRole('link', { name: 'For agents' }).getAttribute('href'),
   ).toBe('/for-agents.html');
+  expect(
+    screen.getByRole('link', { name: 'Privacy' }).getAttribute('href'),
+  ).toBe('/privacy');
   expect(screen.getByLabelText('Import .md file').getAttribute('type')).toBe(
     'file',
   );

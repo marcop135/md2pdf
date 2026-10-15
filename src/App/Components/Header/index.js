@@ -6,6 +6,7 @@ import {
   Github,
   MoonFill,
   Robot,
+  ShieldLock,
   SunFill,
 } from 'react-bootstrap-icons';
 import { useProvided } from 'nonaction';
@@ -28,6 +29,7 @@ const { version } = packageMeta;
 
 const SOURCE_REPO_URL = 'https://github.com/marcop135/md2pdf';
 const FOR_AGENTS_HREF = '/for-agents.html';
+const PRIVACY_HREF = '/privacy';
 
 // Toolbar breakpoints (max-width, px). Each tier's natural width (Segoe UI)
 // sits below the next breakpoint up with slack for wider system fonts:
@@ -163,6 +165,14 @@ const Header = ({ className }) => {
           title="For agents"
         >
           <Robot size={18} aria-hidden />
+        </a>
+        <a
+          className="button privacy-link icon-only"
+          href={PRIVACY_HREF}
+          aria-label="Privacy"
+          title="Privacy"
+        >
+          <ShieldLock size={18} aria-hidden />
         </a>
         <button
           type="button"

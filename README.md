@@ -38,13 +38,13 @@ On small screens the editor and preview become two tabs. The app follows your sy
 
 ## Privacy
 
-Documents stay in the browser tab; nothing is uploaded for conversion or stored.
+Documents stay in the browser tab; nothing is uploaded for conversion or stored. Page views are counted with cookieless, self-hosted Matomo that honours Do Not Track; see the [privacy notice](https://md2pdf.marcopontili.com/privacy).
 
 ## Security
 
 - **Sanitized rendering.** Raw HTML is parsed with `rehype-raw`, then `rehype-sanitize` keeps only an allow-list of tags and attributes. Scripts, event handlers, and `javascript:` links are removed.
 - **Mermaid** runs with `securityLevel: 'strict'`.
-- **Content Security Policy** allows scripts from the app's own origin only. Images with an `https` address in a document load from their host.
+- **Content Security Policy** allows scripts from the app's own origin and the self-hosted Matomo at `mt.marcopontili.com` only. Images with an `https` address in a document load from their host.
 - **Hosting:** HTTPS behind Cloudflare, with HSTS, `nosniff`, `frame-ancestors 'none'`, and a strict Permissions-Policy.
 
 Report vulnerabilities as described in [SECURITY.md](./SECURITY.md).
