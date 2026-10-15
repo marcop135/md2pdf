@@ -35,8 +35,7 @@ const PRIVACY_HREF = '/privacy';
 // sits below the next breakpoint up with slack for wider system fonts:
 //  - full row needs ~700px            -> COMPACT below 768
 //  - COMPACT (short labels) ~590px    -> ICON_ONLY below 640
-//  - ICON_ONLY with chip ~440px       -> NO_CHIP below 460
-//  - NO_CHIP, 64px Import/Export      -> NARROW (34px buttons) below 400
+//  - ICON_ONLY with chip ~400px       -> NO_CHIP below 420
 // Phone tiers (ICON_ONLY and below) drop the logo and keep the title text,
 // stepping its size down at SMALL, TINY and MICRO.
 // The brand title also truncates with an ellipsis, so a wider font degrades
@@ -45,9 +44,9 @@ const BP = {
   COMPACT: 768,
   ICON_ONLY: 640,
   SMALL: 480,
-  NO_CHIP: 460,
+  NO_CHIP: 420,
   TINY: 360,
-  NARROW: 400,
+  NARROW: 355,
   MICRO: 320,
 };
 
@@ -159,22 +158,6 @@ const Header = ({ className }) => {
           <span className="label-long">Export to .pdf</span>
           <span className="label-short">Export PDF</span>
         </button>
-        <a
-          className="button agents-link icon-only"
-          href={FOR_AGENTS_HREF}
-          aria-label="For agents"
-          title="For agents"
-        >
-          <Robot size={18} aria-hidden />
-        </a>
-        <a
-          className="button privacy-link icon-only"
-          href={PRIVACY_HREF}
-          aria-label="Privacy"
-          title="Privacy"
-        >
-          <ShieldLock size={18} aria-hidden />
-        </a>
         <button
           type="button"
           className="button theme-toggle icon-only"
@@ -185,6 +168,22 @@ const Header = ({ className }) => {
           <ThemeIcon size={18} aria-hidden />
         </button>
         <span className="menu-separator" aria-hidden="true" />
+        <a
+          className="button privacy-link icon-only"
+          href={PRIVACY_HREF}
+          aria-label="Privacy"
+          title="Privacy"
+        >
+          <ShieldLock size={18} aria-hidden />
+        </a>
+        <a
+          className="button agents-link icon-only"
+          href={FOR_AGENTS_HREF}
+          aria-label="For agents"
+          title="For agents"
+        >
+          <Robot size={18} aria-hidden />
+        </a>
         <a
           className="button github-link icon-only"
           href={SOURCE_REPO_URL}
@@ -395,7 +394,8 @@ export default styled(Header)`
         }
       }
 
-      .agents-link {
+      .agents-link,
+      .privacy-link {
         display: none;
       }
     }
