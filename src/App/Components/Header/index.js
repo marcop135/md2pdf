@@ -6,6 +6,7 @@ import {
   Github,
   MoonFill,
   Robot,
+  ShieldLock,
   SunFill,
 } from 'react-bootstrap-icons';
 import { useProvided } from 'nonaction';
@@ -28,6 +29,7 @@ const { version } = packageMeta;
 
 const SOURCE_REPO_URL = 'https://github.com/marcop135/md2pdf';
 const FOR_AGENTS_HREF = '/for-agents.html';
+const PRIVACY_HREF = '/privacy';
 
 // Toolbar breakpoints (max-width, px). Each tier's natural width (Segoe UI)
 // sits below the next breakpoint up with slack for wider system fonts:
@@ -156,14 +158,6 @@ const Header = ({ className }) => {
           <span className="label-long">Export to .pdf</span>
           <span className="label-short">Export PDF</span>
         </button>
-        <a
-          className="button agents-link icon-only"
-          href={FOR_AGENTS_HREF}
-          aria-label="For agents"
-          title="For agents"
-        >
-          <Robot size={18} aria-hidden />
-        </a>
         <button
           type="button"
           className="button theme-toggle icon-only"
@@ -174,6 +168,22 @@ const Header = ({ className }) => {
           <ThemeIcon size={18} aria-hidden />
         </button>
         <span className="menu-separator" aria-hidden="true" />
+        <a
+          className="button privacy-link icon-only"
+          href={PRIVACY_HREF}
+          aria-label="Privacy"
+          title="Privacy"
+        >
+          <ShieldLock size={18} aria-hidden />
+        </a>
+        <a
+          className="button agents-link icon-only"
+          href={FOR_AGENTS_HREF}
+          aria-label="For agents"
+          title="For agents"
+        >
+          <Robot size={18} aria-hidden />
+        </a>
         <a
           className="button github-link icon-only"
           href={SOURCE_REPO_URL}
@@ -384,7 +394,8 @@ export default styled(Header)`
         }
       }
 
-      .agents-link {
+      .agents-link,
+      .privacy-link {
         display: none;
       }
     }

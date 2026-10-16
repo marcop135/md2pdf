@@ -50,7 +50,7 @@ The app uses **`system-ui, sans-serif`** globally (set in [`src/App/index.js`](s
 
 - Brand = 24px `/favicon.svg` logo + `.brand-title` `Markdown to PDF` at **`font-weight: 700`** (truncates with an ellipsis rather than scrolling the bar).
 - Version chip = `v` + `major.minor.patch` from `package.json`, rendered as `.version-chip` (color `#656d76`, weight `400`, slightly smaller).
-- Breakpoints live in the `BP` constant in `Header/index.js`, each set from the measured width of the tier above it: For agents is an icon-only control between Export and the theme toggle; `≤768` short labels (`Import`, `Export PDF`), `≤640` logo and For agents hidden, Import/Export icon-only at 64px wide, title text kept and stepped down to 13px (`≤480`), 12px (`≤360`), 11px (`≤320`), chip hidden `≤420`, all buttons 34px `≤355`. After any header change, sweep 300-1280px and confirm no label wraps or clips.
+- Breakpoints live in the `BP` constant in `Header/index.js`, each set from the measured width of the tier above it: the theme toggle follows Export, then a separator, then icon-only Privacy (`/privacy`), For agents and GitHub (GitHub rightmost); `≤768` short labels (`Import`, `Export PDF`), `≤640` logo, Privacy and For agents hidden, Import/Export icon-only at 64px wide, title text kept and stepped down to 13px (`≤480`), 12px (`≤360`), 11px (`≤320`), chip hidden `≤420`, all buttons 34px `≤355`. After any header change, sweep 300-1280px and confirm no label wraps or clips.
 - Every control keeps an `aria-label` and `title` independent of its visible label (`Header.test.jsx`).
 - Import / Export buttons stay **`font-weight: 400`**, **`font-size: 14px`**, **`height: 32px`**.
 - Prefer `font-family: inherit` on header and toolbar controls ([`Header/index.js`](src/App/Components/Header/index.js), [`Upload.js`](src/App/Components/Header/Upload.js)).
@@ -118,7 +118,7 @@ To change the icon, edit the appropriate SVG source and re-run dev/build (or `np
 ## SEO and metadata
 
 - `index.html` is **deliberately `noindex, nofollow`** (plus per-bot noindex for Google/Bing/GPTBot/ClaudeBot/etc.) and `public/robots.txt` `Disallow: /`s crawlers. This is intentional; **do not make the site indexable.** Metadata work here is about unfurl/install correctness, not ranking.
-- `index.html` carries a `canonical`, full Open Graph set (`og:title/description/image/url/type/site_name/locale`), Twitter card tags, and a JSON-LD `WebApplication` block. The JSON-LD is `type="application/ld+json"` (data, not executable JS) so it is allowed under the CSP `script-src 'self' 'wasm-unsafe-eval'`. **Never add `'unsafe-inline'` to `script-src`** to accommodate scripts.
+- `index.html` carries a `canonical`, full Open Graph set (`og:title/description/image/url/type/site_name/locale`), Twitter card tags, and a JSON-LD `WebApplication` block. The JSON-LD is `type="application/ld+json"` (data, not executable JS) so it is allowed under the CSP `script-src 'self' 'wasm-unsafe-eval' self-hosted Matomo`. Matomo ships as the same-origin `public/matomo.js`; self-hosted Matomo must stay in `script-src`, `connect-src`, and `img-src`. **Never add `'unsafe-inline'` to `script-src`** to accommodate scripts.
 - `public/manifest.json` is complete (`id`, `scope`, `start_url: '/'`, `categories`, `lang`, `dir`, `orientation`, `theme_color` `#0d6efd` matching the meta). Keep `start_url`/`scope`/`id` consistent with the canonical root.
 
 ## Audit contract

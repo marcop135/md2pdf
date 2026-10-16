@@ -38,9 +38,11 @@ Repo skill: `.claude/skills/md2pdf-export/SKILL.md` (Playwriter procedure).
 - [openapi.json](https://md2pdf.marcopontili.com/openapi.json): public surface description
 - [ARD catalog](https://md2pdf.marcopontili.com/.well-known/ard.json)
 - [Agent skills index](https://md2pdf.marcopontili.com/.well-known/agent-skills/index.json)
+- [Privacy](https://md2pdf.marcopontili.com/privacy): data handling (cookieless self-hosted Matomo, no document upload)
 
 ## Notes
 
 - No accounts, API keys, OAuth, or hosted MCP.
-- Conversion stays in the browser session.
+- Conversion stays in the browser session; documents are never sent to analytics.
+- Canonical URL: https://md2pdf.marcopontili.com/
 - Crawlers remain disallowed in `robots.txt` by design; this file is for agents that already have the URL.

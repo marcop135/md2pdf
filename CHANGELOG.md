@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add cookieless, self-hosted Matomo as `/matomo.js` and allow it in the CSP.
+- Add a [`/privacy`](https://md2pdf.marcopontili.com/privacy) notice, linked from the header, For agents, `llms.txt`, and the README.
+- Add a `404.html` error page for hard 404s and a `/.well-known/security.txt`.
+
 ## [2.15.5] - 2026-10-10
 
 ### Changed
