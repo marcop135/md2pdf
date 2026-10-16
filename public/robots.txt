@@ -12,6 +12,8 @@ Disallow: /
 Allow: /llms.txt
 Allow: /auth.md
 Allow: /for-agents.html
+Allow: /privacy
+Allow: /.well-known/security.txt
 Allow: /openapi.json
 Allow: /.well-known/ard.json
 Allow: /.well-known/ai-catalog.json

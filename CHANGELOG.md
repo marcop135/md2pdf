@@ -5,7 +5,13 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
-## [Unreleased]
+## [2.16.0] - 2026-10-16
+
+### Added
+
+- Add cookieless, self-hosted Matomo as `/matomo.js` and allow it in the CSP.
+- Add a [`/privacy`](https://md2pdf.marcopontili.com/privacy) notice, linked from the header, For agents, `llms.txt`, and the README.
+- Add a `404.html` error page for hard 404s and a `/.well-known/security.txt`.
 
 ## [2.15.5] - 2026-10-10
 

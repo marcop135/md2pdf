@@ -32,9 +32,29 @@ const stripCspMetaInDev = {
   },
 };
 
+// Mirror the public/.htaccess clean URL so /privacy serves privacy.html in
+// `vite` and `vite preview` instead of the SPA shell.
+const privacyCleanUrl = {
+  name: 'privacy-clean-url',
+  configureServer(server) {
+    server.middlewares.use(rewritePrivacy);
+  },
+  configurePreviewServer(server) {
+    server.middlewares.use(rewritePrivacy);
+  },
+};
+
+function rewritePrivacy(req, _res, next) {
+  if (/^\/privacy\/?(\?.*)?$/.test(req.url)) {
+    req.url = req.url.replace(/^\/privacy\/?/, '/privacy.html');
+  }
+  next();
+}
+
 export default defineConfig(({ command }) => ({
   plugins: [
     treatJsFilesAsJsx,
+    privacyCleanUrl,
     react({
       include: /\.[jt]sx?$/,
     }),

@@ -21,6 +21,9 @@ test('<Header /> controls keep accessible names at every breakpoint', () => {
   expect(
     screen.getByRole('link', { name: 'For agents' }).getAttribute('href'),
   ).toBe('/for-agents.html');
+  expect(
+    screen.getByRole('link', { name: 'Privacy' }).getAttribute('href'),
+  ).toBe('/privacy');
   expect(screen.getByLabelText('Import .md file').getAttribute('type')).toBe(
     'file',
   );
@@ -31,10 +34,14 @@ test('<Header /> controls keep accessible names at every breakpoint', () => {
   ).toBeTruthy();
 });
 
-test('<Header /> separates the GitHub link from the in-app controls', () => {
+test('<Header /> separates the link group from the in-app controls', () => {
   renderHeader();
   const github = screen.getByRole('link', { name: 'View source on GitHub' });
-  const separator = github.previousElementSibling;
+  const agents = github.previousElementSibling;
+  const privacy = agents.previousElementSibling;
+  const separator = privacy.previousElementSibling;
+  expect(agents.classList.contains('agents-link')).toBe(true);
+  expect(privacy.classList.contains('privacy-link')).toBe(true);
   expect(separator.classList.contains('menu-separator')).toBe(true);
   expect(separator.getAttribute('aria-hidden')).toBe('true');
   expect(separator.previousElementSibling.classList.contains('theme-toggle')).toBe(

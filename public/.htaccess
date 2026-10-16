@@ -427,12 +427,18 @@ AddDefaultCharset utf-8
 # return a real HTTP 404 instead of the SPA shell (soft-404). Portal aliases
 # map common docs URLs onto for-agents.html.
 
+# Hard 404s get a real error page instead of Apache's default.
+ErrorDocument 404 /404.html
+
 <IfModule mod_rewrite.c>
 
     RewriteEngine On
 
     # Portal aliases (Ora probes /docs, /developers, /api).
     RewriteRule ^(docs|developers|api)/?$ /for-agents.html [L]
+
+    # Clean URL for the privacy notice (MultiViews is off).
+    RewriteRule ^privacy/?$ /privacy.html [L]
 
     # Missing agent-facing static paths: hard 404, not index.html.
     RewriteCond %{REQUEST_FILENAME} !-f
