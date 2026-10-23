@@ -5,6 +5,17 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [2.16.2] - 2026-10-23
+
+### Changed
+
+- Link the README banner to the live app.
+- Bump the npm minor/patch group: React 19.3.1, styled-components 6.6, CodeMirror, Playwright, and Vitest.
+
+### Security
+
+- Update Vite to 8.3.5, DOMPurify to 3.4.17, source-map-js to 1.2.2, and serialize-javascript to 7.1.3.
+
 ## [2.16.1] - 2026-10-16
 
 ### Fixed
