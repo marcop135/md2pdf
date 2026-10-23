@@ -1,5 +1,5 @@
-![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-light-blue.png#gh-light-mode-only)
-![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-dark.png#gh-dark-mode-only)
+[![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-light-blue.png#gh-light-mode-only)](https://md2pdf.marcopontili.com)
+[![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-dark.png#gh-dark-mode-only)](https://md2pdf.marcopontili.com)
 
 # Markdown to PDF
 
