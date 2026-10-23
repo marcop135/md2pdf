@@ -1,5 +1,9 @@
-![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-light-blue.png#gh-light-mode-only)
-![Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser](.github/brand/readme-dark.png#gh-dark-mode-only)
+<a href="https://md2pdf.marcopontili.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark.png">
+    <img alt="Markdown to PDF: write Markdown, save a PDF, nothing leaves your browser" src=".github/brand/readme-light-blue.png">
+  </picture>
+</a>
 
 # Markdown to PDF
 
