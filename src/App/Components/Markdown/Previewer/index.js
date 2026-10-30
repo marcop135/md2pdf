@@ -48,6 +48,14 @@ const Wrapper = styled.div`
     max-width: 100%;
     height: auto;
   }
+  /* A diagram that pins a light theme keeps it in dark mode; give it paper.
+     The doubled & outranks the .preview.markdown-body .mermaid-diagram
+     padding in styles.css. */
+  && .mermaid-diagram.mermaid-diagram--pinned {
+    background: ${({ theme }) => theme.colors.mermaidPinnedBg};
+    padding: 12px;
+    border-radius: 6px;
+  }
   .mermaid-loading {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     white-space: pre-wrap;
@@ -68,6 +76,11 @@ const Wrapper = styled.div`
     .mermaid-diagram {
       page-break-inside: avoid;
       break-inside: avoid;
+    }
+    && .mermaid-diagram.mermaid-diagram--pinned {
+      background: none;
+      padding: 8px 0;
+      border-radius: 0;
     }
     /* 100% resolves against an auto-height parent, i.e. no cap at all. Cap
        against the page box so an oversized diagram scales to fit one page
