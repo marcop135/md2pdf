@@ -5,6 +5,12 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [Unreleased]
+
+### Changed
+
+- Serve the Codex md2pdf-export skill from a link to the Claude copy instead of a duplicate.
+
 ## [2.17.0] - 2026-10-30
 
 ### Added
