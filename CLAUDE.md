@@ -30,7 +30,7 @@ If `npm start` fails because **5173 is already bound**, a previous Vite session 
 
 ## Agent surface
 
-Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md2pdf` (no hosted MCP). Discovery: `/llms.txt`, `/for-agents.html`, `/auth.md`, `/openapi.json`, `/.well-known/ard.json`. Contract: [`docs/agent-surface.md`](docs/agent-surface.md). Skill: [`.claude/skills/md2pdf-export/SKILL.md`](.claude/skills/md2pdf-export/SKILL.md). Keep the privacy-first `robots.txt` `Disallow` for the app UI; only agent discovery paths are Allow-listed.
+Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md2pdf` (no hosted MCP). Discovery: `/llms.txt`, `/for-agents.html`, `/auth.md`, `/openapi.json`, `/.well-known/ard.json`. Contract: [`docs/agent-surface.md`](docs/agent-surface.md). Skill: [`.claude/skills/md2pdf-export/SKILL.md`](.claude/skills/md2pdf-export/SKILL.md) and [`.agents/skills/md2pdf-export/SKILL.md`](.agents/skills/md2pdf-export/SKILL.md) (same bytes). Keep the privacy-first `robots.txt` `Disallow` for the app UI; only agent discovery paths are Allow-listed.
 
 ## Project layout (only the non-obvious bits)
 

@@ -29,7 +29,7 @@ Use this app when an agent or person needs to turn Markdown (GFM, Mermaid, optio
 4. Call `await window.md2pdf.prepareExport()` so Mermaid and the preview settle.
 5. Export with CDP `Page.printToPDF` (`printBackground: true`, `preferCSSPageSize: true`), or call `await window.md2pdf.exportPdf()` to open the print dialog.
 
-Repo skill: `.claude/skills/md2pdf-export/SKILL.md` (Playwriter procedure).
+Repo skill: `.claude/skills/md2pdf-export/SKILL.md` and `.agents/skills/md2pdf-export/SKILL.md` (same Playwriter procedure).
 
 ## Machine-readable surfaces
 

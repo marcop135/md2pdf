@@ -26,7 +26,7 @@ You have a Markdown file and need a PDF: a report, a CV, meeting notes. Open the
 
 ## How it works
 
-1. Type or paste Markdown, or import a `.md` file (button or drag and drop, up to 2 MB).
+1. Type or paste Markdown, or import a `.md` or `.mmd` file (button or drag and drop, up to 2 MB).
 2. Watch the preview render as you type, styled like GitHub.
 3. Click **Export to .pdf** and choose **Save as PDF** in the print dialog. The file is named after the document's first heading.
 

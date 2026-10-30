@@ -5,6 +5,22 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [2.17.0] - 2026-10-30
+
+### Added
+
+- Accept `.mmd` files, wrapping each as one Mermaid diagram.
+- Publish the md2pdf-export skill for Codex, identical to the Claude copy.
+
+### Changed
+
+- Name an agent PDF from the first heading, or `md2pdf-export.pdf` when there is none.
+- Skip an agent PDF when a Mermaid diagram fails to render.
+
+### Fixed
+
+- Restore the default print filename when a document has no heading.
+
 ## [2.16.2] - 2026-10-23
 
 ### Changed
