@@ -5,6 +5,16 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [2.17.1] - 2026-10-30
+
+### Changed
+
+- Serve the Codex md2pdf-export skill from a link to the Claude copy instead of a duplicate.
+
+### Fixed
+
+- Keep a Mermaid diagram with a pinned light theme readable in dark mode by drawing it on a white card.
+
 ## [2.17.0] - 2026-10-30
 
 ### Added

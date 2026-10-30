@@ -85,6 +85,59 @@ describe('Mermaid component', () => {
     errorSpy.mockRestore();
   });
 
+  test.each([
+    ['an init directive', 'neutral'],
+    ['frontmatter', 'forest'],
+  ])(
+    'dark mode keeps a theme pinned by %s on one backed diagram',
+    async (_source, theme) => {
+      const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      window.localStorage.setItem('md2pdf-theme', 'dark');
+      mermaid.parse.mockResolvedValueOnce({
+        diagramType: 'flowchart-v2',
+        config: { theme },
+      });
+      const { container } = render(
+        <ThemeProvider>
+          <Mermaid code={`graph TD; P${theme}-->Q;`} />
+        </ThemeProvider>,
+      );
+      await flushAsync();
+      await waitFor(() => {
+        expect(
+          container.querySelector('.mermaid-diagram--pinned svg'),
+        ).not.toBeNull();
+      });
+      expect(container.querySelectorAll('.mermaid-diagram svg')).toHaveLength(
+        1,
+      );
+      expect(container.querySelector('.mermaid-diagram--print')).toBeNull();
+      errorSpy.mockRestore();
+    },
+  );
+
+  test('dark mode treats a pinned dark theme like the app theme', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    window.localStorage.setItem('md2pdf-theme', 'dark');
+    mermaid.parse.mockResolvedValueOnce({
+      diagramType: 'flowchart-v2',
+      config: { theme: 'dark' },
+    });
+    const { container } = render(
+      <ThemeProvider>
+        <Mermaid code="graph TD; R-->S;" />
+      </ThemeProvider>,
+    );
+    await flushAsync();
+    await waitFor(() => {
+      expect(
+        container.querySelector('.mermaid-diagram--print svg'),
+      ).not.toBeNull();
+    });
+    expect(container.querySelector('.mermaid-diagram--pinned')).toBeNull();
+    errorSpy.mockRestore();
+  });
+
   test('concurrent renders never share a diagram id', async () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     render(

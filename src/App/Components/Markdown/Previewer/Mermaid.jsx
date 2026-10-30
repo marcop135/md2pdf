@@ -40,11 +40,14 @@ const renderDiagram = (code, theme) => {
   const run = renderChain.then(async () => {
     const mermaid = await loadMermaid();
     initMermaid(mermaid, theme);
-    await mermaid.parse(code);
+    // `theme` is not a mermaid secure key, so an init directive or frontmatter
+    // in the diagram replaces the one passed to initialize().
+    const parsed = await mermaid.parse(code);
+    const pinnedTheme = (parsed && parsed.config && parsed.config.theme) || null;
     // A fresh id per run: reusing one id across re-renders let a superseded
     // render tear out the temp container of the one that replaced it.
     const { svg } = await mermaid.render(`mermaid-${++uid}`, code);
-    return svg;
+    return { svg, pinnedTheme };
   });
   // Keep the queue moving whatever this render does. A rejection must not break
   // the chain, and a render that never settles must not wedge it for good.
@@ -114,6 +117,7 @@ export default function Mermaid({ code }) {
 
   const [svg, setSvg] = useState('');
   const [printSvg, setPrintSvg] = useState('');
+  const [pinned, setPinned] = useState(false);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -129,12 +133,19 @@ export default function Mermaid({ code }) {
 
     (async () => {
       try {
-        const screenSvg = await renderDiagram(code, screenTheme);
+        const { svg: screenSvg, pinnedTheme } = await renderDiagram(
+          code,
+          screenTheme,
+        );
         if (cancelled) return;
+        // A diagram that pins a light theme renders the same SVG for screen
+        // and paper, and mermaid paints no background behind it.
+        const isPinned = Boolean(pinnedTheme) && pinnedTheme !== 'dark';
+        setPinned(isPinned);
         setSvg(screenSvg);
 
-        if (needsPrintCopy) {
-          const lightSvg = await renderDiagram(code, PRINT_THEME);
+        if (needsPrintCopy && !isPinned) {
+          const { svg: lightSvg } = await renderDiagram(code, PRINT_THEME);
           if (cancelled) return;
           setPrintSvg(lightSvg);
         } else {
@@ -146,6 +157,7 @@ export default function Mermaid({ code }) {
           setFailed(true);
           setSvg('');
           setPrintSvg('');
+          setPinned(false);
         }
       } finally {
         await nextFrame();
@@ -176,10 +188,14 @@ export default function Mermaid({ code }) {
       </div>
     );
   }
-  if (!needsPrintCopy) {
+  if (!needsPrintCopy || pinned) {
     return (
       <div
-        className="mermaid-diagram"
+        className={
+          needsPrintCopy
+            ? 'mermaid-diagram mermaid-diagram--pinned'
+            : 'mermaid-diagram'
+        }
         dangerouslySetInnerHTML={{ __html: svg }}
       />
     );
