@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { classifyImport, textForImport } from '../../Lib/importFile.js';
 
 function useDrop(ref, onLoad = () => {}) {
   const [uploading, setUploading] = useState(false);
@@ -34,18 +35,18 @@ function useDrop(ref, onLoad = () => {}) {
     };
 
     const uploadHandler = (files) => {
+      const file = files && files[0];
+      const kind = file && file.name ? classifyImport(file.name) : null;
       if (
-        files &&
-        files[0] &&
-        files[0].name &&
-        /\.(md|markdown|mdown|mkd)$/i.test(files[0].name) &&
-        files[0].size <= MAX_FILE_SIZE &&
+        file &&
+        kind &&
+        file.size <= MAX_FILE_SIZE &&
         !uploadingRef.current
       ) {
         const reader = new FileReader();
         reader.onload = (e) => {
           finishUpload();
-          onLoad(e.target.result);
+          onLoad(textForImport(kind, e.target.result));
         };
         reader.onerror = finishUpload;
         reader.onabort = finishUpload;

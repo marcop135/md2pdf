@@ -1,5 +1,5 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { act } from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'nonaction';
 import { TextContainer } from '../../Container';
 import { ThemeProvider } from '../../Theme';
@@ -24,8 +24,10 @@ test('<Header /> controls keep accessible names at every breakpoint', () => {
   expect(
     screen.getByRole('link', { name: 'Privacy' }).getAttribute('href'),
   ).toBe('/privacy');
-  expect(screen.getByLabelText('Import .md file').getAttribute('type')).toBe(
-    'file',
+  const fileInput = screen.getByLabelText('Import a Markdown or .mmd file');
+  expect(fileInput.getAttribute('type')).toBe('file');
+  expect(fileInput.getAttribute('accept')).toBe(
+    '.md,.markdown,.mdown,.mkd,.mmd',
   );
   expect(screen.getByRole('button', { name: 'Export to .pdf' })).toBeTruthy();
   expect(screen.getByRole('button', { name: /^Theme:/ })).toBeTruthy();
@@ -47,6 +49,23 @@ test('<Header /> separates the link group from the in-app controls', () => {
   expect(separator.previousElementSibling.classList.contains('theme-toggle')).toBe(
     true,
   );
+});
+
+test('<Header /> prepareExport drops a stale print title when the document has no heading', async () => {
+  renderHeader();
+  await waitFor(() => {
+    if (!window.md2pdf) throw new Error('bridge missing');
+  });
+  await act(async () => {
+    window.md2pdf.setMarkdown('# Quarterly Report\n');
+  });
+  await window.md2pdf.prepareExport();
+  expect(document.title).toBe('Quarterly Report');
+  await act(async () => {
+    window.md2pdf.setMarkdown('No heading here.\n');
+  });
+  await window.md2pdf.prepareExport();
+  expect(document.title).toBe('Markdown to PDF');
 });
 
 test('<Header /> keeps the brand title in the DOM', () => {

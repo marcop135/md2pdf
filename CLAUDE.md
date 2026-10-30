@@ -30,7 +30,7 @@ If `npm start` fails because **5173 is already bound**, a previous Vite session 
 
 ## Agent surface
 
-Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md2pdf` (no hosted MCP). Discovery: `/llms.txt`, `/for-agents.html`, `/auth.md`, `/openapi.json`, `/.well-known/ard.json`. Contract: [`docs/agent-surface.md`](docs/agent-surface.md). Skill: [`.claude/skills/md2pdf-export/SKILL.md`](.claude/skills/md2pdf-export/SKILL.md). Keep the privacy-first `robots.txt` `Disallow` for the app UI; only agent discovery paths are Allow-listed.
+Live agents drive https://md2pdf.marcopontili.com with Playwriter via `window.md2pdf` (no hosted MCP). Discovery: `/llms.txt`, `/for-agents.html`, `/auth.md`, `/openapi.json`, `/.well-known/ard.json`. Contract: [`docs/agent-surface.md`](docs/agent-surface.md). Skill: [`.claude/skills/md2pdf-export/SKILL.md`](.claude/skills/md2pdf-export/SKILL.md) and [`.agents/skills/md2pdf-export/SKILL.md`](.agents/skills/md2pdf-export/SKILL.md) (same bytes). Keep the privacy-first `robots.txt` `Disallow` for the app UI; only agent discovery paths are Allow-listed.
 
 ## Project layout (only the non-obvious bits)
 
@@ -84,7 +84,7 @@ Sources live in `.github/brand/` (`readme-light.svg`, `readme-dark.svg`, `og.svg
 - **No CTA pill or URL on the artwork**; the platform shows the link separately.
 - **No standalone arrows**: the md2pdf icon already carries a down arrow.
 - The readme banners' window mock uses the app's own type: Selawik (open Segoe UI stand-in for `system-ui`) and Inconsolata (for Consolas), embedded between `@app-fonts` markers from `fonts/`.
-- `social.png` renders from `readme-light.svg` at 1x (no separate source). `og.svg` is the light `readme-light.svg` artwork shifted by `translate(-40 -5)` into the 1200x630 safe area; regenerate it whenever `readme-light.svg` changes. Rename an image when its content changes: GitHub and browsers cache README images by path.
+- `social.png` renders from `readme-light.svg` at 1x (no separate source). `og.svg` is a simplified light card with the centered app icon, title and tagline in the 1200x630 safe area. Rename an image when its content changes: GitHub and browsers cache README images by path.
 - After re-rendering, bump the `?v=` query on `og:image`, `og:image:secure_url`, and `twitter:image` in `index.html` so unfurl caches refetch.
 
 ## PWA icons

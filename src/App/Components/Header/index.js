@@ -89,6 +89,7 @@ const Header = ({ className }) => {
     await waitForMermaidRenders();
     const heading = extractHeading(textRef.current);
     if (heading) beginPrintFilenameSession(heading);
+    else endPrintFilenameSession();
   };
 
   const runExport = async () => {
