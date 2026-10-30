@@ -28,6 +28,23 @@ const assert = (ok, msg) => {
   if (!ok) failures.push(msg);
 };
 
+const skillRel = [
+  '.claude/skills/md2pdf-export/SKILL.md',
+  '.agents/skills/md2pdf-export/SKILL.md',
+];
+const skillBodies = skillRel.map((rel) => {
+  const path = join(root, rel);
+  const present = existsSync(path);
+  assert(present, `missing ${rel}`);
+  return present ? readFileSync(path) : null;
+});
+if (skillBodies[0] && skillBodies[1]) {
+  assert(
+    skillBodies[0].equals(skillBodies[1]),
+    'md2pdf-export SKILL.md copies differ',
+  );
+}
+
 const baseArg = process.argv[2];
 
 if (baseArg) {

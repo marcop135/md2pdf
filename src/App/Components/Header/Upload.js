@@ -2,6 +2,7 @@ import React from 'react';
 import { useProvided } from 'nonaction';
 import { FileEarmarkArrowUpFill } from 'react-bootstrap-icons';
 import { TextContainer } from '../../Container';
+import { classifyImport, textForImport } from '../../Lib/importFile.js';
 
 export default (props) => {
   const [, setText] = useProvided(TextContainer);
@@ -11,8 +12,9 @@ export default (props) => {
     const files = e.currentTarget.files;
     if (files.length > 0) {
       const file = files[0];
-      if (!/\.(md|markdown|mdown|mkd)$/i.test(file.name)) {
-        alert('Only Markdown files are allowed.');
+      const kind = classifyImport(file.name);
+      if (!kind) {
+        alert('Only Markdown and .mmd files are allowed.');
         e.target.value = '';
         return;
       }
@@ -23,7 +25,7 @@ export default (props) => {
       }
       const reader = new FileReader();
       reader.onload = (loadEvent) => {
-        setText(loadEvent.target.result);
+        setText(textForImport(kind, loadEvent.target.result));
       };
       reader.onerror = () => {
         alert('Error while reading file');
@@ -41,8 +43,8 @@ export default (props) => {
       <input
         id="mdFile"
         type="file"
-        aria-label="Import .md file"
-        title="Import .md file"
+        aria-label="Import a Markdown or .mmd file"
+        title="Import a Markdown or .mmd file"
         style={{
           position: 'absolute',
           top: 0,
@@ -55,10 +57,10 @@ export default (props) => {
           cursor: 'pointer',
         }}
         onChange={onChange}
-        accept=".md,.markdown,.mdown,.mkd"
+        accept=".md,.markdown,.mdown,.mkd,.mmd"
       />
       <FileEarmarkArrowUpFill size={18} aria-hidden />
-      <span className="label-long">Import .md file</span>
+      <span className="label-long">Import file</span>
       <span className="label-short">Import</span>
     </p>
   );

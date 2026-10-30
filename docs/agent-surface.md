@@ -19,7 +19,7 @@ After the app mounts, the page exposes `window.md2pdf`:
 
 Implementation: [`src/App/Lib/agentBridge.js`](../src/App/Lib/agentBridge.js), registered from [`Header`](../src/App/Components/Header/index.js).
 
-Preferred PDF path for agents: CDP `Page.printToPDF` with `printBackground: true` and `preferCSSPageSize: true` (see `.claude/skills/md2pdf-export/SKILL.md`).
+Preferred PDF path for agents: CDP `Page.printToPDF` with `printBackground: true` and `preferCSSPageSize: true` (see `.claude/skills/md2pdf-export/SKILL.md` and `.agents/skills/md2pdf-export/SKILL.md`, same bytes).
 
 ## Discovery URLs
 
