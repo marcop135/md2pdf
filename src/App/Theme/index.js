@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.colors.appBg};
     color: ${({ theme }) => theme.colors.appText};
-    color-scheme: ${({ theme }) => theme.mode};
+    color-scheme: ${({ theme }) => (theme.mode === 'light' ? 'light only' : 'dark')};
   }
 
   @media print {

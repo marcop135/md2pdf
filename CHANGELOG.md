@@ -5,6 +5,18 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [2.18.0] - 2026-11-05
+
+### Changed
+
+- Check for npm and GitHub Actions updates monthly instead of weekly.
+- Load analytics through a cookieless Matomo Tag Manager container, adding time on page and script errors ([#156](https://github.com/marcop135/md2pdf/pull/156), [#155](https://github.com/marcop135/md2pdf/issues/155)).
+- List the anonymous interaction events in the privacy page ([#156](https://github.com/marcop135/md2pdf/pull/156)).
+
+### Fixed
+
+- Keep Safari's Adaptive Dark Mode from darkening the editor when the light theme is chosen ([#154](https://github.com/marcop135/md2pdf/pull/154), [#153](https://github.com/marcop135/md2pdf/issues/153)).
+
 ## [2.17.3] - 2026-11-05
 
 ### Changed
