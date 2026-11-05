@@ -1,49 +1,61 @@
 # Agent surface
 
-How coding agents use Markdown to PDF, plus maintainer notes (v2.13.0+).
+How a coding agent drives Markdown to PDF, and what maintainers keep in place for it (since v2.13.0).
 
-## Using the app from an agent
+## Drive the app
 
-Open [md2pdf.marcopontili.com](https://md2pdf.marcopontili.com) in a browser (for example with Playwriter), call `window.md2pdf.setMarkdown(markdown)`, then `exportPdf()` for the print dialog. For a file without a dialog, call `prepareExport()` and save the page with the Chrome DevTools Protocol `Page.printToPDF`. Start at [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) or [For agents](https://md2pdf.marcopontili.com/for-agents.html). There is no hosted API: conversion always happens in the browser.
+There is no hosted API: conversion always runs in the browser.
 
-## Control contract
+1. Open [md2pdf.marcopontili.com](https://md2pdf.marcopontili.com) in a browser the agent controls, for example with Playwriter.
+2. Call `window.md2pdf.setMarkdown(markdown)`.
+3. Get the PDF one of two ways:
+   - `window.md2pdf.exportPdf()` opens the print dialog.
+   - `window.md2pdf.prepareExport()`, then the Chrome DevTools Protocol `Page.printToPDF` with `printBackground: true` and `preferCSSPageSize: true`, saves a file without a dialog. Agents should use this path.
 
-After the app mounts, the page exposes `window.md2pdf`:
+Entry points for agents: [`/llms.txt`](https://md2pdf.marcopontili.com/llms.txt) and [`/for-agents.html`](https://md2pdf.marcopontili.com/for-agents.html). The export skill is [`.claude/skills/md2pdf-export/SKILL.md`](../.claude/skills/md2pdf-export/SKILL.md), copied byte for byte to [`.agents/skills/md2pdf-export/SKILL.md`](../.agents/skills/md2pdf-export/SKILL.md).
+
+## `window.md2pdf`
+
+Available once the app has mounted. Each method throws until then.
 
 | Method | Behavior |
 | --- | --- |
-| `getMarkdown()` | Current editor markdown |
-| `setMarkdown(string)` | Replace source (max 2 MB); syncs CodeMirror |
-| `prepareExport()` | Double `requestAnimationFrame`, `waitForMermaidRenders`, print filename session |
-| `exportPdf()` | `prepareExport` then `window.print()` |
+| `getMarkdown()` | Returns the editor text. |
+| `setMarkdown(string)` | Replaces the editor text, up to 2 MB of UTF-8. |
+| `prepareExport()` | Waits two animation frames and for Mermaid diagrams, then sets the PDF filename from the first heading. |
+| `exportPdf()` | Runs `prepareExport()`, then `window.print()`. |
 
-Implementation: [`src/App/Lib/agentBridge.js`](../src/App/Lib/agentBridge.js), registered from [`Header`](../src/App/Components/Header/index.js).
+Source: [`src/App/Lib/agentBridge.js`](../src/App/Lib/agentBridge.js), registered from [`src/App/Components/Header/index.js`](../src/App/Components/Header/index.js).
 
-Preferred PDF path for agents: CDP `Page.printToPDF` with `printBackground: true` and `preferCSSPageSize: true` (see `.claude/skills/md2pdf-export/SKILL.md` and `.agents/skills/md2pdf-export/SKILL.md`, same bytes).
+## Discovery files
 
-## Discovery URLs
-
-| URL | Role |
+| Path | Contents |
 | --- | --- |
-| `/llms.txt` | When-to-use + control overview |
-| `/auth.md` | No auth / no hosted MCP |
-| `/for-agents.html` | Portal (aliases: `/docs`, `/developers`, `/api`) |
-| `/openapi.json` | Honest OpenAPI for static surfaces only |
-| `/.well-known/ard.json` | ARD catalog (twin: `ai-catalog.json`) |
+| `/llms.txt` | When to use the app and how to control it |
+| `/auth.md` | States that no auth and no hosted MCP exist |
+| `/for-agents.html` | Agent portal; `/docs`, `/developers` and `/api` serve the same page |
+| `/openapi.json` | OpenAPI description of the static files only |
+| `/.well-known/ard.json` | ARD catalog; `/.well-known/ai-catalog.json` holds the same data |
 | `/.well-known/agent-skills/index.json` | Skills index |
 
-## Soft-404 and deploy
+## Hosting
 
-- Apache: missing `.md` / `.txt` / `.json` and `/.well-known/*` return HTTP 404; other unknown paths still SPA-fallback for print slugs ([`public/.htaccess`](../public/.htaccess)).
-- The host is proxied by Cloudflare; Browser Integrity Check, Email Obfuscation, Rocket Loader and AI bot blocking stay off for it so agents and the CSP are unaffected. Each deploy purges the `md2pdf.marcopontili.com` edge cache.
-- Deploy SFTP mirror excludes only ACME / cPanel DCV / PKI validation under `.well-known/`, so agent catalogs ship with `dist/`.
+- [`public/.htaccess`](../public/.htaccess) returns a real HTTP 404 for missing `.md`, `.txt`, `.json` and `/.well-known/*` paths. Other unknown paths still fall back to the app, which the print filename flow needs.
+- Cloudflare proxies the host. Browser Integrity Check, Email Obfuscation, Rocket Loader and AI bot blocking stay off, so agents get through and the CSP holds. Each deploy purges the edge cache.
+- The deploy mirror skips only the ACME, cPanel DCV and PKI validation files under `.well-known/`, so the agent catalogs ship with `dist/`.
 
-## Ora score debt (intentional)
+## Known agent-readiness gaps
 
-Privacy-first product choices that keep some Ora checks red:
+These privacy choices keep some agent-readiness checks failing on purpose:
 
-- `robots.txt` still blocks AI training/search crawlers on the app UI
-- No REST convert API, hosted MCP, or WebMCP
-- SPA shell is JS-rendered (homepage body is not a long static article)
+- `robots.txt` blocks AI training and search crawlers from the app UI.
+- There is no REST conversion API, hosted MCP server or WebMCP.
+- The homepage is a JavaScript app shell, not a static article.
 
-`npm run verify:agent-readiness` checks files and bridge presence locally / against a base URL.
+## Verify
+
+```bash
+npm run verify:agent-readiness
+```
+
+Checks the discovery files and the `window.md2pdf` wiring, locally or against a base URL.

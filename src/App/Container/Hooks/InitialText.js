@@ -1,10 +1,10 @@
-export const initialText = `# Hello World!
+export const initialText = `# Hello!
 
-**Markdown to PDF** is an offline Markdown editor with a live preview. Everything runs in your browser (no separate backend).
+**Markdown to PDF** turns your writing into a clean PDF. It works offline, and your text never leaves your device.
 
-- **GitHub-flavored Markdown**: tables, task lists, syntax-highlighted fenced code blocks
-- **Mermaid diagrams**: use a fenced block with the \`mermaid\` language tag
-- **Import**: drop a \`.md\` or \`.mmd\` file onto the page or write here
-- **Export**: click **Export to .pdf** for your system print dialog (save as PDF)
+- **Write** here, or drop a \`.md\` or \`.mmd\` file onto the page to open it
+- **Format** with headings, lists, tables, checklists and code
+- **Add diagrams** with a \`mermaid\` code block
+- **Save as PDF**: click **Export to .pdf**, then pick "Save as PDF" in the print dialog
 
 `;
