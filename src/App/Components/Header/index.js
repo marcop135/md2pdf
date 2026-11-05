@@ -172,6 +172,8 @@ const Header = ({ className }) => {
         <a
           className="button privacy-link icon-only"
           href={PRIVACY_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="Privacy"
           title="Privacy"
         >
@@ -180,6 +182,8 @@ const Header = ({ className }) => {
         <a
           className="button agents-link icon-only"
           href={FOR_AGENTS_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="For agents"
           title="For agents"
         >
