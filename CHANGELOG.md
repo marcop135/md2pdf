@@ -11,6 +11,10 @@
 
 - Check for npm and GitHub Actions updates monthly instead of weekly.
 
+### Fixed
+
+- Keep Safari's Adaptive Dark Mode from darkening the editor when the light theme is chosen ([#153](https://github.com/marcop135/md2pdf/issues/153)).
+
 ## [2.17.3] - 2026-11-05
 
 ### Changed
