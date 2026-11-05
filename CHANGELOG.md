@@ -13,7 +13,7 @@
 
 ### Fixed
 
-- Keep Safari's Adaptive Dark Mode from darkening the editor when the light theme is chosen ([#153](https://github.com/marcop135/md2pdf/issues/153)).
+- Keep Safari's Adaptive Dark Mode from darkening the editor when the light theme is chosen ([#154](https://github.com/marcop135/md2pdf/pull/154), [#153](https://github.com/marcop135/md2pdf/issues/153)).
 
 ## [2.17.3] - 2026-11-05
 
