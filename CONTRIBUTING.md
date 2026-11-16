@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in **Markdown2PDF**.
+Thanks for your interest in Markdown2PDF.
 
 ## Issues
 
@@ -10,7 +10,7 @@ Bug reports and feature requests are tracked on [GitHub Issues](https://github.c
 
 1. Fork the repo and create a focused branch (`feature/…` or `fix/…`).
 2. Match existing code style (formatting, patterns, naming).
-3. Run **`npm test`** before pushing; **`npm run build`** should succeed for UI changes when relevant. This project uses **npm** (not yarn); the `packageManager` field and a `preinstall` guard enforce it.
+3. Run `npm test` before pushing; `npm run build` should succeed for UI changes when relevant. This project uses npm (not yarn); the `packageManager` field and a `preinstall` guard enforce it.
 4. Keep commits and the PR description clear; link related issues when applicable.
 
 ## Attribution

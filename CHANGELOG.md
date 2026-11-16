@@ -5,6 +5,19 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [Unreleased]
+
+### Changed
+
+- Site copy: Replace the em dashes in the homepage title and descriptions with a colon and a comma ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
+- Site copy: Replace the em dashes on the For agents page with colons and a comma ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
+- Site copy: Remove the decorative bold from the starter document's bullet list ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
+- Other copy: Rename the For agents page title to "For agents: Markdown to PDF discovery and control" ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
+- Other copy: Rename the Privacy page title to "Privacy: how Markdown to PDF handles your data" ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
+- Other copy: Lengthen the 404 page description so it points back to the editor ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
+- Docs copy: Remove the decorative bold from the contributing guide ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
+- Docs copy: Trim the print filename doc's opening line and remove its decorative bold ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
+
 ## [2.18.0] - 2026-11-05
 
 ### Changed
