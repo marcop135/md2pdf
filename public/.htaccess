@@ -418,17 +418,22 @@ AddDefaultCharset utf-8
 
 # The app briefly rewrites the URL path to a heading slug while printing (see
 # docs/print-filename.md and printFilenameSession.js) so Firefox on Android
-# can name the exported PDF from the path. Those paths are not real files, so
-# serve `index.html` for any request that does not map to an existing file or
-# directory. Hashed assets, the service worker, and the manifest all resolve
-# to real files and are unaffected.
+# can name the exported PDF from the path. Those paths are not real files.
+# Hashed assets, the service worker, and the manifest all resolve to real
+# files and are unaffected.
 #
-# Agent discovery probes (missing .md / .txt / .json / .well-known paths) must
-# return a real HTTP 404 instead of the SPA shell (soft-404). Portal aliases
+# Every miss returns a real HTTP 404, never a 200 with the SPA shell (soft
+# 404). Misses with a file extension (agent probes such as .md / .txt / .json,
+# any /.well-known/ path, missing assets) get /404.html. Other misses,
+# which include the print slug paths, get index.html as the 404 body, so the
+# editor still loads there while crawlers see the 404 status. Portal aliases
 # map common docs URLs onto for-agents.html.
 
-# Hard 404s get a real error page instead of Apache's default.
 ErrorDocument 404 /404.html
+
+<If "%{REQUEST_URI} !~ m#\.[^/]*$# && %{REQUEST_URI} !~ m#^/\.well-known/#">
+    ErrorDocument 404 /index.html
+</If>
 
 <IfModule mod_rewrite.c>
 
@@ -440,16 +445,10 @@ ErrorDocument 404 /404.html
     # Clean URL for the privacy notice (MultiViews is off).
     RewriteRule ^privacy/?$ /privacy.html [L]
 
-    # Missing agent-facing static paths: hard 404, not index.html.
+    # Anything that is not a real file or directory: hard 404.
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} \.(md|txt|json)$ [OR]
-    RewriteCond %{REQUEST_URI} ^/\.well-known/
     RewriteRule ^ - [R=404,L]
-
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ /index.html [L]
 
 </IfModule>
 
@@ -1385,4 +1384,7 @@ FileETag None
         SetEnvIf Request_URI "^/assets/.+\.(js|mjs|css|woff2?|ttf|otf|svg|png|jpe?g|webp|avif|gif|ico)$" MD2PDF_HASHED_ASSET
     </IfModule>
     Header set Cache-Control "public, max-age=31536000, immutable" env=MD2PDF_HASHED_ASSET
+
+    # Point agents that read response headers at the discovery index.
+    Header set Link "</llms.txt>; rel=\"describedby\"; type=\"text/plain\"" "expr=%{CONTENT_TYPE} =~ m#text/html#i"
 </IfModule>

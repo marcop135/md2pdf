@@ -8,11 +8,13 @@
 # without opening the editor UI to crawlers. Start at /llms.txt.
 
 User-agent: *
+Content-Signal: search=no, ai-input=no, ai-train=no
 Disallow: /
 Allow: /llms.txt
 Allow: /auth.md
 Allow: /for-agents.html
 Allow: /privacy
+Allow: /privacy.html
 Allow: /.well-known/security.txt
 Allow: /openapi.json
 Allow: /.well-known/ard.json
