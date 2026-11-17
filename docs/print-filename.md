@@ -51,5 +51,5 @@ Heading text is parsed by `extractHeading()` in [`printTitle.js`](../src/App/Lib
 ## Maintainer rules
 
 - Route all print-time title/URL changes through `printFilenameSession.js`.
-- Keep the SPA fallback in `public/.htaccess` and `navigateFallback` in `vite.config.js` so throwaway slug URLs still load the app.
+- Keep the extensionless 404 fallback to `index.html` in `public/.htaccess` and `navigateFallback` in `vite.config.js` so throwaway slug URLs still load the app.
 - Run `npm test` after changes to `printTitle.js` or `printFilenameSession.js`.

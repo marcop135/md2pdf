@@ -85,7 +85,7 @@ Sources live in `.github/brand/` (`readme-light.svg`, `readme-dark.svg`, `og.svg
 - **No standalone arrows**: the md2pdf icon already carries a down arrow.
 - The readme banners' window mock uses the app's own type: Selawik (open Segoe UI stand-in for `system-ui`) and Inconsolata (for Consolas), embedded between `@app-fonts` markers from `fonts/`.
 - `social.png` renders from `readme-light.svg` at 1x (no separate source). `og.svg` is a simplified light card with the centered app icon, title and tagline in the 1200x630 safe area. Rename an image when its content changes: GitHub and browsers cache README images by path.
-- After re-rendering, bump the `?v=` query on `og:image`, `og:image:secure_url`, and `twitter:image` in `index.html` so unfurl caches refetch.
+- After re-rendering, bump the `?v=` query on `og:image` and `og:image:secure_url` in `index.html`, and on `og:image` and `twitter:image` in `public/privacy.html`, so unfurl caches refetch.
 
 ## PWA icons
 
@@ -117,8 +117,8 @@ To change the icon, edit the appropriate SVG source and re-run dev/build (or `np
 
 ## SEO and metadata
 
-- `index.html` is **deliberately `noindex, nofollow`** (plus per-bot noindex for Google/Bing/GPTBot/ClaudeBot/etc.) and `public/robots.txt` `Disallow: /`s crawlers. This is intentional; **do not make the site indexable.** Metadata work here is about unfurl/install correctness, not ranking.
-- `index.html` carries a `canonical`, full Open Graph set (`og:title/description/image/url/type/site_name/locale`), Twitter card tags, and a JSON-LD `WebApplication` block. The JSON-LD is `type="application/ld+json"` (data, not executable JS) so it is allowed under the CSP `script-src 'self' 'wasm-unsafe-eval' self-hosted Matomo`. Matomo ships as the same-origin `public/matomo.js`; self-hosted Matomo must stay in `script-src`, `connect-src`, and `img-src`. **Never add `'unsafe-inline'` to `script-src`** to accommodate scripts.
+- `index.html` is **deliberately `noindex, nofollow`** (one `robots` meta; crawlers do not read per-bot meta names) and `public/robots.txt` `Disallow: /`s crawlers, with `Content-Signal: search=no, ai-input=no, ai-train=no`. This is intentional; **do not make the site indexable.** Metadata work here is about unfurl/install correctness, not ranking.
+- Pages marked `noindex` carry no `canonical`. `index.html` carries a full Open Graph set (`og:title/description/image/url/type/site_name/locale`), `twitter:card` only (Twitter falls back to `og:*`), a static `<h1>` and intro inside `#root` that React replaces on mount, and a JSON-LD `@graph` with `WebSite` (`#website`) and `WebApplication`; `privacy.html` and `for-agents.html` reference `#website` via `isPartOf`. `public/.htaccess` sends `Link: </llms.txt>; rel="describedby"` on HTML and a 404 status for every miss. The JSON-LD is `type="application/ld+json"` (data, not executable JS) so it is allowed under the CSP `script-src 'self' 'wasm-unsafe-eval' self-hosted Matomo`. Matomo ships as the same-origin `public/matomo.js`; self-hosted Matomo must stay in `script-src`, `connect-src`, and `img-src`. **Never add `'unsafe-inline'` to `script-src`** to accommodate scripts.
 - `public/manifest.json` is complete (`id`, `scope`, `start_url: '/'`, `categories`, `lang`, `dir`, `orientation`, `theme_color` `#0d6efd` matching the meta). Keep `start_url`/`scope`/`id` consistent with the canonical root.
 
 ## Audit contract
@@ -133,7 +133,7 @@ Read by the global `site-audit` skill (performance, a11y, SEO, code quality).
 |---|---|---|
 | Performance / build | `vite.config.js`, `public/.htaccess`, `src/serviceWorkerRegistration.js`, `src/App/Components/Markdown/Previewer/{index.js,Mermaid.jsx,Loading.js}` | Vendor chunk split (not mermaid), lazy heavy deps, cache headers for hashed assets, valid PWA precache |
 | Accessibility | `src/App/Components/Header/{index.js,Upload.js}`, `src/App/Components/Markdown/index.js`, `src/App/Theme/index.js`, `src/styles.css` | ARIA tablist for Editor/Preview, `:focus-visible`, AA contrast, keyboard upload, reduced motion |
-| SEO / metadata | `index.html`, `public/manifest.json`, `public/robots.txt` | Canonical, OG/Twitter, JSON-LD `WebApplication`, complete manifest |
+| SEO / metadata | `index.html`, `public/manifest.json`, `public/robots.txt` | No canonical on noindex pages, OG plus `twitter:card`, JSON-LD `@graph`, complete manifest |
 | Code quality | remaining `src/` (hooks, `Lib/`, error boundaries, `Editor/`, `DragBar.js`, `src/index.js`) | Behavior-preserving cleanup |
 
 Pitfalls: offline-first, no backend or new network deps. Keep `rehype-raw` before `rehype-sanitize`; never remove `rehype-sanitize`. Never edit `Previewer/Preview.js` or `src/App/index.js` (print CSS) in an audit. Keep `noindex, nofollow`. Mermaid stays out of `manualChunks`. No `'unsafe-inline'` in `script-src`.
