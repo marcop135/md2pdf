@@ -25,6 +25,7 @@ This project uses **npm** (not yarn). The `packageManager` field plus a `preinst
 | `npm run test:watch`     | Vitest in watch mode                             |
 | `npm run changelog:lint` | Validate `CHANGELOG.md` (run before changelog commits) |
 | `npm run verify:agent-readiness` | Agent discovery files + `window.md2pdf` wiring |
+| `npm run meta:lint` | Built page title (30-65) and description (70-160) lengths |
 
 If `npm start` fails because **5173 is already bound**, a previous Vite session is still running — quit it rather than picking a different port. The port being predictable matters for the manifest, debugger config (`.claude/launch.json`, `.vscode/tasks.json`), and the PWA service worker scope.
 

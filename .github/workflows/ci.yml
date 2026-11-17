@@ -44,3 +44,17 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Verify agent discovery files
+        run: npm run verify:agent-readiness
+
+      - name: Check title and description lengths
+        run: npm run meta:lint
+
+      # Offline: internal links only. Root-relative links resolve against
+      # dist/, and /privacy falls back to privacy.html like the server rewrite.
+      - name: Check internal links in dist
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --offline --root-dir ${{ github.workspace }}/dist --fallback-extensions html --no-progress './dist/**/*.html'
+          fail: true
