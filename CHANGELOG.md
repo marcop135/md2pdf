@@ -5,6 +5,12 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [Unreleased]
+
+### Changed
+
+- Set `Content-Signal` in `robots.txt` to `search=yes, ai-input=yes, ai-train=yes` ([#166](https://github.com/marcop135/md2pdf/pull/166), [#165](https://github.com/marcop135/md2pdf/issues/165)).
+
 ## [2.19.0] - 2026-11-17
 
 ### Added
