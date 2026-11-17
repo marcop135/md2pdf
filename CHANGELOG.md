@@ -9,6 +9,8 @@
 
 ### Added
 
+- Run the agent-readiness check and an internal link check on the build in CI ([#163](https://github.com/marcop135/md2pdf/pull/163), [#160](https://github.com/marcop135/md2pdf/issues/160)).
+- Check page title and description lengths on the build in CI ([#163](https://github.com/marcop135/md2pdf/pull/163), [#160](https://github.com/marcop135/md2pdf/issues/160)).
 - Add a `WebSite` node to the homepage structured data and a `WebPage` block to the For agents page ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
 - Send a `Link` header pointing to `/llms.txt` with HTML responses ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
 - Add `Content-Signal: search=no, ai-input=no, ai-train=no` to `robots.txt` ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).

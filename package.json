@@ -74,6 +74,7 @@
     "test:watch": "vitest",
     "changelog:lint": "node scripts/changelog-lint.mjs",
     "verify:agent-readiness": "node scripts/verify-agent-readiness.mjs",
+    "meta:lint": "node scripts/meta-length-lint.mjs",
     "icons:sync": "node scripts/sync-icons.mjs",
     "brand:images": "node .github/brand/render.mjs",
     "brand:images:check": "node .github/brand/render.mjs --check",
