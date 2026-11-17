@@ -15,35 +15,23 @@
 
 ### Added
 
-- Run the agent-readiness check and an internal link check on the build in CI ([#163](https://github.com/marcop135/md2pdf/pull/163), [#160](https://github.com/marcop135/md2pdf/issues/160)).
-- Check page title and description lengths on the build in CI ([#163](https://github.com/marcop135/md2pdf/pull/163), [#160](https://github.com/marcop135/md2pdf/issues/160)).
-- Add a `WebSite` node to the homepage structured data and a `WebPage` block to the For agents page ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
-- Send a `Link` header pointing to `/llms.txt` with HTML responses ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
-- Add `Content-Signal: search=no, ai-input=no, ai-train=no` to `robots.txt` ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
+- Run agent-readiness, internal link, and metadata length checks in CI ([#163](https://github.com/marcop135/md2pdf/pull/163), [#160](https://github.com/marcop135/md2pdf/issues/160)).
+- Add a `WebSite` node and point each page's structured data at it ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
+- Send a `Link` header pointing at `/llms.txt` on HTML responses ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
+- Add a `Content-Signal` line to `robots.txt` ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
 
 ### Changed
 
-- Site copy: Add a heading, an intro, and a For agents link to the homepage HTML served without JavaScript ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
-- Site copy: Replace the em dashes in the homepage title and descriptions with a colon and a comma ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
-- Site copy: Replace the em dashes on the For agents page with colons and a comma ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
-- Site copy: Remove the decorative bold from the starter document's bullet list ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
-- Other copy: Rename the For agents page title to "For agents: Markdown to PDF discovery and control" ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
-- Other copy: Rename the Privacy page title to "Privacy: how Markdown to PDF handles your data" ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
-- Other copy: Lengthen the 404 page description so it points back to the editor ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
-- Docs copy: Remove the decorative bold from the contributing guide ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
-- Docs copy: Trim the print filename doc's opening line and remove its decorative bold ([#161](https://github.com/marcop135/md2pdf/pull/161), [#158](https://github.com/marcop135/md2pdf/issues/158)).
-- Drop the canonical link from pages marked noindex ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
-- Use one Open Graph image version on every page ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
-- Link the structured data on every page to one `WebSite` node ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
+- Serve a heading, an intro, and a For agents link in the no-JavaScript homepage ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
+- Drop the canonical link on noindex pages and use one Open Graph image ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
 
 ### Removed
 
-- Remove the per-crawler meta tags from the homepage ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
-- Remove the homepage Twitter tags that duplicate Open Graph ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
+- Remove the per-crawler robots meta tags and the Twitter tags that repeat Open Graph ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
 
 ### Fixed
 
-- Return a 404 status for unknown paths, still loading the editor on extensionless ones ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
+- Return a 404 for unknown paths while still loading the editor on extensionless ones ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
 - Allow `/privacy.html` in `robots.txt` alongside `/privacy` ([#162](https://github.com/marcop135/md2pdf/pull/162), [#159](https://github.com/marcop135/md2pdf/issues/159)).
 
 ## [2.18.0] - 2026-11-05
