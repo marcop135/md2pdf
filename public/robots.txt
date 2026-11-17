@@ -8,7 +8,7 @@
 # without opening the editor UI to crawlers. Start at /llms.txt.
 
 User-agent: *
-Content-Signal: search=no, ai-input=no, ai-train=no
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Disallow: /
 Allow: /llms.txt
 Allow: /auth.md
