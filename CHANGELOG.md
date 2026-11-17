@@ -5,6 +5,12 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [2.19.2] - 2026-11-17
+
+### Changed
+
+- Shorten the 2.19.0 notes to the behavior changes ([#168](https://github.com/marcop135/md2pdf/pull/168)).
+
 ## [2.19.1] - 2026-11-17
 
 ### Changed
