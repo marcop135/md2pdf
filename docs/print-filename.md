@@ -1,11 +1,11 @@
 # Print filename behavior
 
-This document describes how the app suggests a PDF filename from the first markdown heading.
+The app suggests a PDF filename from the first Markdown heading.
 
 ## User-visible behavior
 
-- The browser tab stays titled **Markdown to PDF** while editing.
-- On **Export to .pdf**, Ctrl/Cmd+P, or the browser print menu, the suggested save filename comes from the **first heading** in the markdown (`h1`..`h6`, Setext, or embedded HTML heading).
+- The browser tab stays titled Markdown to PDF while editing.
+- On **Export to .pdf**, Ctrl/Cmd+P, or the browser print menu, the suggested save filename comes from the first heading in the markdown (`h1`..`h6`, Setext, or embedded HTML heading).
 - If there is no heading, the fallback is **Markdown to PDF**.
 - Filesystem-illegal characters in the heading are replaced with spaces before use.
 
@@ -51,5 +51,5 @@ Heading text is parsed by `extractHeading()` in [`printTitle.js`](../src/App/Lib
 ## Maintainer rules
 
 - Route all print-time title/URL changes through `printFilenameSession.js`.
-- Keep the SPA fallback in `public/.htaccess` and `navigateFallback` in `vite.config.js` so throwaway slug URLs still load the app.
+- Keep the extensionless 404 fallback to `index.html` in `public/.htaccess` and `navigateFallback` in `vite.config.js` so throwaway slug URLs still load the app.
 - Run `npm test` after changes to `printTitle.js` or `printFilenameSession.js`.
