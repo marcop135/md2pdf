@@ -3,6 +3,7 @@ import { useProvided } from 'nonaction';
 import { FileEarmarkArrowUpFill } from 'react-bootstrap-icons';
 import { TextContainer } from '../../Container';
 import { classifyImport, textForImport } from '../../Lib/importFile.js';
+import { APP_EVENTS, trackAppEvent } from '../../Lib/analytics.js';
 
 export default (props) => {
   const [, setText] = useProvided(TextContainer);
@@ -26,6 +27,7 @@ export default (props) => {
       const reader = new FileReader();
       reader.onload = (loadEvent) => {
         setText(textForImport(kind, loadEvent.target.result));
+        trackAppEvent(APP_EVENTS.import);
       };
       reader.onerror = () => {
         alert('Error while reading file');
