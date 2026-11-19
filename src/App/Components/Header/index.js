@@ -13,6 +13,7 @@ import { useProvided } from 'nonaction';
 import UploadButton from './Upload.js';
 import { waitForMermaidRenders } from '../Markdown/Previewer/Mermaid.jsx';
 import { extractHeading } from '../../Lib/printTitle.js';
+import { APP_EVENTS, trackAppEvent } from '../../Lib/analytics.js';
 import {
   beginPrintFilenameSession,
   endPrintFilenameSession,
@@ -104,7 +105,9 @@ const Header = ({ className }) => {
   // the heading (and optional URL slug) only for the print/save flow. See
   // docs/print-filename.md.
   useEffect(() => {
+    // beforeprint covers the Export button, Ctrl+P and window.md2pdf.exportPdf().
     const handleBeforePrint = () => {
+      trackAppEvent(APP_EVENTS.export);
       beginPrintFilenameSession(extractHeading(textRef.current));
     };
     const handleAfterPrint = () => {

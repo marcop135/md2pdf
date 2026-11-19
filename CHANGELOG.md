@@ -5,6 +5,20 @@
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 - **Links:** Add inline markdown links for related PRs, docs, and external references when they help the reader.
 
+## [2.20.0] - 2026-11-19
+
+### Added
+
+- Count PDF exports and Markdown imports as anonymous Matomo events ([#172](https://github.com/marcop135/md2pdf/pull/172), [#170](https://github.com/marcop135/md2pdf/issues/170)).
+
+### Changed
+
+- Render diagrams with Mermaid 12, which draws flowcharts with shadows and larger nodes ([#173](https://github.com/marcop135/md2pdf/pull/173), [#171](https://github.com/marcop135/md2pdf/issues/171)).
+
+### Security
+
+- Update KaTeX to 0.18.10 to fix a prototype pollution advisory ([#173](https://github.com/marcop135/md2pdf/pull/173), [#171](https://github.com/marcop135/md2pdf/issues/171)).
+
 ## [2.19.2] - 2026-11-17
 
 ### Changed
