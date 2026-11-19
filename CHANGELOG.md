@@ -9,7 +9,7 @@
 
 ### Added
 
-- Count PDF exports and Markdown imports as anonymous Matomo events ([#170](https://github.com/marcop135/md2pdf/issues/170)).
+- Count PDF exports and Markdown imports as anonymous Matomo events ([#172](https://github.com/marcop135/md2pdf/pull/172), [#170](https://github.com/marcop135/md2pdf/issues/170)).
 
 ## [2.19.2] - 2026-11-17
 
