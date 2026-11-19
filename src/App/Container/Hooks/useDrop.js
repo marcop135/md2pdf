@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { classifyImport, textForImport } from '../../Lib/importFile.js';
+import { APP_EVENTS, trackAppEvent } from '../../Lib/analytics.js';
 
 function useDrop(ref, onLoad = () => {}) {
   const [uploading, setUploading] = useState(false);
@@ -47,6 +48,7 @@ function useDrop(ref, onLoad = () => {}) {
         reader.onload = (e) => {
           finishUpload();
           onLoad(textForImport(kind, e.target.result));
+          trackAppEvent(APP_EVENTS.import);
         };
         reader.onerror = finishUpload;
         reader.onabort = finishUpload;
