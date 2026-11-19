@@ -11,6 +11,14 @@
 
 - Count PDF exports and Markdown imports as anonymous Matomo events ([#172](https://github.com/marcop135/md2pdf/pull/172), [#170](https://github.com/marcop135/md2pdf/issues/170)).
 
+### Changed
+
+- Render diagrams with Mermaid 12, which draws flowcharts with shadows and larger nodes ([#173](https://github.com/marcop135/md2pdf/pull/173), [#171](https://github.com/marcop135/md2pdf/issues/171)).
+
+### Security
+
+- Update KaTeX to 0.18.10 to fix a prototype pollution advisory ([#173](https://github.com/marcop135/md2pdf/pull/173), [#171](https://github.com/marcop135/md2pdf/issues/171)).
+
 ## [2.19.2] - 2026-11-17
 
 ### Changed
